@@ -1,0 +1,63 @@
+header: |
+    (?P<header>
+        (
+            \*\ .*\n  # Antything starting with *
+        )+
+    )
+    (?P<headerblob>
+        (
+            \*\* .*\n  # Antything starting with *
+        )+
+    )
+    (?P<descriptors>
+        (
+            \#.*\n  # Antything
+        )+
+    )
+
+sep: |
+    \*END\*\r\n
+
+data: |
+  (?P<data>
+    (?:
+        (?:                     # Start of one variable
+          \ *
+          -?                    # Can be a negative number
+          \d+                   # Any digits
+            (?:
+              \.\d+               # Real numbers
+              (?:
+                e[\+|-]\d+        # Cientific notation
+              )?
+            )?
+        )+                      # Repeat as much variables as there are
+        #  (?:
+        #  )?
+          \s*                   # Following empty spaces, end of line
+    )+                          # One or more lines
+  )
+
+descriptors:
+    nquan: |
+      \#\ nquan\ =\ (\d+)
+    nvalues: |
+      \#\ nvalues\ =\ (\d+)
+    bad_flag: |
+      \#\ bad_flag\ =\ (.*?)\s
+
+#descriptors: |
+#    \#\ nquan\ =\ (?P<nquan>\d+) \s*
+#    \#\ nvalues\ =\ (?P<nvalues>\d+) \s*
+#    \#\ units\ =\ \w*\s*
+#    (?P<names>
+#      (
+#      \#\ name\ \d+\ =\ (?P<name>\w+) #\: Time, Elapsed [seconds]
+#      .*
+#      \s*
+#      )+
+#    )
+
+names: |
+  \#\ name\ (?P<id>\d+)\ =\ (?P<name>\w+)\:\ (?P<longname>.*)\r\s
+
