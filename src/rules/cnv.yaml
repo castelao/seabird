@@ -61,3 +61,20 @@ descriptors:
 names: |
   \#\ name\ (?P<id>\d+)\ =\ (?P<name>\w+)\:\ (?P<longname>.*)\r\s
 
+
+latitude: |
+    # [LAT|LATITUDE]
+    (?P<degree>\d{2})
+    \ 
+    (?P<minute>\d{2}.\d{2,3})
+    \ *[N|n|S|s]
+    #- "(\\d{2} \\d{2}\\.\\d{2}\\s+[sn])"
+    #- |
+    #    \d{2}\                  # Test
+
+longitude: |
+    # [LON|LONG|LONGITUDe]
+    (?P<degree>\d{3})
+    \ 
+    (?P<minute>\d{2}.\d{2,3})
+    \ *[W|w|E|e]
