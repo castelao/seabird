@@ -3,6 +3,7 @@ syntax: glob
 .installed.cfg
 bin
 develop-eggs
+*pyc
 
 *.egg-info
 
