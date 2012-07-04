@@ -15,6 +15,7 @@ class CNV(object):
         self.raw_text = raw_text
         self.load_rule()
         self.get_attributes()
+        self.get_location()
 
     def keys(self):
         """ Return the available keys in self.data
@@ -76,6 +77,28 @@ class CNV(object):
             #self.data[d['name']]= ma.array(data[:,i])
             self.data[d['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
             #ma.masked_all(int(self.attributes['nvalues']))
+
+    def get_location(self):
+        """ Extract the station location (Lat, Lon)
+
+            Sometimes the CTD unit station is not connected to the GPS, so it's
+              written manually in the headerblob. In that case, I'll try to
+              extract it
+        """
+        if 'latitude' not in self.attributes:
+            lat = re.search(self.rule['latitude'],
+                    self.raw_header()['headerblob'],
+                    re.VERBOSE).groupdict()
+            self.attributes['latitude'] = {'degree': int(lat['degree']),
+                    'minute':float(lat['minute'])}
+
+        if 'longitude' not in self.attributes:
+            lat = re.search(self.rule['longitude'],
+                    self.raw_header()['headerblob'],
+                    re.VERBOSE).groupdict()
+            self.attributes['longitude'] = {'degree': int(lat['degree']),
+                    'minute':float(lat['minute'])}
+
 
 
 
