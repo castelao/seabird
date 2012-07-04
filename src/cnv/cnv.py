@@ -12,7 +12,7 @@ class CNV(object):
     def __init__(self, raw_text):
         """
         """
-        self.raw_text = text
+        self.raw_text = raw_text
         self.load_rule()
         self.get_attributes()
 
@@ -21,19 +21,23 @@ class CNV(object):
         """
         return self.data.keys()
 
-    def __getitem(self, key):
+    def __getitem__(self, key):
         """ Return the key array from self.data
         """
         return self.data[key]
 
     def load_rule(self):
         """ Load the adequate rules to parse the data
+
+            It should try all available rules, one by one, and use the one
+              which fits.
         """
         rule_file = "../rules/cnv.yaml"
         f = open(rule_file)
+        rule = yaml.load(f.read())
         r = rule['header']+rule['sep']+rule['data']
         if re.search(r,self.raw_text, re.VERBOSE):
-            self.rule = yaml.load(f.read())
+            self.rule = rule
 
     def raw_header(self):
         r = self.rule['header']+self.rule['sep']
