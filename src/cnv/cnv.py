@@ -8,25 +8,6 @@ import yaml
 import numpy
 from numpy import ma
 
-
-rule_file = "../rules/cnv.yaml"
-cnv_file = "/Users/castelao/work/projects/python/pycnv/test_data/dPIRX003.cnv"
-
-f = open(cnv_file)
-text = f.read()
-f.close()
-
-print text[:200]
-
-f = open(rule_file)
-rule = yaml.load(f.read())
-
-#print "==========================="
-#print "Data only"
-#print rule['sep']+rule['data']
-#content_re = re.compile(rule['sep']+rule['data'], re.VERBOSE)
-#print content_re.search(text).group()
-
 class CNV(object):
     def __init__(self, raw_text):
         """
@@ -34,6 +15,16 @@ class CNV(object):
         self.raw_text = text
         self.load_rule()
         self.get_attributes()
+
+    def keys(self):
+        """ Return the available keys in self.data
+        """
+        return self.data.keys()
+
+    def __getitem(self, key):
+        """ Return the key array from self.data
+        """
+        return self.data[key]
 
     def load_rule(self):
         """ Load the adequate rules to parse the data
