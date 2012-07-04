@@ -3,9 +3,9 @@
 
 import re
 
-#import codecs
+import codecs
 import yaml
-import numpy
+import numpy as np
 from numpy import ma
 
 class CNV(object):
@@ -33,8 +33,10 @@ class CNV(object):
               which fits.
         """
         rule_file = "../rules/cnv.yaml"
-        f = open(rule_file)
+        f = codecs.open(rule_file, 'r', 'utf-8')
         rule = yaml.load(f.read())
+        #f = open(rule_file)
+        #rule = yaml.load(f.read())
         r = rule['header']+rule['sep']+rule['data']
         if re.search(r,self.raw_text, re.VERBOSE):
             self.rule = rule
@@ -52,7 +54,6 @@ class CNV(object):
 
     def get_attributes(self):
         self.attributes = {}
-        #print "Hey hey hey"
         #print self.rule['descriptors']
         #print re.search(self.rule['descriptors'], self.raw_text, re.VERBOSE).groupdict()
      
