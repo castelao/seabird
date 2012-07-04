@@ -33,7 +33,7 @@ class CNV(object):
             It should try all available rules, one by one, and use the one
               which fits.
         """
-        rule_file = "../rules/cnv.yaml"
+        rule_file = "/Users/castelao/work/projects/python/pycnv/src/rules/cnv.yaml"
         f = codecs.open(rule_file, 'r', 'utf-8')
         rule = yaml.load(f.read())
         #f = open(rule_file)
