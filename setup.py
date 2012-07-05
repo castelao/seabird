@@ -9,20 +9,23 @@ NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 version = '0.1'
 
 install_requires = [
-    # List your project dependencies here.
-    # For more details, see:
-    # http://packages.python.org/distribute/setuptools.html#declaring-dependencies
     'numpy>=1.1',
     'PyYAML',
 ]
 
-
+# Review, rething the classifiers
 setup(name='cnv',
     version=version,
     description="Parser for .cnv files, the Sea-Bird CTD data format.",
     long_description=README + '\n\n' + NEWS,
     classifiers=[
-      # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Science/Research',
+        'License :: OSI Approved :: Python Software Foundation License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Topic :: Scientific/Engineering',
     ],
     keywords='parser oceanography data',
     author='Guilherme Castel\xc3\xa3o , Roberto de Almeida, Luiz Irber',
