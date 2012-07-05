@@ -68,6 +68,7 @@ class CNV(object):
         #self.attributes['names'] = {}
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
         data = ma.array([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]], 'f')
+        # Talvez usar o np.fromstring(data, sep=" ")
         self.data = {}
         self.attributes['names'] = []
         for i, n in enumerate(re.finditer(self.rule['names'],attrib_text, re.VERBOSE)):
