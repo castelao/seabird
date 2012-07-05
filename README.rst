@@ -12,7 +12,10 @@ header, and the data as Masked Arrays, so that the user don't need to loose
 time evaluating the version and details of that cnv, but have it in a
 standard pattern, ready to use.
 
+The `Seasoft`_ manual might be the best reference for the format used.
+
 .. _`Sea Bird`: http://www.seabird.com/software/SBEDataProcforWindows.htm
+.. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
 
 Support and Documentation
 -------------------------
