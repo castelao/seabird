@@ -85,6 +85,9 @@ class CNV(object):
             Sometimes the CTD unit station is not connected to the GPS, so it's
               written manually in the headerblob. In that case, I'll try to
               extract it
+
+            !! ATENTION!!! Might be a good idea to store lat,lon as floats
+              with min. and sec. as fractions.
         """
         if 'latitude' not in self.attributes:
             lat = re.search(self.rule['latitude'],
