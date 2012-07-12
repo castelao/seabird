@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.1'
+version = '0.1.1'
 
 install_requires = [
     'numpy>=1.1',
@@ -33,7 +33,8 @@ setup(name='cnv',
     url='https://bitbucket.org/castelao/pycnv/wiki',
     license='PSF',
     packages=find_packages('src'),
-    package_dir = {'': 'src'},include_package_data=True,
+    package_dir = {'': 'src'},
+    include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
     entry_points={
