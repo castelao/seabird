@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import re
+import pkg_resources
+
 
 import codecs
 import yaml
@@ -33,10 +35,11 @@ class CNV(object):
             It should try all available rules, one by one, and use the one
               which fits.
         """
-        rule_file = "/Users/castelao/work/projects/python/pycnv/src/rules/cnv.yaml"
-        f = codecs.open(rule_file, 'r', 'utf-8')
-        rule = yaml.load(f.read())
-        #f = open(rule_file)
+        rule_file = "rules/cnv.yaml"
+        text = pkg_resources.resource_string(__name__, rule_file)
+        rule = yaml.load(text)
+        # Should I load using codec, for UTF8?? Do I need it?
+        #f = codecs.open(rule_file, 'r', 'utf-8')
         #rule = yaml.load(f.read())
         r = rule['header']+rule['sep']+rule['data']
         if re.search(r,self.raw_text, re.VERBOSE):
