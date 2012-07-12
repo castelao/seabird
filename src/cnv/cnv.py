@@ -10,6 +10,7 @@ import yaml
 import numpy as np
 from numpy import ma
 
+
 class CNV(object):
     def __init__(self, raw_text):
         """
@@ -41,17 +42,17 @@ class CNV(object):
         # Should I load using codec, for UTF8?? Do I need it?
         #f = codecs.open(rule_file, 'r', 'utf-8')
         #rule = yaml.load(f.read())
-        r = rule['header']+rule['sep']+rule['data']
-        if re.search(r,self.raw_text, re.VERBOSE):
+        r = rule['header'] + rule['sep'] + rule['data']
+        if re.search(r, self.raw_text, re.VERBOSE):
             self.rule = rule
 
     def raw_header(self):
-        r = self.rule['header']+self.rule['sep']
+        r = self.rule['header'] + self.rule['sep']
         content_re = re.compile(r, re.VERBOSE)
         return content_re.search(self.raw_text).groupdict()
 
     def raw_data(self):
-        r = self.rule['sep']+self.rule['data']
+        r = self.rule['sep'] + self.rule['data']
         content_re = re.compile(r, re.VERBOSE)
         print r
         return content_re.search(self.raw_text).groupdict()
@@ -59,7 +60,8 @@ class CNV(object):
     def get_attributes(self):
         self.attributes = {}
         #print self.rule['descriptors']
-        #print re.search(self.rule['descriptors'], self.raw_text, re.VERBOSE).groupdict()
+        #print re.search(self.rule['descriptors'], 
+        #  self.raw_text, re.VERBOSE).groupdict()
      
         print self.raw_header().keys()
         attrib_text = self.raw_header()['descriptors']
@@ -96,17 +98,21 @@ class CNV(object):
             lat = re.search(self.rule['latitude'],
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
-            self.attributes['latitude'] = {'degree': int(lat['degree']),
-                    'minute':float(lat['minute'])}
+            lat_deg = int(lat['degree'])
+            lat_min = float(lat['minute'])
+            self.attributes['lat_deg'] = lat_deg
+            self.attributes['lat_min'] = lat_min
+            self.attributes['latitude'] = lat_deg + lat_min/60.
 
         if 'longitude' not in self.attributes:
-            lat = re.search(self.rule['longitude'],
+            lon = re.search(self.rule['longitude'],
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
-            self.attributes['longitude'] = {'degree': int(lat['degree']),
-                    'minute':float(lat['minute'])}
-
-
+            lon_deg = int(lon['degree'])
+            lon_min = float(lon['minute'])
+            self.attributes['lon_deg'] = lon_deg
+            self.attributes['lon_min'] = lon_min
+            self.attributes['longitude'] = lon_deg + lon_min/60.
 
 
 def press2depth(press, latitude):
@@ -115,9 +121,7 @@ def press2depth(press, latitude):
 
         ATENTION, move it to fluid.
     """
-    x = np.sin( (np.pi/180) * latitude / 57.29578 )**2
+    x = np.sin( (np.pi/180) * latitude / 57.29578)**2
     g = 9.780318 * ( 1.0 + ( 5.2788e-3  + 2.36e-5 * x) * x ) + 1.092e-6 * press
     depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) * press + 9.72659) * press) / g
     return depth
-
-
