@@ -99,22 +99,25 @@ class CNV(object):
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
             lat_deg = int(lat['degree'])
-            if lat['hemisphere'] in ['S','s']: lat_deg = -lat_deg
             lat_min = float(lat['minute'])
-            self.attributes['lat_deg'] = lat_deg
-            self.attributes['lat_min'] = lat_min
+            #self.attributes['lat_deg'] = lat_deg
+            #self.attributes['lat_min'] = lat_min
             self.attributes['latitude'] = lat_deg + lat_min/60.
+            if lat['hemisphere'] in ['S','s']:
+                self.attributes['latitude'] = -1*self.attributes['latitude']
 
         if 'longitude' not in self.attributes:
             lon = re.search(self.rule['longitude'],
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
             lon_deg = int(lon['degree'])
-            if lon['hemisphere'] in ['W','w']: lon_deg = -lon_deg
             lon_min = float(lon['minute'])
-            self.attributes['lon_deg'] = lon_deg
-            self.attributes['lon_min'] = lon_min
+            #self.attributes['lon_deg'] = lon_deg
+            #self.attributes['lon_min'] = lon_min
             self.attributes['longitude'] = lon_deg + lon_min/60.
+            if lon['hemisphere'] in ['W','w']:
+                self.attributes['longitude'] = -1*self.attributes['longitude']
+
 
 
 def press2depth(press, latitude):
