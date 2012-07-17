@@ -18,6 +18,7 @@ class CNV(object):
         self.raw_text = raw_text
         self.load_rule()
         self.get_attributes()
+        self.get_datetime()
         self.get_location()
 
     def keys(self):
@@ -83,6 +84,16 @@ class CNV(object):
             #self.data[d['name']]= ma.array(data[:,i])
             self.data[d['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
             #ma.masked_all(int(self.attributes['nvalues']))
+
+    def get_datetime(self):
+        """ Extract the reference date and time
+
+            !!! ATENTION, better move it to a rule in the rules.
+        """
+        from datetime import datetime
+        datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
+        self.attributes['datetime'] = datetime.strptime(
+                self.attributes['start_time'],'%b %d %Y %H:%M:%S')
 
     def get_location(self):
         """ Extract the station location (Lat, Lon)
