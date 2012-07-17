@@ -99,6 +99,7 @@ class CNV(object):
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
             lat_deg = int(lat['degree'])
+            if lat['hemisphere'] in ['S','s']: lat_deg = -lat_deg
             lat_min = float(lat['minute'])
             self.attributes['lat_deg'] = lat_deg
             self.attributes['lat_min'] = lat_min
@@ -109,6 +110,7 @@ class CNV(object):
                     self.raw_header()['headerblob'],
                     re.VERBOSE).groupdict()
             lon_deg = int(lon['degree'])
+            if lon['hemisphere'] in ['W','w']: lon_deg = -lon_deg
             lon_min = float(lon['minute'])
             self.attributes['lon_deg'] = lon_deg
             self.attributes['lon_min'] = lon_min
