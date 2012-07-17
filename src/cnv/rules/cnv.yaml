@@ -44,7 +44,7 @@ descriptors:
     nvalues: |
       \#\ nvalues\ =\ (\d+)
     start_time: |
-      \#\ start_time\ =\ (.*)\r?\n      # Should work, but I'm not happy with this.
+      \#\ start_time\ =\ (.*?)\r?\n      # Should work, but I'm not happy with this.
     bad_flag: |
       \#\ bad_flag\ =\ (.*?)\s
 
