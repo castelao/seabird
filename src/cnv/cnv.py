@@ -21,6 +21,15 @@ class CNV(object):
         self.get_datetime()
         self.get_location()
 
+        # Need to better think about this
+        if 'timeJ' in self.data.keys():
+            [datetime(ctd.attributes['datetime'].year,1,1) + timedelta(float(d)) for d in ctd['timeJ'][0]]
+            d0 = datetime(ctd.attributes['datetime'].year,1,1)
+            dref = ctd.attributes['datetime']
+            [d0-dref + timedelta(float(d)) for d in ctd['timeJ']]
+
+
+
     def keys(self):
         """ Return the available keys in self.data
         """
@@ -55,7 +64,6 @@ class CNV(object):
     def raw_data(self):
         r = self.rule['sep'] + self.rule['data']
         content_re = re.compile(r, re.VERBOSE)
-        print r
         return content_re.search(self.raw_text).groupdict()
 
     def get_attributes(self):
