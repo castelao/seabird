@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from datetime import datetime, timedelta
 import re
 import pkg_resources
 
@@ -20,15 +21,6 @@ class CNV(object):
         self.get_attributes()
         self.get_datetime()
         self.get_location()
-
-        # Need to better think about this
-        if 'timeJ' in self.data.keys():
-            [datetime(ctd.attributes['datetime'].year,1,1) + timedelta(float(d)) for d in ctd['timeJ'][0]]
-            d0 = datetime(ctd.attributes['datetime'].year,1,1)
-            dref = ctd.attributes['datetime']
-            [d0-dref + timedelta(float(d)) for d in ctd['timeJ']]
-
-
 
     def keys(self):
         """ Return the available keys in self.data
@@ -102,6 +94,13 @@ class CNV(object):
         datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
         self.attributes['datetime'] = datetime.strptime(
                 self.attributes['start_time'],'%b %d %Y %H:%M:%S')
+
+        # Need to better think about this
+        if 'timeJ' in self.data.keys():
+            dref = self.attributes['datetime']
+            dJ0 = datetime(dref.year,1,1)
+            self.data['timeS'] = [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]
+
 
     def get_location(self):
         """ Extract the station location (Lat, Lon)
