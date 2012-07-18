@@ -61,7 +61,7 @@ descriptors:
 #    )
 
 names: |
-  \#\ name\ (?P<id>\d+)\ =\ (?P<name>\w+)\:\ (?P<longname>.*)\r\s
+  \#\ name\ (?P<id>\d+)\ =\ (?P<name>.*)\:\ (?P<longname>.*)\r\s
 
 
 latitude: |
