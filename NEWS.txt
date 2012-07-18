@@ -3,6 +3,11 @@
 News
 ====
 
+0.1.1
+-----
+
+* Rules are now inside the packag, and loaded with pkg_resources.
+
 0.1
 ---
 
