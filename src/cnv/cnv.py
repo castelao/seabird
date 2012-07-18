@@ -99,10 +99,10 @@ class CNV(object):
             dref = self.attributes['datetime']
             dJ0 = datetime(dref.year,1,1)
             try:
-                self.data['timeS'] = [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]
+                self.data['timeS'] = ma.array([(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']])
             except:
                 D = [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
-                self.data['timeS'] = [d.days*24*60*60+d.seconds for d in D]
+                self.data['timeS'] = ma.array([d.days*24*60*60+d.seconds for d in D])
 
 
     def get_location(self):
