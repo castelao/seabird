@@ -90,7 +90,6 @@ class CNV(object):
 
             !!! ATENTION, better move it to a rule in the rules.
         """
-        from datetime import datetime
         datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
         self.attributes['datetime'] = datetime.strptime(
                 self.attributes['start_time'],'%b %d %Y %H:%M:%S')
@@ -99,7 +98,11 @@ class CNV(object):
         if 'timeJ' in self.data.keys():
             dref = self.attributes['datetime']
             dJ0 = datetime(dref.year,1,1)
-            self.data['timeS'] = [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]
+            try:
+                self.data['timeS'] = [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]
+            except:
+                D = [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
+                self.data['timeS'] = [d.days*24*60*60+d.seconds for d in D]
 
 
     def get_location(self):
