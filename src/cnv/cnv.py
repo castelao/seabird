@@ -21,6 +21,7 @@ class CNV(object):
         self.get_attributes()
         self.get_datetime()
         self.get_location()
+        self.load_data()
 
     def keys(self):
         """ Return the available keys in self.data
@@ -72,6 +73,8 @@ class CNV(object):
         #print attrib_text
         #print re.search(self.rule['descriptors'], attrib_text, re.VERBOSE)
         #self.attributes['names'] = {}
+
+    def load_data(self):
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
         data = ma.array([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]], 'f')
         # Talvez usar o np.fromstring(data, sep=" ")
@@ -84,16 +87,6 @@ class CNV(object):
             #self.data[d['name']]= ma.array(data[:,i])
             self.data[d['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
             #ma.masked_all(int(self.attributes['nvalues']))
-
-    def get_datetime(self):
-        """ Extract the reference date and time
-
-            !!! ATENTION, better move it to a rule in the rules.
-        """
-        datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
-        self.attributes['datetime'] = datetime.strptime(
-                self.attributes['start_time'],'%b %d %Y %H:%M:%S')
-
         # Need to better think about this
         if 'timeJ' in self.data.keys():
             dref = self.attributes['datetime']
@@ -104,6 +97,14 @@ class CNV(object):
                 D = [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
                 self.data['timeS'] = ma.array([d.days*24*60*60+d.seconds for d in D])
 
+    def get_datetime(self):
+        """ Extract the reference date and time
+
+            !!! ATENTION, better move it to a rule in the rules.
+        """
+        datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
+        self.attributes['datetime'] = datetime.strptime(
+                self.attributes['start_time'],'%b %d %Y %H:%M:%S')
 
     def get_location(self):
         """ Extract the station location (Lat, Lon)
