@@ -65,27 +65,42 @@ class CNV(object):
         #print re.search(self.rule['descriptors'], 
         #  self.raw_text, re.VERBOSE).groupdict()
      
-        print self.raw_header().keys()
         attrib_text = self.raw_header()['descriptors']
+
+        #
         for k in self.rule['descriptors'].keys():
             print k
-            self.attributes[k] = re.search(self.rule['descriptors'][k], attrib_text, re.VERBOSE).groups()[0]
-        #print attrib_text
-        #print re.search(self.rule['descriptors'], attrib_text, re.VERBOSE)
-        #self.attributes['names'] = {}
+            pattern = re.compile(self.rule['descriptors'][k], re.VERBOSE)
+            self.attributes[k] = pattern.search(attrib_text).groupdict()['value']
+            attrib_text = pattern.sub('', attrib_text, count=1)
+
+
+        # ---- Parse fields
+        #re.search(self.rule['fieldnames'], attrib_text, re.VERBOSE)
+        self.attributes['names'] = []
+        pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
+        for x in pattern.finditer(str(attrib_text)):
+            self.attributes['names'].append(x.groupdict())
+
+        attrib_text = pattern.sub('',attrib_text)
+
+
+        self.attributes['span'] = []
+        pattern = re.compile(self.rule['fieldspan'], re.VERBOSE)
+        for x in pattern.finditer(str(attrib_text)):
+            self.attributes['span'].append(x.groupdict())
+
+        attrib_text = pattern.sub('',attrib_text)
+
 
     def load_data(self):
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
         data = ma.array([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]], 'f')
         # Talvez usar o np.fromstring(data, sep=" ")
         self.data = {}
-        self.attributes['names'] = []
-        for i, n in enumerate(re.finditer(self.rule['names'],attrib_text, re.VERBOSE)):
-            d = n.groupdict()
-            #self.attributes['names'] = {'id': int(d['id']), 'name':d['name']}
-            self.attributes['names'].append(d['name']) 
+        for i, n in enumerate(self.attributes['names']):
             #self.data[d['name']]= ma.array(data[:,i])
-            self.data[d['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
+            self.data[n['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
             #ma.masked_all(int(self.attributes['nvalues']))
         # Need to better think about this
         if 'timeJ' in self.data.keys():
