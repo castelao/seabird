@@ -40,13 +40,13 @@ data: |
 
 descriptors:
     nquan: |
-      \#\ nquan\ =\ (\d+)
+      \#\ nquan\ =\ (?P<value>\d+)
     nvalues: |
-      \#\ nvalues\ =\ (\d+)
+      \#\ nvalues\ =\ (?P<value>\d+)
     start_time: |
-      \#\ start_time\ =\ (.*?)\r?\n      # Should work, but I'm not happy with this.
+      \#\ start_time\ =\ (?P<value>.*?)\r?\n      # Should work, but I'm not happy with this.
     bad_flag: |
-      \#\ bad_flag\ =\ (.*?)\s
+      \#\ bad_flag\ =\ (?P<value>.*?)\s
 
 #descriptors: |
 #    \#\ nquan\ =\ (?P<nquan>\d+) \s*
@@ -60,9 +60,11 @@ descriptors:
 #      )+
 #    )
 
-names: |
+fieldname: |
   \#\ name\ (?P<id>\d+)\ =\ (?P<name>.*)\:\ (?P<longname>.*)\r\s
 
+fieldspan: |
+  \#\ span\ (?P<id>\d+)\ =\ (?P<valuemin>.*),\ (?P<valuemax>.*)\r\s
 
 latitude: |
     # [LAT|LATITUDE]
