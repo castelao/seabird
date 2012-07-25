@@ -149,28 +149,34 @@ class CNV(object):
               with min. and sec. as fractions.
         """
         if 'latitude' not in self.attributes:
-            lat = re.search(self.rule['latitude'],
-                    self.raw_header()['headerblob'],
-                    re.VERBOSE).groupdict()
-            lat_deg = int(lat['degree'])
-            lat_min = float(lat['minute'])
-            #self.attributes['lat_deg'] = lat_deg
-            #self.attributes['lat_min'] = lat_min
-            self.attributes['latitude'] = lat_deg + lat_min/60.
-            if lat['hemisphere'] in ['S','s']:
-                self.attributes['latitude'] = -1*self.attributes['latitude']
+            try:
+                lat = re.search(self.rule['latitude'],
+                        self.raw_header()['headerblob'],
+                        re.VERBOSE).groupdict()
+                lat_deg = int(lat['degree'])
+                lat_min = float(lat['minute'])
+                #self.attributes['lat_deg'] = lat_deg
+                #self.attributes['lat_min'] = lat_min
+                self.attributes['latitude'] = lat_deg + lat_min/60.
+                if lat['hemisphere'] in ['S','s']:
+                    self.attributes['latitude'] = -1*self.attributes['latitude']
+            except:
+                pass
 
         if 'longitude' not in self.attributes:
-            lon = re.search(self.rule['longitude'],
-                    self.raw_header()['headerblob'],
-                    re.VERBOSE).groupdict()
-            lon_deg = int(lon['degree'])
-            lon_min = float(lon['minute'])
-            #self.attributes['lon_deg'] = lon_deg
-            #self.attributes['lon_min'] = lon_min
-            self.attributes['longitude'] = lon_deg + lon_min/60.
-            if lon['hemisphere'] in ['W','w']:
-                self.attributes['longitude'] = -1*self.attributes['longitude']
+            try:
+                lon = re.search(self.rule['longitude'],
+                        self.raw_header()['headerblob'],
+                        re.VERBOSE).groupdict()
+                lon_deg = int(lon['degree'])
+                lon_min = float(lon['minute'])
+                #self.attributes['lon_deg'] = lon_deg
+                #self.attributes['lon_min'] = lon_min
+                self.attributes['longitude'] = lon_deg + lon_min/60.
+                if lon['hemisphere'] in ['W','w']:
+                    self.attributes['longitude'] = -1*self.attributes['longitude']
+            except:
+                pass
 
 
 
