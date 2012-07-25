@@ -61,7 +61,7 @@ descriptors:
 #    )
 
 fieldname: |
-  \#\ name\ (?P<id>\d+)\ =\ (?P<name>.*)\:\ (?P<longname>.*)\r\s
+  \#\ name\ (?P<id>\d+)\ =\ (?P<name>.*)\:(?:\ (?P<longname>.*))?\r\s
 
 fieldspan: |
   \#\ span\ (?P<id>\d+)\ =\ (?P<valuemin>.*),\ (?P<valuemax>.*)\r\s
