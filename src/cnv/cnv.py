@@ -5,11 +5,17 @@ from datetime import datetime, timedelta
 import re
 import pkg_resources
 
-
 import codecs
 import yaml
 import numpy as np
 from numpy import ma
+
+from UserDict import UserDict
+
+class Data(UserDict):
+    def __init__(self):
+        self.data = None
+        self.attributes = {}
 
 
 class CNV(object):
@@ -26,12 +32,14 @@ class CNV(object):
     def keys(self):
         """ Return the available keys in self.data
         """
-        return self.data.keys()
+        return [d.attributes['name'] for d in self.data]
 
     def __getitem__(self, key):
         """ Return the key array from self.data
         """
-        return self.data[key]
+        for d in self.data:
+            if d.attributes['name']==key:
+                return d
 
     def load_rule(self):
         """ Load the adequate rules to parse the data
@@ -61,7 +69,6 @@ class CNV(object):
 
     def get_attributes(self):
         self.attributes = {}
-        #print self.rule['descriptors']
         #print re.search(self.rule['descriptors'], 
         #  self.raw_text, re.VERBOSE).groupdict()
      
@@ -74,22 +81,32 @@ class CNV(object):
             self.attributes[k] = pattern.search(attrib_text).groupdict()['value']
             attrib_text = pattern.sub('', attrib_text, count=1)
 
-
+        #self.data = Data()
+        self.data = []
+        self.ids = []
         # ---- Parse fields
         #re.search(self.rule['fieldnames'], attrib_text, re.VERBOSE)
-        self.attributes['names'] = []
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
-            self.attributes['names'].append(x.groupdict())
-
+            self.ids.append(int(x.groupdict()['id']))
+            self.data.append(Data())
+            self.data[-1].attributes = {
+                    'id': (x.groupdict()['id']),
+                    'name': x.groupdict()['name'],
+                    'longname': x.groupdict()['longname']
+                    }
+            #self.data[int(x.groupdict()['id'])] = {
+            #        'name': x.groupdict()['name'],
+            #        'longname': x.groupdict()['longname']
+            #        }
         attrib_text = pattern.sub('',attrib_text)
 
 
-        self.attributes['span'] = []
         pattern = re.compile(self.rule['fieldspan'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
-            self.attributes['span'].append(x.groupdict())
-
+            i = self.ids.index(int(x.groupdict()['id']))
+            self.data[i].attributes['span'] = \
+                [x.groupdict()['valuemin'].strip(), x.groupdict()['valuemax'].strip()]
         attrib_text = pattern.sub('',attrib_text)
 
 
@@ -97,13 +114,13 @@ class CNV(object):
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
         data = ma.array([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]], 'f')
         # Talvez usar o np.fromstring(data, sep=" ")
-        self.data = {}
-        for i, n in enumerate(self.attributes['names']):
+        for i in self.ids:
             #self.data[d['name']]= ma.array(data[:,i])
-            self.data[n['name']]= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
+            self.data[i].data= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
             #ma.masked_all(int(self.attributes['nvalues']))
+        return
         # Need to better think about this
-        if 'timeJ' in self.data.keys():
+        if 'timeJ' in self.data:
             dref = self.attributes['datetime']
             dJ0 = datetime(dref.year,1,1)
             try:
