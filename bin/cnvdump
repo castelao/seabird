@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+from optparse import OptionParser
+
+#import yaml
+from cnv.cnv import fCNV
+
+# ==== Parsing the options on command line
+parser = OptionParser()
+
+
+(options, args) = parser.parse_args()
+
+
+print args[0]
+data = fCNV(args[0])
+print "file: %s" % args[0]
+print "Global attributes"
+A = data.attributes.keys(); A.sort()
+for a in A:
+    print "\t\033[93m%s\033[0m: %s" % (a, data.attributes[a])
+
+print "\nVariabes"
+for k in data.keys():
+    print "\033[91m%s\033[0m" % k
+    for a in data[k].attributes.keys():
+        print "\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a])
