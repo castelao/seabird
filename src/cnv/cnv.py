@@ -40,6 +40,7 @@ class CNV(object):
         for d in self.data:
             if d.attributes['name']==key:
                 return d
+        raise KeyError('%s not found' % key)
 
     def load_rule(self):
         """ Load the adequate rules to parse the data
@@ -84,21 +85,26 @@ class CNV(object):
         #self.data = Data()
         self.data = []
         self.ids = []
+        # ----
+        rule_file = "rules/refnames.yaml"
+        text = pkg_resources.resource_string(__name__, rule_file)
+        refnames = yaml.load(text)
         # ---- Parse fields
-        #re.search(self.rule['fieldnames'], attrib_text, re.VERBOSE)
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
             self.ids.append(int(x.groupdict()['id']))
+            try:
+                reference = refnames[x.groupdict()['name']]
+                name = reference['name']
+            except:
+                name = x.groupdict()['name']
             self.data.append(Data())
             self.data[-1].attributes = {
                     'id': (x.groupdict()['id']),
-                    'name': x.groupdict()['name'],
+                    'name': name,
                     'longname': x.groupdict()['longname']
                     }
-            #self.data[int(x.groupdict()['id'])] = {
-            #        'name': x.groupdict()['name'],
-            #        'longname': x.groupdict()['longname']
-            #        }
+
         attrib_text = pattern.sub('',attrib_text)
 
 
