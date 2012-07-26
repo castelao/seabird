@@ -17,7 +17,6 @@ class Data(UserDict):
         self.data = None
         self.attributes = {}
 
-
 class CNV(object):
     def __init__(self, raw_text):
         """
@@ -183,6 +182,18 @@ class CNV(object):
                     self.attributes['longitude'] = -1*self.attributes['longitude']
             except:
                 pass
+
+class fCNV(CNV):
+    """ The same CNV class, but the input is a filename
+          instead of the straight text.
+    """
+    def __init__(self, file):
+        f = open(file)
+        text = f.read()
+        f.close()
+        super(fCNV, self).__init__(text)
+        self.name = 'fCNV'
+
 
 
 
