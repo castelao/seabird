@@ -12,10 +12,13 @@ from numpy import ma
 
 from UserDict import UserDict
 
-class Data(UserDict):
+class Data(object):
     def __init__(self):
         self.data = None
         self.attributes = {}
+
+    def __getitem__(self):
+        return self.data
 
 class CNV(object):
     def __init__(self, raw_text):
@@ -27,6 +30,7 @@ class CNV(object):
         self.get_datetime()
         self.get_location()
         self.load_data()
+        self.products()
 
     def keys(self):
         """ Return the available keys in self.data
@@ -76,7 +80,6 @@ class CNV(object):
 
         #
         for k in self.rule['descriptors'].keys():
-            print k
             pattern = re.compile(self.rule['descriptors'][k], re.VERBOSE)
             self.attributes[k] = pattern.search(attrib_text).groupdict()['value']
             attrib_text = pattern.sub('', attrib_text, count=1)
@@ -97,7 +100,7 @@ class CNV(object):
                 name = reference['name']
             except:
                 name = x.groupdict()['name']
-            self.data.append(Data())
+            self.data.append(ma.array([]))
             self.data[-1].attributes = {
                     'id': (x.groupdict()['id']),
                     'name': name,
@@ -116,23 +119,50 @@ class CNV(object):
 
 
     def load_data(self):
+        """
+
+            Sure there is a better way to do it.
+
+            Think about, should I do things using nvalues as expected
+              number of rows? Maybe do it free, and on checks, validate it.
+              In the case of an incomplete file, I think I should load it
+              anyways, and the check alerts me that it is missing data.
+        """
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
-        data = ma.array([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]], 'f')
+        data = ma.masked_values(
+                np.array(
+                    [d.split() for d in \
+                    self.raw_data()['data'].split('\r\n')[:-1]]
+                    , dtype = np.float), 
+                float(self.attributes['bad_flag']))
         # Talvez usar o np.fromstring(data, sep=" ")
         for i in self.ids:
-            #self.data[d['name']]= ma.array(data[:,i])
-            self.data[i].data= ma.masked_values(data[:,i], float(self.attributes['bad_flag']))
+            attributes = self.data[i].attributes
+            self.data[i] = data[:,i]
+            self.data[i].attributes = attributes
+
             #ma.masked_all(int(self.attributes['nvalues']))
-        return
-        # Need to better think about this
-        if 'timeJ' in self.data:
+
+    def products(self):
+        """
+            To think about, should I really estimate the products,
+              or should they be estimated on the fly, on demand?
+        """
+        if ('timeJ' in self.keys()) & ('timeS' not in self.keys()):
             dref = self.attributes['datetime']
             dJ0 = datetime(dref.year,1,1)
+            print dref, dJ0
+            import pdb; pdb.set_trace()
+            print [d for d in self['timeJ']]
+            print [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
             try:
-                self.data['timeS'] = ma.array([(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']])
+                self.data.append(ma.array( [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]))
             except:
                 D = [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
-                self.data['timeS'] = ma.array([d.days*24*60*60+d.seconds for d in D])
+                self.data.append(ma.array( [d.days*24*60*60+d.seconds for d in D]))
+            self.data[-1].attributes = {'name': 'timeS'}
+            self.ids.append(len(self.data))
+
 
     def get_datetime(self):
         """ Extract the reference date and time
