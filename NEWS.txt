@@ -3,6 +3,11 @@
 News
 ====
 
+0.1.5
+-----
+
+* Initial prototype of the cnvdump
+
 0.1.1
 -----
 
@@ -13,5 +18,5 @@ News
 
 *Release date: 3-Jul-2012*
 
-* Initial import. Skeleton created with modern-package-template
+* Initial import.
 * It's able to load the variables into Masked Array, but it's not the best way to do it.
