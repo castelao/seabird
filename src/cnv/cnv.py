@@ -12,14 +12,6 @@ from numpy import ma
 
 from UserDict import UserDict
 
-class Data(object):
-    def __init__(self):
-        self.data = None
-        self.attributes = {}
-
-    def __getitem__(self):
-        return self.data
-
 class CNV(object):
     def __init__(self, raw_text):
         """
@@ -151,10 +143,6 @@ class CNV(object):
         if ('timeJ' in self.keys()) & ('timeS' not in self.keys()):
             dref = self.attributes['datetime']
             dJ0 = datetime(dref.year,1,1)
-            print dref, dJ0
-            import pdb; pdb.set_trace()
-            print [d for d in self['timeJ']]
-            print [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
             try:
                 self.data.append(ma.array( [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]))
             except:
