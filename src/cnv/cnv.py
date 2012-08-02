@@ -18,11 +18,14 @@ class CNV(object):
         """
         self.raw_text = raw_text
         self.load_rule()
+        self.attributes = {}
+        self.get_intro()
         self.get_attributes()
         self.get_datetime()
         self.get_location()
         self.load_data()
         self.products()
+
 
     def keys(self):
         """ Return the available keys in self.data
@@ -63,8 +66,17 @@ class CNV(object):
         content_re = re.compile(r, re.VERBOSE)
         return content_re.search(self.raw_text).groupdict()
 
+    def get_intro(self):
+        r = self.rule['header'] + self.rule['sep']
+        content_re = re.compile(r, re.VERBOSE)
+        self.header = content_re.search(self.raw_text).groupdict()
+
+        for k in self.rule['intro'].keys():
+            pattern = re.compile(self.rule['intro'][k], re.VERBOSE)
+            self.attributes[k] = pattern.search(self.header['intro']).groupdict()['value']
+            self.header['intro'] = pattern.sub('', self.header['intro'], count=1)
+
     def get_attributes(self):
-        self.attributes = {}
         #print re.search(self.rule['descriptors'], 
         #  self.raw_text, re.VERBOSE).groupdict()
      
@@ -171,11 +183,15 @@ class CNV(object):
             !! ATENTION!!! Might be a good idea to store lat,lon as floats
               with min. and sec. as fractions.
         """
-        if 'latitude' not in self.attributes:
-            try:
+        if 'latitude' in self.attributes:
                 lat = re.search(self.rule['latitude'],
-                        self.raw_header()['headerblob'],
+                        self.attributes['latitude'],
                         re.VERBOSE).groupdict()
+        else:
+                lat = re.search(self.rule['latitude'],
+                        self.raw_header()['notes'],
+                        re.VERBOSE).groupdict()
+        try:
                 lat_deg = int(lat['degree'])
                 lat_min = float(lat['minute'])
                 #self.attributes['lat_deg'] = lat_deg
@@ -183,14 +199,19 @@ class CNV(object):
                 self.attributes['latitude'] = lat_deg + lat_min/60.
                 if lat['hemisphere'] in ['S','s']:
                     self.attributes['latitude'] = -1*self.attributes['latitude']
-            except:
+        except:
                 pass
 
-        if 'longitude' not in self.attributes:
-            try:
+        if 'longitude' in self.attributes:
                 lon = re.search(self.rule['longitude'],
-                        self.raw_header()['headerblob'],
+                        self.attributes['longitude'],
                         re.VERBOSE).groupdict()
+        else:
+                lon = re.search(self.rule['longitude'],
+                        self.raw_header()['notes'],
+                        re.VERBOSE).groupdict()
+
+        try:
                 lon_deg = int(lon['degree'])
                 lon_min = float(lon['minute'])
                 #self.attributes['lon_deg'] = lon_deg
@@ -198,7 +219,7 @@ class CNV(object):
                 self.attributes['longitude'] = lon_deg + lon_min/60.
                 if lon['hemisphere'] in ['W','w']:
                     self.attributes['longitude'] = -1*self.attributes['longitude']
-            except:
+        except:
                 pass
 
 class fCNV(CNV):
