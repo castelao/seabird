@@ -1,10 +1,10 @@
 header: |
-    (?P<header>
+    (?P<intro>
         (
             \*\ .*\n  # Antything starting with *
         )+
     )
-    (?P<headerblob>
+    (?P<notes>
         (
             \*\* .*\n  # Antything starting with *
         )+
@@ -38,6 +38,14 @@ data: |
     )+                          # One or more lines
   )
 
+# First section of the header
+intro:
+    latitude: |
+        \*\ NMEA\ Latitude\ =\ (?P<value>.*?)\r?\n
+    longitude: |
+        \*\ NMEA\ Longitude\ =\ (?P<value>.*?)\r?\n
+
+# Third section of the header
 descriptors:
     nquan: |
       \#\ nquan\ =\ (?P<value>\d+)
