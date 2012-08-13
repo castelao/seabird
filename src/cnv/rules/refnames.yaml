@@ -1,18 +1,23 @@
 timeS: {name: time, units: "days since 1950-01-01T00:00:00Z"}
 
-prDM: {name: pres, long_name: sea_water_pressure}
+prDM: {name: pressure, long_name: sea_water_pressure}
 
 depSM: {name: depth, long_name: depth_of_each_measurement}
 
-t090C: {'name': temp, long_name: sea_water_temperature}
-t190C: {'name': temp2, long_name: secondary_sea_water_temperature}
+t090C: {name: temperature, long_name: sea_water_temperature}
+t190C: {name: temperature2, long_name: secondary_sea_water_temperature}
+t068C: {name: temperature, long_name: sea_water_temperature}
 
-sal00: {'name': sal, long_name: sea_water_salinity}
-sal11: {'name': sal2, long_name: secondary_sea_water_salinity}
-c0S/m: {'name': cond, long_name: sea_water_electrical_conductivity}
-c1S/m: {'name': cond2, long_name: secondary_sea_water_electrical_conductivity}
+sal00: {name: salinity, long_name: sea_water_salinity}
+sal11: {name: salinity2, long_name: secondary_sea_water_salinity}
+c0S/m: {name: conductivity, long_name: sea_water_electrical_conductivity}
+c1S/m: {name: conductivity2, long_name: secondary_sea_water_electrical_conductivity}
 
-potemp090C: {'name': potemp, long_name: sea_water_potential_temperature}
-potemp190C: {'name': potemp2, long_name: secondary_sea_water_potential_temperature}
+potemp090C: {name: potemperature, long_name: sea_water_potential_temperature}
+potemp190C: {name: potemperature2, long_name: secondary_sea_water_potential_temperature}
 
-sbeox0V: {'name': oxigenvoltage, long_name: sea_water_oxigen_voltage}
+sbeox0V: {name: oxigenvoltage, long_name: sea_water_oxigen_voltage}
+
+sbeox0ML/L: {name: oxigen}
+
+flCUVA: {name: fluorescence}
