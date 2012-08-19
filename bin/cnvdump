@@ -8,12 +8,12 @@ from cnv.cnv import fCNV
 # ==== Parsing the options on command line
 parser = OptionParser()
 
+parser.add_option("-d", "--default", dest="defaultfilename",
+    help="YAML FILE with default vaules", metavar="FILE")
 
 (options, args) = parser.parse_args()
 
-
-print args[0]
-data = fCNV(args[0])
+data = fCNV(args[0], options.defaultfilename)
 print "file: %s" % args[0]
 print "Global attributes"
 A = data.attributes.keys(); A.sort()
