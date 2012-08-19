@@ -16,6 +16,7 @@ class CNV(object):
     def __init__(self, raw_text, defaults=None):
         """
         """
+        import pdb; pdb.set_trace()
         self.raw_text = raw_text
         self.defaults = defaults
         self.attributes = {}
@@ -86,8 +87,9 @@ class CNV(object):
 
         for k in self.rule['intro'].keys():
             pattern = re.compile(self.rule['intro'][k], re.VERBOSE)
-            self.attributes[k] = pattern.search(self.header['intro']).groupdict()['value']
-            self.header['intro'] = pattern.sub('', self.header['intro'], count=1)
+            if pattern.search(self.header['intro']):
+                self.attributes[k] = pattern.search(self.header['intro']).groupdict()['value']
+                self.header['intro'] = pattern.sub('', self.header['intro'], count=1)
 
     def get_attributes(self):
         #print re.search(self.rule['descriptors'], 
@@ -249,10 +251,10 @@ class fCNV(CNV):
             f = open(defaultsfile)
             defaults = yaml.load(f.read())
             f.close()
+            super(fCNV, self).__init__(text, defaults)
         else:
-            defaults=None
+            super(fCNV, self).__init__(text)
 
-        super(fCNV, self).__init__(text, defaults)
         self.name = 'fCNV'
 
     def load_defaults(self, defaultsfile):
