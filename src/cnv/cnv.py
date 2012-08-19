@@ -16,7 +16,6 @@ class CNV(object):
     def __init__(self, raw_text, defaults=None):
         """
         """
-        import pdb; pdb.set_trace()
         self.raw_text = raw_text
         self.defaults = defaults
         self.attributes = {}
