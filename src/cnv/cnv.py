@@ -13,16 +13,29 @@ from numpy import ma
 from UserDict import UserDict
 
 class CNV(object):
-    def __init__(self, raw_text):
+    def __init__(self, raw_text, defaults=None):
         """
         """
         self.raw_text = raw_text
-        self.load_rule()
+        self.defaults = defaults
         self.attributes = {}
+        # ----
+        self.load_rule()
         self.get_intro()
         self.get_attributes()
         self.get_datetime()
         self.get_location()
+
+        # Think well how/where to implement this. It should overwrite
+        #   the regular attributes input, but might be necessary to load the
+        #   real attributes to respond right.
+        # It definitely should not be here, but inside some function.
+        try:
+            for k in defaults['attributes']:
+                self.attributes[k] = defaults['attributes'][k]
+        except:
+            pass
+
         self.load_data()
         self.products()
 
@@ -169,7 +182,7 @@ class CNV(object):
 
             !!! ATENTION, better move it to a rule in the rules.
         """
-        datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
+        #datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
         self.attributes['datetime'] = datetime.strptime(
                 self.attributes['start_time'],'%b %d %Y %H:%M:%S')
 
@@ -226,14 +239,24 @@ class fCNV(CNV):
     """ The same CNV class, but the input is a filename
           instead of the straight text.
     """
-    def __init__(self, file):
+    def __init__(self, file, defaultsfile=None):
         f = open(file)
         text = f.read()
         f.close()
-        super(fCNV, self).__init__(text)
+
+        # if defaultsfile is given, read as a yaml file
+        if defaultsfile:
+            f = open(defaultsfile)
+            defaults = yaml.load(f.read())
+            f.close()
+        else:
+            defaults=None
+
+        super(fCNV, self).__init__(text, defaults)
         self.name = 'fCNV'
 
-
+    def load_defaults(self, defaultsfile):
+        pass
 
 
 def press2depth(press, latitude):
