@@ -4,6 +4,8 @@
 from datetime import datetime, timedelta
 import re
 import pkg_resources
+import md5
+import os
 
 import codecs
 import yaml
@@ -102,6 +104,9 @@ class CNV(object):
             self.attributes[k] = pattern.search(attrib_text).groupdict()['value']
             attrib_text = pattern.sub('', attrib_text, count=1)
 
+        self.attributes['md5'] = md5.new(self.raw_text).hexdigest()
+        # ----
+
         #self.data = Data()
         self.data = []
         self.ids = []
@@ -167,13 +172,19 @@ class CNV(object):
               or should they be estimated on the fly, on demand?
         """
         if ('timeJ' in self.keys()) & ('timeS' not in self.keys()):
-            dref = self.attributes['datetime']
-            dJ0 = datetime(dref.year,1,1)
+            # I need to subtract one day, but I'm not so sure why should I.
+            dref = datetime(self.attributes['datetime'].year,1,1) \
+                    - timedelta(days=1) \
+                    - self.attributes['datetime']
+            #dJ0 = datetime(dref.year,1,1)
+            timeS = ma.masked_all(self['timeJ'].shape, dtype=np.float)
+            ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
             try:
-                self.data.append(ma.array( [(dJ0-dref + timedelta(float(d))).total_seconds() for d in self['timeJ']]))
+                timeS[ind] = ma.array( [(dref + timedelta(float(d))).total_seconds() for d in self['timeJ'][ind]])
             except:
-                D = [(dJ0-dref + timedelta(float(d))) for d in self['timeJ']]
-                self.data.append(ma.array( [d.days*24*60*60+d.seconds for d in D]))
+                D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
+                timeS[ind] = ma.array( [d.days*24*60*60+d.seconds for d in D])
+            self.data.append(timeS)
             self.data[-1].attributes = {'name': 'timeS'}
             self.ids.append(len(self.data))
 
@@ -255,6 +266,7 @@ class fCNV(CNV):
             super(fCNV, self).__init__(text)
 
         self.name = 'fCNV'
+        self.attributes['filename'] = os.path.basename(file)
 
     def load_defaults(self, defaultsfile):
         pass

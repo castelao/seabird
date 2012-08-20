@@ -2,6 +2,16 @@
 
 News
 ====
+
+0.1.7
+-----
+
+* Now it calculate and include the hex md5sum.
+* Bugfix, now handle well when timeJ has masked values.
+* Bugfix converting timeJ, it was one day longer.
+* I'll run on the whole PIRATA dataset to check against different formats
+    and after that it will be ready for 0.2 as Beta version
+
 0.1.6
 -----
 
