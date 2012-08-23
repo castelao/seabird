@@ -25,6 +25,7 @@ class CNV(object):
         self.load_rule()
         self.get_intro()
         self.get_attributes()
+        self.prepare_data()
         self.get_datetime()
         self.get_location()
 
@@ -68,8 +69,10 @@ class CNV(object):
         #f = codecs.open(rule_file, 'r', 'utf-8')
         #rule = yaml.load(f.read())
         r = rule['header'] + rule['sep'] + rule['data']
+        content_re = re.compile(r, re.VERBOSE)
         if re.search(r, self.raw_text, re.VERBOSE):
             self.rule = rule
+            self.parsed = content_re.search(self.raw_text).groupdict()
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
@@ -82,32 +85,31 @@ class CNV(object):
         return content_re.search(self.raw_text).groupdict()
 
     def get_intro(self):
-        r = self.rule['header'] + self.rule['sep']
-        content_re = re.compile(r, re.VERBOSE)
-        self.header = content_re.search(self.raw_text).groupdict()
-
+        """ Parse the intro part of the header
+        """
         for k in self.rule['intro'].keys():
             pattern = re.compile(self.rule['intro'][k], re.VERBOSE)
-            if pattern.search(self.header['intro']):
-                self.attributes[k] = pattern.search(self.header['intro']).groupdict()['value']
-                self.header['intro'] = pattern.sub('', self.header['intro'], count=1)
+            if pattern.search(self.parsed['intro']):
+                self.attributes[k] = pattern.search(self.parsed['intro']).groupdict()['value']
+                self.parsed['intro'] = pattern.sub('', self.parsed['intro'], count=1)
 
     def get_attributes(self):
-        #print re.search(self.rule['descriptors'], 
-        #  self.raw_text, re.VERBOSE).groupdict()
-     
-        attrib_text = self.raw_header()['descriptors']
-
-        #
+        """
+        """
         for k in self.rule['descriptors'].keys():
             pattern = re.compile(self.rule['descriptors'][k], re.VERBOSE)
-            self.attributes[k] = pattern.search(attrib_text).groupdict()['value']
-            attrib_text = pattern.sub('', attrib_text, count=1)
-
-        self.attributes['md5'] = md5.new(self.raw_text).hexdigest()
+            if pattern.search(self.parsed['descriptors']):
+                self.attributes[k] = \
+                    pattern.search(self.parsed['descriptors']).groupdict()['value']
+                self.parsed['descriptors'] = \
+                    pattern.sub('', self.parsed['descriptors'], count=1)
         # ----
+        self.attributes['md5'] = md5.new(self.raw_text).hexdigest()
 
-        #self.data = Data()
+    def prepare_data(self):
+        """
+        """
+        attrib_text = self.parsed['descriptors']
         self.data = []
         self.ids = []
         # ----
@@ -129,17 +131,15 @@ class CNV(object):
                     'name': name,
                     'longname': x.groupdict()['longname']
                     }
-
         attrib_text = pattern.sub('',attrib_text)
 
-
+        # ---- Load span limits on each list item
         pattern = re.compile(self.rule['fieldspan'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
             i = self.ids.index(int(x.groupdict()['id']))
             self.data[i].attributes['span'] = \
                 [x.groupdict()['valuemin'].strip(), x.groupdict()['valuemax'].strip()]
         attrib_text = pattern.sub('',attrib_text)
-
 
     def load_data(self):
         """
