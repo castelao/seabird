@@ -44,6 +44,10 @@ intro:
         \*\ NMEA\ Latitude\ =\ (?P<value>.*?)\r?\n
     longitude: |
         \*\ NMEA\ Longitude\ =\ (?P<value>.*?)\r?\n
+    gps_datetime: |
+        \*\ NMEA\ UTC\ \(Time\)\ =\ (?P<value>.*?)\r?\n
+    seasave: |
+        \*\ Software\ Version\ Seasave\ (?P<value>.*?)\r?\n
 
 # Third section of the header
 descriptors:
@@ -52,9 +56,21 @@ descriptors:
     nvalues: |
       \#\ nvalues\ =\ (?P<value>\d+)
     start_time: |
-      \#\ start_time\ =\ (?P<value>.*?)\r?\n      # Should work, but I'm not happy with this.
+      \#\ start_time\ =\ (?P<value>.*?)\r\n      # Should work, but I'm not happy with this.
     bad_flag: |
       \#\ bad_flag\ =\ (?P<value>.*?)\s
+    file_type: |
+      \#\ file_type\ \=\ (?P<value>.*?)\r\n 
+    awkward_xml: |
+      (?P<value>
+        \#\ \<\?xml\ version="\d+\.\d+"\ encoding="UTF-8"\?>\r\n
+        (?:\#\s+<.*>\r\n)+
+      )
+
+# <?xml version="1.0" encoding="UTF-8"?>
+#      # # <Sensors count="7" >
+#      # #   <sensor Channel="1" >
+#      # #     <!-- Frequency 0, Temperature -->
 
 #descriptors: |
 #    \#\ nquan\ =\ (?P<nquan>\d+) \s*
