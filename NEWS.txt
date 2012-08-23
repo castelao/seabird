@@ -3,6 +3,13 @@
 News
 ====
 
+0.1.8
+-----
+
+* Refactoring. Parsed text is saved in self.parsed, preparing to output
+    everything that wasn't specifically parsed.
+* XML is extracted into self.attributes['awkward_xml']
+
 0.1.7
 -----
 
