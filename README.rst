@@ -36,5 +36,4 @@ Authors
 -------
 
 Guilherme Castelão <guilherme@castelao.net>
-Roberto de Almeida <roberto@dealmeida.net>
 Luiz Irber <luiz.irber@gmail.com>
