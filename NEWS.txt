@@ -3,6 +3,11 @@
 News
 ====
 
+0.2
+---
+
+* First code public release
+
 0.1.8
 -----
 
