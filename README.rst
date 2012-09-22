@@ -23,7 +23,7 @@ The `Seasoft`_ manual might be the best reference for the format used.
 
 The variables names were based on the `pcmdi standard name table`
 
-.. _`PyCNV Wiki`: https://bitbucket.org/castelao/pycnv/wiki/Home
+.. _`PyCNV Wiki`: http://pycnv.castelao.net
 .. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
 .. _`pcmdi standard name table`: http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/19/cf-standard-name-table.html
 
