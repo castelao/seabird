@@ -1,4 +1,4 @@
-PyCNV.
+PyCNV
 ==========================
 
 This is a parser for Sea Bird CTD output files.
