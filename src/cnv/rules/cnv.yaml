@@ -9,6 +9,12 @@ header: |
             \*\* .*\n  # Antything starting with *
         )+
     )
+    # temporary solution just to run while I'm sailing
+    # The notes not necessarily are after the intro, they
+    # can be in the middle of the intro.
+        (
+            \*\ .*\n  # Antything starting with *
+        )+
     (?P<descriptors>
         (
             \#.*\n  # Antything
