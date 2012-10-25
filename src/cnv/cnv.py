@@ -202,8 +202,11 @@ class CNV(object):
             !!! ATENTION, better move it to a rule in the rules.
         """
         #datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
+        # Needed to include an :21, because some cases has a [bla bla]
+        #   after.
+        # It's probably not the best solution.
         self.attributes['datetime'] = datetime.strptime(
-                self.attributes['start_time'],'%b %d %Y %H:%M:%S')
+                self.attributes['start_time'][:20],'%b %d %Y %H:%M:%S')
 
     def get_location(self):
         """ Extract the station location (Lat, Lon)
