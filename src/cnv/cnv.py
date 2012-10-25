@@ -4,8 +4,15 @@
 from datetime import datetime, timedelta
 import re
 import pkg_resources
-import md5
 import os
+
+try:
+    import hashlib
+    md5 = hashlib.md5
+except ImportError:
+    # for Python << 2.5
+    import md5
+    md5 = md5.new
 
 import codecs
 import yaml
@@ -104,7 +111,7 @@ class CNV(object):
                 self.parsed['descriptors'] = \
                     pattern.sub('', self.parsed['descriptors'], count=1)
         # ----
-        self.attributes['md5'] = md5.new(self.raw_text).hexdigest()
+        self.attributes['md5'] = md5(self.raw_text).hexdigest()
 
     def prepare_data(self):
         """
