@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.2'
+version = '0.2.2'
 
 install_requires = [
     'numpy>=1.1',
@@ -31,7 +31,7 @@ setup(name='cnv',
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
     url='http://pycnv.castelao.net',
-    download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-0.2.tar.gz?raw=true',
+    download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-0.2.2.tar.gz?raw=true',
     license='PSF',
     packages=find_packages('src'),
     package_dir = {'': 'src'},
