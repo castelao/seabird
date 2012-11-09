@@ -14,7 +14,7 @@ header: |
     # can be in the middle of the intro.
         (
             \*\ .*\n  # Antything starting with *
-        )+
+        )*
     (?P<descriptors>
         (
             \#.*\n  # Antything
