@@ -69,17 +69,22 @@ class CNV(object):
             It should try all available rules, one by one, and use the one
               which fits.
         """
-        rule_file = "rules/cnv.yaml"
-        text = pkg_resources.resource_string(__name__, rule_file)
-        rule = yaml.load(text)
-        # Should I load using codec, for UTF8?? Do I need it?
-        #f = codecs.open(rule_file, 'r', 'utf-8')
-        #rule = yaml.load(f.read())
-        r = rule['header'] + rule['sep'] + rule['data']
-        content_re = re.compile(r, re.VERBOSE)
-        if re.search(r, self.raw_text, re.VERBOSE):
-            self.rule = rule
-            self.parsed = content_re.search(self.raw_text).groupdict()
+        rules_dir = 'rules'
+        rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
+        for rule_file in rule_files:
+            text = pkg_resources.resource_string(__name__, 
+                    os.path.join(rules_dir, rule_file))
+            rule = yaml.load(text)
+            # Should I load using codec, for UTF8?? Do I need it?
+            #f = codecs.open(rule_file, 'r', 'utf-8')
+            #rule = yaml.load(f.read())
+            r = rule['header'] + rule['sep'] + rule['data']
+            content_re = re.compile(r, re.VERBOSE)
+            if re.search(r, self.raw_text, re.VERBOSE):
+                print "Using rules from: ",rule_file
+                self.rule = rule
+                self.parsed = content_re.search(self.raw_text).groupdict()
+                return
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
