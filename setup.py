@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.2.2'
+version = '0.2.3'
 
 install_requires = [
     'numpy>=1.1',
@@ -14,7 +14,7 @@ install_requires = [
 ]
 
 # Review, rething the classifiers
-setup(name='cnv',
+setup(name='pycnv',
     version=version,
     description="Parser for .cnv files, the Sea-Bird CTD data format.",
     long_description=README + '\n\n' + NEWS,
