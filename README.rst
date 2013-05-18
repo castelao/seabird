@@ -27,6 +27,27 @@ The variables names were based on the `pcmdi standard name table`
 .. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
 .. _`pcmdi standard name table`: http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/19/cf-standard-name-table.html
 
+Fast howto use
+--------------
+
+To install:
+
+pip install pycnv
+
+One way to use is running on the shell the cnvdump. Independent of the historical version of the cnv file, it will return a default structure: 
+
+cnvdump your_file.cnv
+
+To convert a .cnv to a NetCDF, run:
+
+cnv2cdf your_file.cnv
+
+In a python script, one way to do it is:
+
+profile = fCNV('your_file.cnv')
+
+profile will be an object, always with the same pattern.
+
 License
 -------
 
