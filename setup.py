@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.2.4'
+version = '0.3.0'
 
 install_requires = [
     'numpy>=1.1',
@@ -45,5 +45,5 @@ setup(name='cnv',
             ['cnv=cnv:main']
     },
     platforms='any',
-    scripts=["bin/cnvdump"],
+    scripts=["bin/cnvdump", "bin/cnv2nc"],
 )

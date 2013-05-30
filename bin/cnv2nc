@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+
+from datetime import datetime
+from optparse import OptionParser
+
+import netCDF4
+
+#import yaml
+from cnv.cnv import fCNV
+
+# ==== Parsing the options on command line
+parser = OptionParser()
+
+parser.add_option("-d", "--default", dest="defaultfilename",
+    help="YAML FILE with default vaules", metavar="FILE")
+
+(options, args) = parser.parse_args()
+
+data = fCNV(args[0], options.defaultfilename)
+print "Reading from file: %s" % args[0]
+
+print "Saving netcdf output file: %s" % args[1]
+
+nc = netCDF4.Dataset(args[1], 'w', format='NETCDF4')
+
+nc.history = "Created by cnv2nc (PyCNV)"
+
+nc.DATE_CREATION = datetime.now().strftime("%Y%m%s%H%M%S")
+
+#print "Global attributes"
+A = data.attributes.keys(); A.sort()
+for a in A:
+    try:
+        nc.__setattr__(a, data.attributes[a])
+    except:
+        print "Problems with %s" % a
+
+nc.createDimension('scan', int(data.attributes['nvalues']))
+
+#import pdb; pdb.set_trace()
+print "\nVariabes"
+cdf_variables = {}
+for k in data.keys():
+    print k
+    cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
+    dir(cdf_variables[k])
+    cdf_variables[k].missing_value = data[k].fill_value
+    for a in data[k].attributes.keys():
+        print "\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a])
+    cdf_variables[k][:] = data[k].data
+
+
+nc.close()

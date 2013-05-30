@@ -3,6 +3,11 @@
 News
 ====
 
+0.3
+___
+
+* cnv2nc, a script to convert the cnv into a netCDF file.
+
 0.2
 ---
 
