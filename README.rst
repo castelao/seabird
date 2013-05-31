@@ -47,8 +47,12 @@ cnv2cdf your_file.cnv
 In a python script, one way to do it is:
 
 profile = fCNV('your_file.cnv')
+profile.attributes  # It will return the header, as a dictionary.
+profile.keys() # It will list the available variables.
+profile['temperature2'] # If temperature2 was on the previous list, this is how you get the data. It will be a masked array.
 
-profile will be an object, always with the same pattern.
+
+Independent of the version of the SeaBird file, profile will return always the with the same pattern. That was my main goal with this package. Once more, if it son't work with your file, please, send me a sample and I'll fix PyCNV for that.
 
 License
 -------
