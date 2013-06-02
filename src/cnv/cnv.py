@@ -212,12 +212,12 @@ class CNV(object):
                 timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
                 try:
-                    timeS[ind] = ma.array([timedelta(days=t).total_seconds() for t in self['timeJ'][ind]-j0])
+                    timeS[ind] = ma.array([timedelta(days=t).total_seconds()-t0 for t in self['timeJ'][ind]-j0])
                     #ma.array( [(dref + timedelta(float(d))).total_seconds() for d in self['timeJ'][ind]])
                 except:
                     D = [timedelta(days=t) for t in self['timeJ'][ind]-j0]
                     #D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
-                    timeS[ind] = ma.array( [d.days*24*60*60+d.seconds for d in D])
+                    timeS[ind] = ma.array( [d.days*24*60*60+d.seconds-t0 for d in D])
             elif ('timeQ' in self.keys()):
                 #import pdb; pdb.set_trace()
                 #yref = self.attributes['datetime'].year - \
