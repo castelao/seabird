@@ -207,7 +207,9 @@ class CNV(object):
                 #        - timedelta(days=1) \
                 #        - self.attributes['datetime']
                 #dJ0 = datetime(dref.year,1,1)
-                timeS = ma.masked_all(self['timeJ'].shape, dtype=np.float)
+                timeS = ma.masked_all(self['timeJ'].shape, 
+                        self['timeJ'].dtype)
+                timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
                 try:
                     timeS[ind] = ma.array([timedelta(days=t).total_seconds() for t in self['timeJ'][ind]-j0])
