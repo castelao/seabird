@@ -1,4 +1,5 @@
-timeS: {name: time, units: "days since 1950-01-01T00:00:00Z"}
+#timeS: {name: time, units: "days since 1950-01-01T00:00:00Z"}
+timeS: {name: timeS, units: "seconds"}
 
 prDM: {name: pressure, long_name: sea_water_pressure}
 
