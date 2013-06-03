@@ -196,7 +196,6 @@ class CNV(object):
               header is opened, not necessarily when the rossette was
               switched on. I'll just follow Eric for now.
         """
-        import pdb; pdb.set_trace()
         if ('timeS' not in self.keys()):
             if ('timeJ' in self.keys()):
                 j0 = int(self.attributes['datetime'].date().strftime('%j'))
