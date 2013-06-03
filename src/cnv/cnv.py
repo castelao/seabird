@@ -219,15 +219,23 @@ class CNV(object):
                     #D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
                     timeS[ind] = ma.array( [d.days*24*60*60+d.seconds-t0 for d in D])
             elif ('timeQ' in self.keys()):
-                #import pdb; pdb.set_trace()
                 #yref = self.attributes['datetime'].year - \
                 #        int(self['timeQ'].min()/86400./365.25
                 #dref = datetime(yref,1,1)
-                dref = datetime(2000,1,1)
-                d = [datetime(2000,1,1) + timedelta(seconds=s) for s in self['timeQ']]
-                timeS = ma.masked_all(self['timeQ'].shape, dtype=np.float)
+                #timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
+
+                timeS = ma.masked_all(self['timeQ'].shape, 
+                        self['timeQ'].dtype)
+                timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeQ']))[0]
-                timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
+                try:
+                    dref = ( self.attributes['datetime'] - \
+                        datetime(2000,1,1)).total_seconds()
+                except:
+                    dref = ( self.attributes['datetime'] - \
+                        datetime(2000,1,1))
+                    dref = dref.days*24*60*60+dref.seconds
+                timeS = self['timeQ'] - dref
 
             self.data.append(timeS)
             self.data[-1].attributes = {'name': 'timeS'}
