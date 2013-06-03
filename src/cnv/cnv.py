@@ -182,20 +182,61 @@ class CNV(object):
         """
             To think about, should I really estimate the products,
               or should they be estimated on the fly, on demand?
+
+            To Think About!! :
+              I'm not sure what would be the best way to handle,
+              timeQ. I actually couldn't find a definition of what
+              is that. PyCurrents (Eric) considers the seconds from
+              2010-1-1. It's probably a good solution.
+              For now, I'll use the just the incremental time. At
+              some point I defined the datetime before, so what
+              matters now is the increment.
+              If I have the timeQ, I must have a NMEA (Time), and 
+              Wait a minute, the NMEA Time is probably when the
+              header is opened, not necessarily when the rossette was
+              switched on. I'll just follow Eric for now.
         """
-        if ('timeJ' in self.keys()) & ('timeS' not in self.keys()):
-            # I need to subtract one day, but I'm not so sure why should I.
-            dref = datetime(self.attributes['datetime'].year,1,1) \
-                    - timedelta(days=1) \
-                    - self.attributes['datetime']
-            #dJ0 = datetime(dref.year,1,1)
-            timeS = ma.masked_all(self['timeJ'].shape, dtype=np.float)
-            ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
-            try:
-                timeS[ind] = ma.array( [(dref + timedelta(float(d))).total_seconds() for d in self['timeJ'][ind]])
-            except:
-                D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
-                timeS[ind] = ma.array( [d.days*24*60*60+d.seconds for d in D])
+        import pdb; pdb.set_trace()
+        if ('timeS' not in self.keys()):
+            if ('timeJ' in self.keys()):
+                j0 = int(self.attributes['datetime'].date().strftime('%j'))
+                t0 = self.attributes['datetime'].time()
+                t0 = (t0.hour*60+t0.minute)*60+t0.second
+                # I need to subtract one day, but I'm not so sure why should I.
+                #dref = datetime(self.attributes['datetime'].year,1,1) \
+                #        - timedelta(days=1) \
+                #        - self.attributes['datetime']
+                #dJ0 = datetime(dref.year,1,1)
+                timeS = ma.masked_all(self['timeJ'].shape, 
+                        self['timeJ'].dtype)
+                timeS.set_fill_value(float(self.attributes['bad_flag']))
+                ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
+                try:
+                    timeS[ind] = ma.array([timedelta(days=t).total_seconds()-t0 for t in self['timeJ'][ind]-j0])
+                    #ma.array( [(dref + timedelta(float(d))).total_seconds() for d in self['timeJ'][ind]])
+                except:
+                    D = [timedelta(days=t) for t in self['timeJ'][ind]-j0]
+                    #D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
+                    timeS[ind] = ma.array( [d.days*24*60*60+d.seconds-t0 for d in D])
+            elif ('timeQ' in self.keys()):
+                #yref = self.attributes['datetime'].year - \
+                #        int(self['timeQ'].min()/86400./365.25
+                #dref = datetime(yref,1,1)
+                #timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
+
+                timeS = ma.masked_all(self['timeQ'].shape, 
+                        self['timeQ'].dtype)
+                timeS.set_fill_value(float(self.attributes['bad_flag']))
+                ind = np.nonzero(~ma.getmaskarray(self['timeQ']))[0]
+                try:
+                    dref = ( self.attributes['datetime'] - \
+                        datetime(2000,1,1)).total_seconds()
+                except:
+                    dref = ( self.attributes['datetime'] - \
+                        datetime(2000,1,1))
+                    dref = dref.days*24*60*60+dref.seconds
+                timeS = self['timeQ'] - dref
+
             self.data.append(timeS)
             self.data[-1].attributes = {'name': 'timeS'}
             self.ids.append(len(self.data))
