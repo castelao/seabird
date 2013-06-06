@@ -5,7 +5,7 @@ from optparse import OptionParser
 from pupynere import netcdf_file
 
 #import yaml
-from cnv.cnv import fCNV
+from cnv import fCNV
 
 # ==== Parsing the options on command line
 parser = OptionParser()
