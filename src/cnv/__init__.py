@@ -1,4 +1,3 @@
-# Example package with a console entry point
+from cnv import *
 
-def main():
-    print "Hello World"
+#__all__ = ['CNV', 'fCNV']

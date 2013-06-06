@@ -6,7 +6,7 @@ from optparse import OptionParser
 import netCDF4
 
 #import yaml
-from cnv.cnv import fCNV
+from cnv import fCNV
 
 # ==== Parsing the options on command line
 parser = OptionParser()
