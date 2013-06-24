@@ -22,9 +22,26 @@ from numpy import ma
 from UserDict import UserDict
 
 class CNV(object):
+    """ Main class to parse the .cnv style content
+
+        Input:
+            raw_text [String]: The full content of the .cnv file.
+
+        Output:
+            This class responds as it was a dictionary of variables,
+              and each hash has a Masked Array.
+
+        Ex.:
+        f = open("CTD.cnv")
+        text = f.read()
+        profile = CNV(text)
+        profile.keys()  # Return the available variables
+        profile['temperature'] # Return the temperature sensor as a
+          masked array
+        profile['timeS'] # Return the time in Seconds
+        profile.attributes # Return a dictionary with the file header
+    """
     def __init__(self, raw_text, defaults=None):
-        """
-        """
         self.raw_text = raw_text
         self.defaults = defaults
         self.attributes = {}
@@ -303,8 +320,23 @@ class CNV(object):
                 pass
 
 class fCNV(CNV):
-    """ The same CNV class, but the input is a filename
+    """ The same of CNV class, but the input is a filename
           instead of the straight text.
+
+        Input:
+            filename [String]: The path/filename to the CTD file.
+
+        Output:
+            This class responds as it was a dictionary of variables,
+              and each hash has a Masked Array.
+
+        Check out the doc of the class CNV for more details.
+
+        Ex.:
+        profile = fCNV("~/data/CTD.cnv")
+        profile.keys()  # Return the available variables
+        profile.attributes # Return a dictionary with the file header
+          masked array
     """
     def __init__(self, file, defaultsfile=None):
         f = open(file)
