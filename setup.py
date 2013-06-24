@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.3.3'
+version = '0.3.4'
 
 install_requires = [
     'numpy>=1.1',
@@ -27,7 +27,7 @@ setup(name='cnv',
         'Programming Language :: Python :: 2',
         'Topic :: Scientific/Engineering',
     ],
-    keywords='parser oceanography data CTD SeaBird',
+    keywords='oceanography ocean data CTD SeaBird hydrography parser',
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
     url='http://pycnv.castelao.net',
