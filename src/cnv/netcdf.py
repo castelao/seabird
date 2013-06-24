@@ -12,7 +12,12 @@ except:
     import pupynere
 
 def cnv2nc(data, filename):
-    """
+    """ Save a CNV() object into filename as a NetCDF
+
+        To save the CTD.cnv into a NetCDF, just run:
+
+        profile = cnv.fCNV("CTD.cnv")
+        cnv2nc(profile, "CTD.nc")
     """
     print "Saving netcdf output file: %s" % filename
 
