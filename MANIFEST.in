@@ -1,4 +1,4 @@
 include README.rst
 include NEWS.txt
-recursive-include src/cnv/rules *
+recursive-include src/seabird/rules *
 recursive-include bin cnvdump
