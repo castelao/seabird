@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.3.4'
+version = '0.4.0'
 
 install_requires = [
     'numpy>=1.1',
@@ -14,9 +14,9 @@ install_requires = [
 ]
 
 # Review, rething the classifiers
-setup(name='cnv',
+setup(name='seabird',
     version=version,
-    description="Parser for .cnv files, the Sea-Bird CTD data format.",
+    description="A non official package to handle the output of Sea-Bird's CTD.",
     long_description=README + '\n\n' + NEWS,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -41,7 +41,7 @@ setup(name='cnv',
     install_requires=install_requires,
     entry_points={
         'console_scripts':
-            ['cnv=cnv:main']
+            ['seabird=seabird:main']
     },
     platforms='any',
     scripts=["bin/cnvdump", "bin/cnv2nc"],

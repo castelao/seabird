@@ -1,5 +1,5 @@
-PyCNV
-==========================
+seabird
+=======
 
 This is a parser for Sea Bird CTD output files.
 
@@ -11,6 +11,9 @@ At this point my goal is to have an object with the attributes parsed from the
 header, and the data as Masked Arrays, so that the user don't need to loose
 time evaluating the version and details of that cnv, but have it in a
 standard pattern, ready to use.
+
+ATENTION, this is not an official package, so if you have trouble with it
+  do not contact Sea Bird to complain. 
 
 .. _`Sea Bird`: http://www.seabird.com/software/SBEDataProcforWindows.htm
 
@@ -64,7 +67,7 @@ In a python script, one can use like this:
 License
 -------
 
-``PyCNV`` is offered under the PSFL. I guess I need to put a link here?
+``seabird`` is offered under the PSFL. I guess I need to put a link here?
 
 Authors
 -------

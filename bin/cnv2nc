@@ -6,7 +6,7 @@ from optparse import OptionParser
 import netCDF4
 
 #import yaml
-from cnv import fCNV
+from seabird.cnv import fCNV
 
 # ==== Parsing the options on command line
 parser = OptionParser()
@@ -16,7 +16,7 @@ parser.add_option("-d", "--default", dest="defaultfilename",
 
 (options, args) = parser.parse_args()
 
-from cnv.netcdf import cnv2nc
+from seabird.netcdf import cnv2nc
 
 print "Reading from file: %s" % args[0]
 print "Saving netcdf output file: %s" % args[1]

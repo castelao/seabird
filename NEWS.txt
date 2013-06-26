@@ -1,10 +1,15 @@
-.. PyCNV is a parser for the CTD data format used by Sea-Bird
+.. seabird is a parser for the CTD data format used by Sea-Bird
 
 News
 ====
 
+0.4
+---
+
+* The oficial package name now is seabird. I realized that my goal here goes beyond to just parse the .cnv files, so the name seabird covers it better.
+
 0.3
-___
+---
 
 * cnv2nc, a script to convert the cnv into a netCDF file.
 

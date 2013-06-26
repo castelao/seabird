@@ -1,3 +1,3 @@
-from cnv import *
+#from cnv import *
 
 #__all__ = ['CNV', 'fCNV']

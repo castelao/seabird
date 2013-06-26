@@ -3,7 +3,7 @@
 from optparse import OptionParser
 
 #import yaml
-from cnv import fCNV
+from seabird.cnv import fCNV
 
 # ==== Parsing the options on command line
 parser = OptionParser()
