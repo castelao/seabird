@@ -16,6 +16,9 @@ parser.add_option("-d", "--default", dest="defaultfilename",
 
 (options, args) = parser.parse_args()
 
+if len(args)==1:
+    args.append(args[0].replace('.cnv','.nc'))
+
 from seabird.netcdf import cnv2nc
 
 print "Reading from file: %s" % args[0]
