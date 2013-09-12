@@ -319,6 +319,29 @@ class CNV(object):
         except:
                 pass
 
+    def as_DataFrame(self):
+        """ Return the data as a pandas.DataFrame
+
+            ATENTION, I should improve this.
+        """
+        try:
+            import pandas as pd
+        except:
+            print "I'm not able to import pandas"
+            return
+
+        output = {}
+        for k in self.keys():
+            tmp = self[k].data
+            tmp[self[k].mask] = np.nan
+            output[k] = tmp
+        output = pd.DataFrame(output)
+        output['latitude'] = self.attributes['latitude']
+        output['longitude'] = self.attributes['longitude']
+
+        return output
+
+
 class fCNV(CNV):
     """ The same of CNV class, but the input is a filename
           instead of the straight text.
