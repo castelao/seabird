@@ -66,6 +66,8 @@ class CNV(object):
         self.load_data()
         self.products()
 
+        self.check_consistency()
+
 
     def keys(self):
         """ Return the available keys in self.data
@@ -340,6 +342,27 @@ class CNV(object):
         output['longitude'] = self.attributes['longitude']
 
         return output
+
+    def check_consistency(self):
+        """ Some consistency checks
+
+            Check if the dataset is consistent with the info from the
+              header.
+
+            Might be a good idea to move these tests outside the
+              class.
+        """
+
+        nquan = int(self.attributes['nquan'])
+        if nquan >= len(self.keys()):
+            print "It was supposed to has %s variables."  %(nquan)
+
+        nvalues = int(self.attributes['nvalues'])
+        for k in self.keys():
+            if len(self[k]) != nvalues:
+                print "%s was supposed to has %s values, but found only %s." % (k, nvalues, len(self[k]))
+
+
 
 
 class fCNV(CNV):
