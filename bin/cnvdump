@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+""" Dump the .cnv content as text
+
+    Doesn't matter the version of the .cnv, this command will
+      show it's content in a unified pattern, as an ASCII text.
+"""
 
 from optparse import OptionParser
 
