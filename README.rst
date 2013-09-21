@@ -28,7 +28,7 @@ The variables names were based on the `pcmdi standard name table`
 
 If PyCNV don't work with your .cnv files, send me a sample (just one .cnv) and I'll fix to run it. The SeaBird changed the format several times along the time, so I need to see what do you have, to adjust PyCNV to work with it.
 
-.. _`PyCNV Wiki`: http://pycnv.castelao.net
+.. _`PyCNV Wiki`: http://seabird.castelao.net
 .. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
 .. _`pcmdi standard name table`: http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/19/cf-standard-name-table.html
 
@@ -37,7 +37,7 @@ Quick howto use
 
 To install:
 
-    pip install pycnv
+    pip install seabird
 
 
 One way to use is running on the shell the cnvdump. Independent of the historical version of the cnv file, it will return a default structure: 
@@ -52,7 +52,7 @@ To convert a .cnv to a NetCDF, run:
 
 In a python script, one can use like this:
 
-    from cnv import fCNV
+    from seabird.cnv import fCNV
 
     profile = fCNV('your_file.cnv')
 
