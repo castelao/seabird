@@ -255,6 +255,9 @@ class CNV(object):
                     dref = dref.days*24*60*60+dref.seconds
                 timeS = self['timeQ'] - dref
 
+            else:
+                return
+
             self.data.append(timeS)
             self.data[-1].attributes = {'name': 'timeS'}
             self.ids.append(len(self.data))
