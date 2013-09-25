@@ -3,6 +3,11 @@
 News
 ====
 
+0.4.4
+-----
+
+* Carolina Nobre pointed that there are some .cnv files without any time variable, i.e. no timeS, timeJ or timeQ. The CNV() will not fail anymore if lacks a time record.
+
 0.4
 ---
 
