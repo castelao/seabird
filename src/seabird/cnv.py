@@ -363,7 +363,7 @@ class CNV(object):
         nvalues = int(self.attributes['nvalues'])
         for k in self.keys():
             if len(self[k]) != nvalues:
-                print "%s was supposed to has %s values, but found only %s." % (k, nvalues, len(self[k]))
+                print "\033[91m%s was supposed to has %s values, but found only %s.\033[0m"  % (k, nvalues, len(self[k]))
 
 
 
