@@ -6,7 +6,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.4.4'
+version = '0.4.5'
 
 install_requires = [
     'numpy>=1.1',
@@ -30,8 +30,8 @@ setup(name='seabird',
     keywords='oceanography ocean data CTD SeaBird hydrography parser',
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
-    url='http://pycnv.castelao.net',
-    download_url='http://pypi.python.org/packages/source/c/cnv/cnv-'+version+'.tar.gz',
+    url='http://seabird.castelao.net',
+    download_url='http://https://pypi.python.org/packages/source/s/seabird/seabird-'+version+'.tar.gz',
     #download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-'+version'+.tar.gz?raw=true',
     license='PSF',
     packages=find_packages('src'),
