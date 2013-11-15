@@ -21,6 +21,7 @@ from numpy import ma
 
 from UserDict import UserDict
 
+
 class CNV(object):
     """ Main class to parse the .cnv style content
 
@@ -68,7 +69,6 @@ class CNV(object):
 
         self.check_consistency()
 
-
     def keys(self):
         """ Return the available keys in self.data
         """
@@ -78,7 +78,7 @@ class CNV(object):
         """ Return the key array from self.data
         """
         for d in self.data:
-            if d.attributes['name']==key:
+            if d.attributes['name'] == key:
                 return d
         raise KeyError('%s not found' % key)
 
@@ -91,7 +91,7 @@ class CNV(object):
         rules_dir = 'rules'
         rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
         for rule_file in rule_files:
-            text = pkg_resources.resource_string(__name__, 
+            text = pkg_resources.resource_string(__name__,
                     os.path.join(rules_dir, rule_file))
             rule = yaml.load(text)
             # Should I load using codec, for UTF8?? Do I need it?
@@ -100,7 +100,7 @@ class CNV(object):
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
-                print "Using rules from: ",rule_file
+                print "Using rules from: ", rule_file
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
@@ -160,9 +160,9 @@ class CNV(object):
             self.data[-1].attributes = {
                     'id': (x.groupdict()['id']),
                     'name': name,
-                    'longname': x.groupdict()['longname']
+                    'longname': x.groupdict()['longname'],
                     }
-        attrib_text = pattern.sub('',attrib_text)
+        attrib_text = pattern.sub('', attrib_text)
 
         # ---- Load span limits on each list item
         pattern = re.compile(self.rule['fieldspan'], re.VERBOSE)
@@ -170,7 +170,7 @@ class CNV(object):
             i = self.ids.index(int(x.groupdict()['id']))
             self.data[i].attributes['span'] = \
                 [x.groupdict()['valuemin'].strip(), x.groupdict()['valuemax'].strip()]
-        attrib_text = pattern.sub('',attrib_text)
+        attrib_text = pattern.sub('', attrib_text)
 
     def load_data(self):
         """
@@ -185,14 +185,14 @@ class CNV(object):
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
         data = ma.masked_values(
                 np.array(
-                    [d.split() for d in \
-                    self.raw_data()['data'].split('\r\n')[:-1]]
-                    , dtype = np.float), 
+                    [d.split() for d in
+                    self.raw_data()['data'].split('\r\n')[:-1]],
+                    dtype=np.float),
                 float(self.attributes['bad_flag']))
         # Talvez usar o np.fromstring(data, sep=" ")
         for i in self.ids:
             attributes = self.data[i].attributes
-            self.data[i] = data[:,i]
+            self.data[i] = data[:, i]
             self.data[i].attributes = attributes
 
             #ma.masked_all(int(self.attributes['nvalues']))
@@ -210,7 +210,7 @@ class CNV(object):
               For now, I'll use the just the incremental time. At
               some point I defined the datetime before, so what
               matters now is the increment.
-              If I have the timeQ, I must have a NMEA (Time), and 
+              If I have the timeQ, I must have a NMEA (Time), and
               Wait a minute, the NMEA Time is probably when the
               header is opened, not necessarily when the rossette was
               switched on. I'll just follow Eric for now.
@@ -225,7 +225,7 @@ class CNV(object):
                 #        - timedelta(days=1) \
                 #        - self.attributes['datetime']
                 #dJ0 = datetime(dref.year,1,1)
-                timeS = ma.masked_all(self['timeJ'].shape, 
+                timeS = ma.masked_all(self['timeJ'].shape,
                         self['timeJ'].dtype)
                 timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
@@ -235,23 +235,23 @@ class CNV(object):
                 except:
                     D = [timedelta(days=t) for t in self['timeJ'][ind]-j0]
                     #D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
-                    timeS[ind] = ma.array( [d.days*24*60*60+d.seconds-t0 for d in D])
+                    timeS[ind] = ma.array([d.days*24*60*60+d.seconds-t0 for d in D])
             elif ('timeQ' in self.keys()):
                 #yref = self.attributes['datetime'].year - \
                 #        int(self['timeQ'].min()/86400./365.25
                 #dref = datetime(yref,1,1)
                 #timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
 
-                timeS = ma.masked_all(self['timeQ'].shape, 
+                timeS = ma.masked_all(self['timeQ'].shape,
                         self['timeQ'].dtype)
                 timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeQ']))[0]
                 try:
-                    dref = ( self.attributes['datetime'] - \
-                        datetime(2000,1,1)).total_seconds()
+                    dref = (self.attributes['datetime'] -
+                        datetime(2000, 1, 1)).total_seconds()
                 except:
-                    dref = ( self.attributes['datetime'] - \
-                        datetime(2000,1,1))
+                    dref = (self.attributes['datetime'] -
+                        datetime(2000, 1, 1))
                     dref = dref.days*24*60*60+dref.seconds
                 timeS = self['timeQ'] - dref
 
@@ -261,7 +261,6 @@ class CNV(object):
             self.data.append(timeS)
             self.data[-1].attributes = {'name': 'timeS'}
             self.ids.append(len(self.data))
-
 
     def get_datetime(self):
         """ Extract the reference date and time
@@ -273,7 +272,7 @@ class CNV(object):
         #   after.
         # It's probably not the best solution.
         self.attributes['datetime'] = datetime.strptime(
-                self.attributes['start_time'][:20],'%b %d %Y %H:%M:%S')
+                self.attributes['start_time'][:20], '%b %d %Y %H:%M:%S')
 
     def get_location(self):
         """ Extract the station location (Lat, Lon)
@@ -299,7 +298,7 @@ class CNV(object):
                 #self.attributes['lat_deg'] = lat_deg
                 #self.attributes['lat_min'] = lat_min
                 self.attributes['latitude'] = lat_deg + lat_min/60.
-                if lat['hemisphere'] in ['S','s']:
+                if lat['hemisphere'] in ['S', 's']:
                     self.attributes['latitude'] = -1*self.attributes['latitude']
         except:
                 pass
@@ -319,7 +318,7 @@ class CNV(object):
                 #self.attributes['lon_deg'] = lon_deg
                 #self.attributes['lon_min'] = lon_min
                 self.attributes['longitude'] = lon_deg + lon_min/60.
-                if lon['hemisphere'] in ['W','w']:
+                if lon['hemisphere'] in ['W', 'w']:
                     self.attributes['longitude'] = -1*self.attributes['longitude']
         except:
                 pass
@@ -358,14 +357,12 @@ class CNV(object):
 
         nquan = int(self.attributes['nquan'])
         if nquan >= len(self.keys()):
-            print "It was supposed to has %s variables."  %(nquan)
+            print "It was supposed to has %s variables." % (nquan)
 
         nvalues = int(self.attributes['nvalues'])
         for k in self.keys():
             if len(self[k]) != nvalues:
-                print "\033[91m%s was supposed to has %s values, but found only %s.\033[0m"  % (k, nvalues, len(self[k]))
-
-
+                print "\033[91m%s was supposed to has %s values, but found only %s.\033[0m" % (k, nvalues, len(self[k]))
 
 
 class fCNV(CNV):
@@ -414,7 +411,7 @@ def press2depth(press, latitude):
 
         ATENTION, move it to fluid.
     """
-    x = np.sin( (np.pi/180) * latitude / 57.29578)**2
-    g = 9.780318 * ( 1.0 + ( 5.2788e-3  + 2.36e-5 * x) * x ) + 1.092e-6 * press
+    x = np.sin((np.pi/180) * latitude / 57.29578)**2
+    g = 9.780318 * (1.0 + (5.2788e-3 + 2.36e-5 * x) * x) + 1.092e-6 * press
     depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) * press + 9.72659) * press) / g
     return depth
