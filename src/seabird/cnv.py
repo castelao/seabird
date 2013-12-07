@@ -48,6 +48,8 @@ class CNV(object):
         self.attributes = {}
         # ----
         self.load_rule()
+        if not hasattr(self, 'parsed'):
+            return
         self.get_intro()
         self.get_attributes()
         self.prepare_data()
