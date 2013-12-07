@@ -90,6 +90,7 @@ class CNV(object):
         """
         rules_dir = 'rules'
         rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
+        rule_files = [f for f in rule_files if re.search('cnv.*yaml', f)]
         for rule_file in rule_files:
             text = pkg_resources.resource_string(__name__,
                     os.path.join(rules_dir, rule_file))
