@@ -107,6 +107,7 @@ class CNV(object):
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
+        print "There are no rules able to parse this file"
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
