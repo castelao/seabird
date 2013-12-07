@@ -1,5 +1,6 @@
 header: |
     (?P<intro>
+        \*\ Sea-Bird\ SBE\ .*\s+
         (
             \*\ .*\n  # Antything starting with *
         )+
