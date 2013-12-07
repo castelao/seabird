@@ -292,7 +292,7 @@ class CNV(object):
                 lat = re.search(self.rule['latitude'],
                         self.attributes['latitude'],
                         re.VERBOSE).groupdict()
-        else:
+        elif 'notes' in self.raw_header().keys():
                 lat = re.search(self.rule['latitude'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
@@ -311,7 +311,7 @@ class CNV(object):
                 lon = re.search(self.rule['longitude'],
                         self.attributes['longitude'],
                         re.VERBOSE).groupdict()
-        else:
+        elif 'notes' in self.raw_header().keys():
                 lon = re.search(self.rule['longitude'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
