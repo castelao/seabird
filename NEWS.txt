@@ -3,6 +3,12 @@
 News
 ====
 
+0.5.1
+-----
+
+* Testing structure
+* Some minor improvements in the core.
+
 0.4.4
 -----
 
