@@ -358,9 +358,8 @@ class CNV(object):
             Might be a good idea to move these tests outside the
               class.
         """
-
         nquan = int(self.attributes['nquan'])
-        if nquan >= len(self.keys()):
+        if nquan != len(self.keys()):
             print "It was supposed to has %s variables." % (nquan)
 
         nvalues = int(self.attributes['nvalues'])
