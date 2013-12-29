@@ -1,6 +1,6 @@
 header: |
     (?P<intro>
-        \*\ Sea-Bird\ SBE\ .*\s+
+        \*\ Sea-Bird\ SBE.*\s+
         (
             \*\ .*\n  # Antything starting with *
         )+
@@ -16,6 +16,7 @@ header: |
         (
             \*\ .*\n  # Antything starting with *
         )*
+    \s*
     (?P<descriptors>
         (
             \#.*\n  # Antything
