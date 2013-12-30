@@ -66,5 +66,4 @@ License
 Authors
 -------
 
-Guilherme Castelão <guilherme@castelao.net>
-Luiz Irber <luiz.irber@gmail.com>
+Guilherme Castelão <guilherme@castelao.net> and Luiz Irber <luiz.irber@gmail.com>
