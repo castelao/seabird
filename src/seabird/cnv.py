@@ -187,11 +187,11 @@ class CNV(object):
               anyways, and the check alerts me that it is missing data.
         """
         #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
+        data_rows = re.sub('(\r\n\s*)+\r\n', '\r\n',
+                self.raw_data()['data']).split('\r\n')[:-1]
         data = ma.masked_values(
                 np.array(
-                    [d.split() for d in
-                    self.raw_data()['data'].split('\r\n')[:-1]],
-                    dtype=np.float),
+                    [d.split() for d in data_rows], dtype=np.float),
                 float(self.attributes['bad_flag']))
         # Talvez usar o np.fromstring(data, sep=" ")
         for i in self.ids:
