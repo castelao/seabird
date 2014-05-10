@@ -101,7 +101,7 @@ class CNV(object):
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
-                print "Using rules from: ", rule_file
+                print("Using rules from: %s" % rule_file)
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
@@ -333,7 +333,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            print "I'm not able to import pandas"
+            print("I'm not able to import pandas")
             return
 
         output = {}
@@ -358,12 +358,12 @@ class CNV(object):
         """
         nquan = int(self.attributes['nquan'])
         if nquan != len(self.keys()):
-            print "It was supposed to has %s variables." % (nquan)
+            print("It was supposed to has %s variables." % (nquan))
 
         nvalues = int(self.attributes['nvalues'])
         for k in self.keys():
             if len(self[k]) != nvalues:
-                print "\033[91m%s was supposed to has %s values, but found only %s.\033[0m" % (k, nvalues, len(self[k]))
+                print("\033[91m%s was supposed to has %s values, but found only %s.\033[0m" % (k, nvalues, len(self[k])))
 
 
 class fCNV(CNV):

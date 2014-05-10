@@ -16,7 +16,7 @@ def load_rules():
     rule_files = pkg_resources.resource_listdir(seabird.__name__, rules_dir)
     rule_files = [f for f in rule_files if re.match('^cnv.*yaml$', f)]
     for rule_file in rule_files:
-        print "loading rule: %s", (rule_file)
+        print("loading rule: %s", (rule_file))
         text = pkg_resources.resource_string(seabird.__name__,
                 os.path.join(rules_dir, rule_file))
         rule = yaml.load(text)
