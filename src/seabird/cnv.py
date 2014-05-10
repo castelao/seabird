@@ -386,6 +386,9 @@ class fCNV(CNV):
           masked array
     """
     def __init__(self, file, defaultsfile=None):
+
+        self.filename = file
+
         f = open(file)
         text = f.read()
         f.close()
