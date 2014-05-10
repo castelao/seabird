@@ -19,8 +19,6 @@ import yaml
 import numpy as np
 from numpy import ma
 
-from UserDict import UserDict
-
 
 class CNV(object):
     """ Main class to parse the .cnv style content
