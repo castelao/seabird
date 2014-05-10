@@ -12,5 +12,5 @@ def test_answer():
         """
         datadir = os.path.join(os.path.dirname(__file__), 'test_data')
         for f in glob(os.path.join(datadir, "*.cnv.OK")):
-            print "Loading file: %s" % f
+            print("Loading file: %s" % f)
             profile = cnv.fCNV(f)
