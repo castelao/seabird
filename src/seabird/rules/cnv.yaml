@@ -8,7 +8,7 @@ header: |
     (?P<notes>
         (
             \*\* .*\n  # Antything starting with *
-        )+
+        )*
     )
     # temporary solution just to run while I'm sailing
     # The notes not necessarily are after the intro, they
