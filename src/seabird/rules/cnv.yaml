@@ -100,19 +100,24 @@ fieldspan: |
 
 latitude: |
     # [LAT|LATITUDE]
+        (?:Latitude:?)?
+        \ *
     (?P<degree>\d{2})
-    \ 
-    (?P<minute>\d{2}.\d{2,3})
+    \ +
+    (?P<minute>\d{2}
+        [\.|\,]
+        \d{1,3})
     \ *
     (?P<hemisphere>[N|n|S|s])
-    #- "(\\d{2} \\d{2}\\.\\d{2}\\s+[sn])"
-    #- |
-    #    \d{2}\                  # Test
 
 longitude: |
-    # [LON|LONG|LONGITUDe]
-    (?P<degree>\d{3})
-    \ 
-    (?P<minute>\d{2}.\d{2,3})
+    # [LON|LONG|LONGITUDE]
+        (?:Latitude:?)?
+        \ *
+    (?P<degree>\d{2,3})
+    \ +
+    (?P<minute>\d{2}
+        [\.|\,]
+        \d{1,3})
     \ *
     (?P<hemisphere>[W|w|E|e])
