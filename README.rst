@@ -14,7 +14,7 @@ ATENTION, this is not an official package, so if you have trouble with this pack
 Support and Documentation
 -------------------------
 
-The documentation is available at `seabird.readthedocs.org`.
+The documentation is available at `seabird.readthedocs.org`_.
 
 The `Seasoft`_ manual might be the best reference for the format used.
 
