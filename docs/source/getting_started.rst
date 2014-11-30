@@ -2,6 +2,8 @@
 Getting Started with Seabird 
 ****************************
 
+Inside python
+=============
 
     >>> import seabird
 
@@ -9,11 +11,11 @@ Getting Started with Seabird
 
 In a python script, one can use like this::
 
-    >> from seabird.cnv import fCNV
-    >> profile = fCNV('your_file.cnv')
-    >> profile.attributes  # It will return the header, as a dictionary.
-    >> profile.keys() # It will list the available variables.
-    >> profile['temperature2'] # If temperature2 was on the .keys(), this is how you get the data. It will be a masked array.
+    >>> from seabird.cnv import fCNV
+    >>> profile = fCNV('your_file.cnv')
+    >>> profile.attributes  # It will return the header, as a dictionary.
+    >>> profile.keys() # It will list the available variables.
+    >>> profile['temperature2'] # If temperature2 was on the .keys(), this is how you get the data. It will be a masked array.
 
 
 From the terminal
@@ -25,5 +27,4 @@ One way to use is running on the shell the cnvdump. Independent of the historica
 
 To convert a .cnv to a NetCDF, run::
 
-    cnv2cdf your_file.cnv
-
+    cnv2nc your_file.cnv
