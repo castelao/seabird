@@ -18,7 +18,7 @@ The documentation is available at `seabird.readthedocs.org`_.
 
 The `Seasoft`_ manual might be the best reference for the format used.
 
-The variables names were based on the `pcmdi standard name table`
+The variables names were based on the `pcmdi standard name table`_
 
 If PyCNV don't work with your .cnv files, send me a sample (just one .cnv) and I'll fix to run it. The SeaBird changed the format several times along the time, so I need to see what do you have, to adjust PyCNV to work with it.
 
