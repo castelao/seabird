@@ -9,12 +9,12 @@ At this point my goal is to have an object with the attributes parsed from the h
 
 ATENTION, this is not an official package, so if you have trouble with this package, do not complain to Sea-Bird. 
 
-.. _`Sea Bird`: http://www.seabird.com/software/SBEDataProcforWindows.htm
+.. _`Sea Bird CTD`: http://www.seabird.com/software/SBEDataProcforWindows.htm
 
 Support and Documentation
 -------------------------
 
-See the `Seabird Wiki`_ to view documentation, report bugs, and obtain support.
+The documentation is available at `seabird.readthedocs.org`.
 
 The `Seasoft`_ manual might be the best reference for the format used.
 
@@ -22,7 +22,7 @@ The variables names were based on the `pcmdi standard name table`
 
 If PyCNV don't work with your .cnv files, send me a sample (just one .cnv) and I'll fix to run it. The SeaBird changed the format several times along the time, so I need to see what do you have, to adjust PyCNV to work with it.
 
-.. _`Seabird Wiki`: http://seabird.castelao.net
+.. _`seabird.readthedocs.org`: http://seabird.castelao.net
 .. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
 .. _`pcmdi standard name table`: http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/19/cf-standard-name-table.html
 
@@ -39,9 +39,9 @@ One way to use is running on the shell the cnvdump. Independent of the historica
     cnvdump your_file.cnv
 
 
-To convert a .cnv to a NetCDF, run:
+To convert a .cnv (CTD output) into a NetCDF file, run:
 
-    cnv2cdf your_file.cnv
+    cnv2nc your_file.cnv
 
 
 In a python script, one can use like this:
@@ -61,7 +61,7 @@ In a python script, one can use like this:
 License
 -------
 
-``seabird`` is offered under the PSFL. I guess I need to put a link here?
+``seabird`` is offered under the PSFL.
 
 Authors
 -------
