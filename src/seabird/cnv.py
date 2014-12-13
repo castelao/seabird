@@ -307,7 +307,7 @@ class CNV(object):
                 if lat['hemisphere'] in ['S', 's']:
                     self.attributes['latitude'] = -1*self.attributes['latitude']
         except:
-                pass
+            self.attributes['latitude'] = None
 
         if 'longitude' in self.attributes:
                 lon = re.search(self.rule['longitude'],
@@ -327,7 +327,7 @@ class CNV(object):
                 if lon['hemisphere'] in ['W', 'w']:
                     self.attributes['longitude'] = -1*self.attributes['longitude']
         except:
-                pass
+            self.attributes['longitude'] = None
 
     def as_DataFrame(self):
         """ Return the data as a pandas.DataFrame
