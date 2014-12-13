@@ -32,8 +32,8 @@ install_requires = [
 # Review, rething the classifiers
 setup(name='seabird',
     version=version,
-    description="A non official package to handle the output of Sea-Bird's CTD.",
-    long_description=README + '\n\n' + NEWS,
+    description="Non official package to handle the output of Sea-Bird's CTD.",
+    long_description=README,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
