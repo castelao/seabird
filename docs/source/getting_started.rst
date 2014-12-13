@@ -17,6 +17,11 @@ In a python script, one can use like this::
     >>> profile.keys() # It will list the available variables.
     >>> profile['temperature2'] # If temperature2 was on the .keys(), this is how you get the data. It will be a masked array.
 
+The data from a profile is hence treated as it was a dictionary of Masked Arrays. To plot it, one could::
+
+    >>> import matplotlib.pyplot as plt
+    >>> plt.plot(profile['depth'], profile['temperature'], '.')
+    >>> plt.show()
 
 From the terminal
 =================
