@@ -7,7 +7,7 @@ The `Sea Bird CTD`_ post processed data usually uses the .cnv extention. The pur
 
 At this point my goal is to have an object with the attributes parsed from the header, and the data as Masked Arrays, so that the user don't need to loose time evaluating the version and details of that cnv, but have it in a standard pattern, ready to use.
 
-ATENTION, this is not an official package, so if you have trouble with this package, do not complain to Sea-Bird. 
+ATENTION, this is not an official package, so if you have trouble with it, do not complain to Sea-Bird. Open an issue at GitHub (https://github.com/castelao/seabird/issues), and I'll try to help you.
 
 .. _`Sea Bird CTD`: http://www.seabird.com/software/SBEDataProcforWindows.htm
 
