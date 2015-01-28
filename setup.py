@@ -22,7 +22,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 NEWS = open(os.path.join(here, 'NEWS.txt')).read()
 
 
-version = '0.5.4'
+version = '0.5.5'
 
 install_requires = [
     'numpy>=1.1',
