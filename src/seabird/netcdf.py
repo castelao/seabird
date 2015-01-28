@@ -41,7 +41,12 @@ def cnv2nc(data, filename):
     cdf_variables = {}
     for k in data.keys():
         print k
-        cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
+        try:
+            cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
+        except:
+            cdf_variables[k] = nc.createVariable(k.decode('utf8', 'ignore'),
+                    'd', ('scan',))
+            print("\033[91mATENTION, I need to ignore the non UTF-8 characters in '%s' to create the netCDF file.\033[0m" % k)
         dir(cdf_variables[k])
         cdf_variables[k].missing_value = data[k].fill_value
         for a in data[k].attributes.keys():
