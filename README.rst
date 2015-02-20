@@ -57,6 +57,8 @@ In a python script, one can use like this:
     profile['temperature2'] # If temperature2 was on the .keys(), this is how you get the data. It will be a masked array.
 
 
+Check the example notebooks: http://nbviewer.ipython.org/github/castelao/seabird/tree/master/docs/notebooks/
+
 
 License
 -------
