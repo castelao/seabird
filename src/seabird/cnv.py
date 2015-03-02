@@ -289,6 +289,15 @@ class CNV(object):
 
             !! ATENTION!!! Might be a good idea to store lat,lon as floats
               with min. and sec. as fractions.
+
+            On some old format files, the notes where stored with single
+              * instead of **. One possible solution is if can't load from
+              notes, try to load from intro.
+
+            In the rules, it is set to use only . as separator for the
+              decimals of the minutes. Might be a good idea to allow \.|\,
+              but on that case I would need to substitute , by . for proper
+              load as a float.
         """
         if 'latitude' in self.attributes:
                 lat = re.search(self.rule['latitude'],
