@@ -19,6 +19,8 @@ import yaml
 import numpy as np
 from numpy import ma
 
+from seabird import CNVError
+
 
 class CNV(object):
     """ Main class to parse the .cnv style content
@@ -46,6 +48,7 @@ class CNV(object):
         self.attributes = {}
         # ----
         self.load_rule()
+
         if not hasattr(self, 'parsed'):
             return
         self.get_intro()
@@ -105,7 +108,10 @@ class CNV(object):
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
-        print "There are no rules able to parse this file"
+
+        # If haven't returned a rule by this point, raise an exception.
+        raise CNVError(tag='noparsingrule',
+                msg="There are no rules able to parse the file")
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
