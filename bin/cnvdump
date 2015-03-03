@@ -8,6 +8,7 @@
 from optparse import OptionParser
 
 #import yaml
+from seabird import CNVError
 from seabird.cnv import fCNV
 
 # ==== Parsing the options on command line
@@ -18,7 +19,14 @@ parser.add_option("-d", "--default", dest="defaultfilename",
 
 (options, args) = parser.parse_args()
 
-data = fCNV(args[0], options.defaultfilename)
+try:
+    data = fCNV(args[0], options.defaultfilename)
+except CNVError as e:
+    print("\033[91m%s\033[0m" % e.msg)
+    import sys; sys.exit()
+except:
+    raise
+
 print "file: %s" % args[0]
 print "Global attributes"
 A = data.attributes.keys(); A.sort()
