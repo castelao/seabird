@@ -110,8 +110,7 @@ class CNV(object):
                 return
 
         # If haven't returned a rule by this point, raise an exception.
-        raise CNVError(tag='noparsingrule',
-                msg="There are no rules able to parse the file")
+        raise CNVError(tag='noparsingrule')
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
@@ -429,9 +428,15 @@ class fCNV(CNV):
             f = open(defaultsfile)
             defaults = yaml.load(f.read())
             f.close()
-            super(fCNV, self).__init__(text, defaults)
         else:
-            super(fCNV, self).__init__(text)
+            defaults = None
+
+        try:
+            super(fCNV, self).__init__(text, defaults)
+        except CNVError as e:
+            if e.tag == 'noparsingrule':
+                e.msg += " File: %s" % self.filename
+            raise
 
         self.name = 'fCNV'
         self.attributes['filename'] = os.path.basename(file)
