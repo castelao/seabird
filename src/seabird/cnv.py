@@ -305,11 +305,17 @@ class CNV(object):
               but on that case I would need to substitute , by . for proper
               load as a float.
         """
-        if 'latitude' in self.attributes:
+        if ('latitude' in self.attributes) and \
+                (re.search(self.rule['latitude'],
+                    self.attributes['latitude'],
+                    re.VERBOSE)):
                 lat = re.search(self.rule['latitude'],
                         self.attributes['latitude'],
                         re.VERBOSE).groupdict()
-        elif 'notes' in self.raw_header().keys():
+        elif ('notes' in self.raw_header().keys()) and \
+                re.search(self.rule['latitude'],
+                        self.raw_header()['notes'],
+                        re.VERBOSE):
                 lat = re.search(self.rule['latitude'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
@@ -324,11 +330,17 @@ class CNV(object):
         except:
             self.attributes['latitude'] = None
 
-        if 'longitude' in self.attributes:
+        if ('longitude' in self.attributes) and \
+                (re.search(self.rule['longitude'],
+                        self.attributes['longitude'],
+                        re.VERBOSE)):
                 lon = re.search(self.rule['longitude'],
                         self.attributes['longitude'],
                         re.VERBOSE).groupdict()
-        elif 'notes' in self.raw_header().keys():
+        elif ('notes' in self.raw_header().keys()) and \
+                (re.search(self.rule['longitude'],
+                        self.raw_header()['notes'],
+                        re.VERBOSE)):
                 lon = re.search(self.rule['longitude'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
