@@ -3,7 +3,7 @@ Overview
 ********
 
 Seabird is a popular brand of sensors used for hydrographic measurements around the world, and that means most of the historical CTD data. 
-These are usually made available as ASCII files, containing the data itself and plenty of fundamental metadata as position, date, calibration coefficients and many more. 
+These hydrographic profiles are usually available as ASCII files, containing the data itself and plenty of fundamental metadata as position, date, calibration coefficients and many more. 
 It is not hard for a human to interpret it, but its format have been changing, and so it is a problem for a machine.
 
 While working with several years of CTD data from the project PIRATA, I realized that the first problem is to just be able to properly read all the data. 

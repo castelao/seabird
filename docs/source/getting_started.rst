@@ -42,3 +42,10 @@ One could list all the latitudes of each CTD cast like::
 To convert a .cnv to a standard NetCDF, run::
 
     cnv2nc your_file.cnv
+
+More examples
+=============
+
+I keep a notebooks collection of `practical examples handling CTD data <http://nbviewer.ipython.org/github/castelao/seabird/tree/master/docs/notebooks/>`_
+. 
+If you have any suggestion, please let me know.
