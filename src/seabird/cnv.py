@@ -20,6 +20,7 @@ import numpy as np
 from numpy import ma
 
 from seabird import CNVError
+from seabird.utils import basic_logger
 
 
 class CNV(object):
@@ -42,7 +43,9 @@ class CNV(object):
         profile['timeS'] # Return the time in Seconds
         profile.attributes # Return a dictionary with the file header
     """
-    def __init__(self, raw_text, defaults=None):
+    def __init__(self, raw_text, defaults=None, logger=None):
+        self.logger = basic_logger(logger)
+
         self.raw_text = raw_text
         self.defaults = defaults
         self.attributes = {}
@@ -104,12 +107,13 @@ class CNV(object):
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
-                print("Using rules from: %s" % rule_file)
+                self.logger.debug("Using rules from: %s" % rule_file)
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
 
         # If haven't returned a rule by this point, raise an exception.
+        self.logger.error("No rules able to parse it")
         raise CNVError(tag='noparsingrule')
 
     def raw_header(self):
@@ -386,14 +390,18 @@ class CNV(object):
             Might be a good idea to move these tests outside the
               class.
         """
+        # Check if the number of variables is equal to nquan
         nquan = int(self.attributes['nquan'])
         if nquan != len(self.keys()):
-            print("It was supposed to has %s variables." % (nquan))
+            self.logger.warn("It was supposed to has %s variables." % (nquan))
 
+        # Check if each variable have nvalues
         nvalues = int(self.attributes['nvalues'])
         for k in self.keys():
             if len(self[k]) != nvalues:
-                print("\033[91m%s was supposed to has %s values, but found only %s.\033[0m" % (k, nvalues, len(self[k])))
+                self.logger.warn(
+                        "\033[91m%s was supposed to has %s values, but found only %s.\033[0m" %
+                        (k, nvalues, len(self[k])))
 
 
 class fCNV(CNV):
@@ -415,9 +423,12 @@ class fCNV(CNV):
         profile.attributes # Return a dictionary with the file header
           masked array
     """
-    def __init__(self, file, defaultsfile=None):
+    def __init__(self, file, defaultsfile=None, logger=None):
+
+        self.logger = basic_logger(logger)
 
         self.filename = file
+        self.logger.debug("Openning the file: %s" % self.filename)
 
         f = open(file)
         text = f.read()
@@ -432,7 +443,7 @@ class fCNV(CNV):
             defaults = None
 
         try:
-            super(fCNV, self).__init__(text, defaults)
+            super(fCNV, self).__init__(text, defaults, logger=self.logger)
         except CNVError as e:
             if e.tag == 'noparsingrule':
                 e.msg += " File: %s" % self.filename
