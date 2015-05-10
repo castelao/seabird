@@ -42,7 +42,8 @@ class CNV(object):
         profile['timeS'] # Return the time in Seconds
         profile.attributes # Return a dictionary with the file header
     """
-    def __init__(self, raw_text, defaults=None):
+    def __init__(self, raw_text, defaults=None, verbose=True):
+        self.verbose = verbose
         self.raw_text = raw_text
         self.defaults = defaults
         self.attributes = {}
@@ -104,7 +105,8 @@ class CNV(object):
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
-                print("Using rules from: %s" % rule_file)
+                if self.verbose is True:
+                    print("Using rules from: %s" % rule_file)
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
@@ -415,7 +417,7 @@ class fCNV(CNV):
         profile.attributes # Return a dictionary with the file header
           masked array
     """
-    def __init__(self, file, defaultsfile=None):
+    def __init__(self, file, defaultsfile=None, verbose=True):
 
         self.filename = file
 
@@ -432,7 +434,7 @@ class fCNV(CNV):
             defaults = None
 
         try:
-            super(fCNV, self).__init__(text, defaults)
+            super(fCNV, self).__init__(text, defaults, verbose=verbose)
         except CNVError as e:
             if e.tag == 'noparsingrule':
                 e.msg += " File: %s" % self.filename
