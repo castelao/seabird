@@ -2,6 +2,11 @@
 
 News
 ====
+0.5.9
+-----
+
+* New attributes, sbe_model and instrument_type.
+* Sorry, lost track of updates.
 
 0.5.3
 -----
