@@ -1,6 +1,6 @@
 header: |
     (?P<intro>
-        \*\ Sea-Bird\ SBE.*\s+
+        \*\ Sea-Bird\ SBE\ .*\ Data\ File:\r?\n
         (
             \*\ .*\n  # Antything starting with *
         )+
@@ -48,6 +48,8 @@ data: |
 
 # First section of the header
 intro:
+    sbe_model:
+       \*\ Sea-Bird\ SBE\ +(?P<value>\d.*)\ Data\ File:\r?\n
     latitude: |
         \*\ NMEA\ Latitude\ =\ (?P<value>.*?)\r?\n
     longitude: |
