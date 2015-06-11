@@ -132,6 +132,11 @@ class CNV(object):
             if pattern.search(self.parsed['intro']):
                 self.attributes[k] = pattern.search(self.parsed['intro']).groupdict()['value']
                 self.parsed['intro'] = pattern.sub('', self.parsed['intro'], count=1)
+        if 'sbe_model' in self.attributes:
+            if self.attributes['sbe_model'] in [9, '19plus V2']:
+                self.attributes['instrument_type'] = 'CTD'
+            elif self.attributes['sbe_model'] in [21, 45]:
+                self.attributes['instrument_type'] = 'TSG'
 
     def get_attributes(self):
         """
