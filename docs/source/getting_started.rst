@@ -39,6 +39,15 @@ One could list all the latitudes of each CTD cast like::
     do cnvdump $file | grep latitude
     done
 
+Now let's get that list ordered by the latitude::
+
+    for file in `find ./cruise1 -iname '*.cnv'`
+    do
+        echo -n  `cnvdump $file | grep latitude`
+        echo -n " "
+        echo $file
+    done | sort -n > mylist.txt
+
 To convert a .cnv to a standard NetCDF, run::
 
     cnv2nc your_file.cnv
