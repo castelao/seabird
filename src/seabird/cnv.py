@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import re
 import pkg_resources
 import os
+import logging
 
 try:
     import hashlib
@@ -21,6 +22,7 @@ from numpy import ma
 
 from seabird import CNVError
 from seabird.utils import basic_logger
+logging.basicConfig(level=logging.DEBUG)
 
 
 class CNV(object):
@@ -44,7 +46,8 @@ class CNV(object):
         profile.attributes # Return a dictionary with the file header
     """
     def __init__(self, raw_text, defaults=None, logger=None):
-        self.logger = basic_logger(logger)
+
+        self.logger = logger or logging.getLogger(__name__)
 
         self.raw_text = raw_text
         self.defaults = defaults
@@ -425,10 +428,10 @@ class fCNV(CNV):
     """
     def __init__(self, file, defaultsfile=None, logger=None):
 
-        self.logger = basic_logger(logger)
+        self.logger = logger or logging.getLogger(__name__)
+        self.logger.debug("Openning file: %s" % file)
 
         self.filename = file
-        self.logger.debug("Openning the file: %s" % self.filename)
 
         f = open(file)
         text = f.read()
