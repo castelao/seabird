@@ -370,7 +370,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            print("I'm not able to import pandas")
+            self.logger.warn("I'm not able to import pandas")
             return
 
         output = {}
