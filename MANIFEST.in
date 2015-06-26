@@ -1,4 +1,10 @@
 include README.rst
 include NEWS.txt
+include requirements.txt
+
 recursive-include src/seabird/rules *
 recursive-include bin cnvdump
+
+recursive-include tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
