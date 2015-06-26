@@ -1,5 +1,17 @@
-seabird
 =======
+Seabird
+=======
+
+.. image:: https://readthedocs.org/projects/seabird/badge/?version=latest
+   :target: https://readthedocs.org/projects/seabird/?badge=latest
+      :alt: Documentation Status
+
+.. image:: https://img.shields.io/travis/castelao/seabird.svg
+        :target: https://travis-ci.org/castelao/seabird
+
+.. image:: https://img.shields.io/pypi/v/seabird.svg
+        :target: https://pypi.python.org/pypi/seabird
+
 
 This is a parser for Sea Bird CTD output files.
 
@@ -18,13 +30,10 @@ The documentation is available at `seabird.readthedocs.org`_.
 
 The `Seasoft`_ manual might be the best reference for the format used.
 
-The variables names were based on the `pcmdi standard name table`_
-
 If PySeabird doesn't work with your .cnv files, send me a sample (just one .cnv) and I'll fix to run it. The SeaBird changed the format several times along the time, so I need to see what do you have, to adjust PySeabird to work with it.
 
 .. _`seabird.readthedocs.org`: http://seabird.readthedocs.org
 .. _`Seasoft`: http://www.seabird.com/pdf_documents/manuals/Seasoft_4.249Rev05-02.pdf
-.. _`pcmdi standard name table`: http://cf-pcmdi.llnl.gov/documents/cf-standard-names/standard-name-table/19/cf-standard-name-table.html
 
 Quick howto use
 ---------------
