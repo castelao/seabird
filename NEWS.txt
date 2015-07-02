@@ -1,7 +1,8 @@
-.. seabird is a parser for the CTD data format used by Sea-Bird
+.. :changelog:
 
-News
-====
+History
+-------
+
 0.5.9
 -----
 
@@ -74,7 +75,7 @@ News
 0.1.1
 -----
 
-* Rules are now inside the packag, and loaded with pkg_resources.
+* Rules are now inside the package, and loaded with pkg_resources.
 
 0.1
 ---
