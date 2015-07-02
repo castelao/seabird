@@ -33,7 +33,11 @@ setup(
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
     url='http://seabird.castelao.net',
-    packages=find_packages('src'),
+    packages=[
+        'seabird',
+    ],
+    package_dir={'seabird':
+                 'seabird'},
     include_package_data=True,
     install_requires=install_requires,
     license='PSF',
@@ -52,7 +56,6 @@ setup(
     ],
     download_url='https://pypi.python.org/packages/source/s/seabird/seabird-'+version+'.tar.gz',
     #download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-'+version'+.tar.gz?raw=true',
-    package_dir = {'': 'src'},
     entry_points={
         'console_scripts':
             ['seabird=seabird:main']
