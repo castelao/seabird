@@ -14,7 +14,6 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-
 version = '0.5.10'
 
 install_requires = [
@@ -55,7 +54,6 @@ setup(
         'Topic :: Scientific/Engineering',
     ],
     download_url='https://pypi.python.org/packages/source/s/seabird/seabird-'+version+'.tar.gz',
-    #download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-'+version'+.tar.gz?raw=true',
     entry_points={
         'console_scripts':
             ['seabird=seabird:main']
