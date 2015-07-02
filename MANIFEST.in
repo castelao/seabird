@@ -1,10 +1,14 @@
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include HISTORY.rst
+include LICENSE
 include README.rst
-include NEWS.txt
-include requirements.txt
-
-recursive-include src/seabird/rules *
-recursive-include bin cnvdump
 
 recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+
+recursive-include docs *.rst conf.py Makefile make.bat
+
+recursive-include src/seabird/rules *
+recursive-include bin *
