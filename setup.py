@@ -22,7 +22,9 @@ install_requires = [
     'PyYAML',
 ]
 
-# Review, rething the classifiers
+test_requirements = [
+]
+
 setup(
     name='seabird',
     version=version,
@@ -60,4 +62,6 @@ setup(
     },
     platforms='any',
     scripts=["bin/cnvdump", "bin/cnv2nc"],
+    test_suite='tests',
+    tests_require=test_requirements
 )
