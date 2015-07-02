@@ -1,7 +1,13 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
-import sys, os
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
+from setuptools import find_packages
 
 
 with open('README.rst') as readme_file:
@@ -19,10 +25,20 @@ install_requires = [
 ]
 
 # Review, rething the classifiers
-setup(name='seabird',
+setup(
+    name='seabird',
     version=version,
-    description="Non official package to handle the output of Sea-Bird's CTD.",
+    description="Non official parser for Sea-Bird's sensors.",
     long_description=readme + '\n\n' + history,
+    author='Guilherme Castelao , Luiz Irber',
+    author_email='guilherme@castelao.net, luiz.irber@gmail.com',
+    url='http://seabird.castelao.net',
+    packages=find_packages('src'),
+    include_package_data=True,
+    install_requires=install_requires,
+    license='PSF',
+    zip_safe=False,
+    keywords='oceanography ocean data CTD SeaBird hydrography parser',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
@@ -34,18 +50,9 @@ setup(name='seabird',
         'Programming Language :: Python :: 2.7',
         'Topic :: Scientific/Engineering',
     ],
-    keywords='oceanography ocean data CTD SeaBird hydrography parser',
-    author='Guilherme Castelao , Luiz Irber',
-    author_email='guilherme@castelao.net, luiz.irber@gmail.com',
-    url='http://seabird.castelao.net',
     download_url='https://pypi.python.org/packages/source/s/seabird/seabird-'+version+'.tar.gz',
     #download_url='https://github.com/castelao/pycnv/blob/master/dist/cnv-'+version'+.tar.gz?raw=true',
-    license='PSF',
-    packages=find_packages('src'),
     package_dir = {'': 'src'},
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=install_requires,
     entry_points={
         'console_scripts':
             ['seabird=seabird:main']
