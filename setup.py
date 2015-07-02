@@ -17,9 +17,11 @@ class PyTest(TestCommand):
         sys.exit(errno)
 # ============================================================================
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.rst')).read()
-NEWS = open(os.path.join(here, 'NEWS.txt')).read()
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+    history = history_file.read().replace('.. :changelog:', '')
 
 
 version = '0.5.10'
@@ -33,7 +35,7 @@ install_requires = [
 setup(name='seabird',
     version=version,
     description="Non official package to handle the output of Sea-Bird's CTD.",
-    long_description=README,
+    long_description=readme + '\n\n' + history,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
