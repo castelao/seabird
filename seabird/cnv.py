@@ -19,7 +19,7 @@ import yaml
 import numpy as np
 from numpy import ma
 
-from seabird import CNVError
+from seabird.exceptions import CNVError
 from seabird.utils import basic_logger
 logging.basicConfig(level=logging.DEBUG)
 

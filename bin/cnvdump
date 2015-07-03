@@ -8,7 +8,7 @@
 from optparse import OptionParser
 
 #import yaml
-from seabird import CNVError
+from seabird.exceptions import CNVError
 from seabird.cnv import fCNV
 
 # ==== Parsing the options on command line
