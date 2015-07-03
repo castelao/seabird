@@ -3,6 +3,14 @@
 History
 -------
 
+0.6.0
+-----
+
+* CF vocabulary for variables names (PRES, TEMP, PSAL, LONGITUDE ...)
+* Reorganizing the package. Removed src, and added several supporting files.
+* Moving CNVError into seabird.exceptions
+* Updated status for Production.
+
 0.5.9
 -----
 
