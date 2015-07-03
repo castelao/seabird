@@ -50,9 +50,9 @@ data: |
 intro:
     sbe_model:
        \*\ Sea-Bird\ SBE\ +(?P<value>\d.*)\ Data\ File:\r?\n
-    latitude: |
+    LATITUDE: |
         \*\ NMEA\ Latitude\ =\ (?P<value>.*?)\r?\n
-    longitude: |
+    LONGITUDE: |
         \*\ NMEA\ Longitude\ =\ (?P<value>.*?)\r?\n
     gps_datetime: |
         \*\ NMEA\ UTC\ \(Time\)\ =\ (?P<value>.*?)\r?\n
@@ -100,7 +100,7 @@ fieldname: |
 fieldspan: |
   \#\ span\ (?P<id>\d+)\ =\ (?P<valuemin>.*),\ (?P<valuemax>.*)\r\s
 
-latitude: |
+LATITUDE: |
     # [LAT|LATITUDE]
         (?:Latitude:?)?
         \ *
@@ -112,7 +112,7 @@ latitude: |
     \ *
     (?P<hemisphere>[N|n|S|s])
 
-longitude: |
+LONGITUDE: |
     # [LON|LONG|LONGITUDE]
         (?:Latitude:?)?
         \ *

@@ -315,18 +315,18 @@ class CNV(object):
               but on that case I would need to substitute , by . for proper
               load as a float.
         """
-        if ('latitude' in self.attributes) and \
-                (re.search(self.rule['latitude'],
-                    self.attributes['latitude'],
+        if ('LATITUDE' in self.attributes) and \
+                (re.search(self.rule['LATITUDE'],
+                    self.attributes['LATITUDE'],
                     re.VERBOSE)):
-                lat = re.search(self.rule['latitude'],
-                        self.attributes['latitude'],
+                lat = re.search(self.rule['LATITUDE'],
+                        self.attributes['LATITUDE'],
                         re.VERBOSE).groupdict()
         elif ('notes' in self.raw_header().keys()) and \
-                re.search(self.rule['latitude'],
+                re.search(self.rule['LATITUDE'],
                         self.raw_header()['notes'],
                         re.VERBOSE):
-                lat = re.search(self.rule['latitude'],
+                lat = re.search(self.rule['LATITUDE'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
         try:
@@ -334,24 +334,24 @@ class CNV(object):
                 lat_min = float(lat['minute'])
                 #self.attributes['lat_deg'] = lat_deg
                 #self.attributes['lat_min'] = lat_min
-                self.attributes['latitude'] = lat_deg + lat_min/60.
+                self.attributes['LATITUDE'] = lat_deg + lat_min/60.
                 if lat['hemisphere'] in ['S', 's']:
-                    self.attributes['latitude'] = -1*self.attributes['latitude']
+                    self.attributes['LATITUDE'] = -1*self.attributes['LATITUDE']
         except:
-            self.attributes['latitude'] = None
+            self.attributes['LATITUDE'] = None
 
-        if ('longitude' in self.attributes) and \
-                (re.search(self.rule['longitude'],
-                        self.attributes['longitude'],
+        if ('LONGITUDE' in self.attributes) and \
+                (re.search(self.rule['LONGITUDE'],
+                        self.attributes['LONGITUDE'],
                         re.VERBOSE)):
-                lon = re.search(self.rule['longitude'],
-                        self.attributes['longitude'],
+                lon = re.search(self.rule['LONGITUDE'],
+                        self.attributes['LONGITUDE'],
                         re.VERBOSE).groupdict()
         elif ('notes' in self.raw_header().keys()) and \
-                (re.search(self.rule['longitude'],
+                (re.search(self.rule['LONGITUDE'],
                         self.raw_header()['notes'],
                         re.VERBOSE)):
-                lon = re.search(self.rule['longitude'],
+                lon = re.search(self.rule['LONGITUDE'],
                         self.raw_header()['notes'],
                         re.VERBOSE).groupdict()
 
@@ -360,11 +360,11 @@ class CNV(object):
                 lon_min = float(lon['minute'])
                 #self.attributes['lon_deg'] = lon_deg
                 #self.attributes['lon_min'] = lon_min
-                self.attributes['longitude'] = lon_deg + lon_min/60.
+                self.attributes['LONGITUDE'] = lon_deg + lon_min/60.
                 if lon['hemisphere'] in ['W', 'w']:
-                    self.attributes['longitude'] = -1*self.attributes['longitude']
+                    self.attributes['LONGITUDE'] = -1*self.attributes['LONGITUDE']
         except:
-            self.attributes['longitude'] = None
+            self.attributes['LONGITUDE'] = None
 
     def as_DataFrame(self):
         """ Return the data as a pandas.DataFrame
@@ -383,8 +383,8 @@ class CNV(object):
             tmp[self[k].mask] = np.nan
             output[k] = tmp
         output = pd.DataFrame(output)
-        output['latitude'] = self.attributes['latitude']
-        output['longitude'] = self.attributes['longitude']
+        output['LATITUDE'] = self.attributes['LATITUDE']
+        output['LONGITUDE'] = self.attributes['LONGITUDE']
 
         return output
 
