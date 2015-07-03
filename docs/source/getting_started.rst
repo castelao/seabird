@@ -15,12 +15,12 @@ In a python script, one can use like this::
     >>> profile = fCNV('your_file.cnv')
     >>> profile.attributes  # It will return the header, as a dictionary.
     >>> profile.keys() # It will list the available variables.
-    >>> profile['temperature2'] # If temperature2 was on the .keys(), this is how you get the data. It will be a masked array.
+    >>> profile['TEMP2'] # If TEMP2 was on the .keys(), this is how you get the data. It will be a masked array.
 
 The data from a profile is hence treated as it was a dictionary of Masked Arrays. To plot it, one could::
 
     >>> import matplotlib.pyplot as plt
-    >>> plt.plot(profile['depth'], profile['temperature'], '.')
+    >>> plt.plot(profile['depth'], profile['TEMP'], '.')
     >>> plt.show()
 
 From the terminal
