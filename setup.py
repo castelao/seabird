@@ -14,7 +14,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-version = '0.5.10'
+version = '0.6.0'
 
 install_requires = [
     'numpy>=1.1',
@@ -43,7 +43,7 @@ setup(
     zip_safe=False,
     keywords='oceanography ocean data CTD SeaBird hydrography parser',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Python Software Foundation License',
         'Operating System :: OS Independent',
