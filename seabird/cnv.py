@@ -20,7 +20,7 @@ import numpy as np
 from numpy import ma
 
 from seabird.exceptions import CNVError
-from seabird.utils import basic_logger
+#from seabird.utils import basic_logger
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -46,7 +46,7 @@ class CNV(object):
     """
     def __init__(self, raw_text, defaults=None, logger=None):
 
-        self.logger = logger or logging.getLogger(__name__)
+        logging.getLogger(logger or __name__)
 
         self.raw_text = raw_text
         self.defaults = defaults
@@ -109,13 +109,13 @@ class CNV(object):
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
-                self.logger.debug("Using rules from: %s" % rule_file)
+                logging.debug("Using rules from: %s" % rule_file)
                 self.rule = rule
                 self.parsed = content_re.search(self.raw_text).groupdict()
                 return
 
         # If haven't returned a rule by this point, raise an exception.
-        self.logger.error("No rules able to parse it")
+        logging.error("No rules able to parse it")
         raise CNVError(tag='noparsingrule')
 
     def raw_header(self):
@@ -374,7 +374,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            self.logger.warn("I'm not able to import pandas")
+            logging.warn("I'm not able to import pandas")
             return
 
         output = {}
@@ -400,13 +400,13 @@ class CNV(object):
         # Check if the number of variables is equal to nquan
         nquan = int(self.attributes['nquan'])
         if nquan != len(self.keys()):
-            self.logger.warn("It was supposed to has %s variables." % (nquan))
+            logging.warn("It was supposed to has %s variables." % (nquan))
 
         # Check if each variable have nvalues
         nvalues = int(self.attributes['nvalues'])
         for k in self.keys():
             if len(self[k]) != nvalues:
-                self.logger.warn(
+                logging.warn(
                         "\033[91m%s was supposed to has %s values, but found only %s.\033[0m" %
                         (k, nvalues, len(self[k])))
 
@@ -432,8 +432,9 @@ class fCNV(CNV):
     """
     def __init__(self, file, defaultsfile=None, logger=None):
 
-        self.logger = logger or logging.getLogger(__name__)
-        self.logger.debug("Openning file: %s" % file)
+        #self.logger = logger or logging.getLogger(__name__)
+        logging.getLogger(logger or __name__)
+        logging.debug("Openning file: %s" % filename)
 
         self.filename = file
 
@@ -450,7 +451,7 @@ class fCNV(CNV):
             defaults = None
 
         try:
-            super(fCNV, self).__init__(text, defaults, logger=self.logger)
+            super(fCNV, self).__init__(text, defaults, logger=logger)
         except CNVError as e:
             if e.tag == 'noparsingrule':
                 e.msg += " File: %s" % self.filename
