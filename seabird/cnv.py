@@ -430,15 +430,15 @@ class fCNV(CNV):
         profile.attributes # Return a dictionary with the file header
           masked array
     """
-    def __init__(self, file, defaultsfile=None, logger=None):
+    def __init__(self, filename, defaultsfile=None, logger=None):
 
         #self.logger = logger or logging.getLogger(__name__)
         logging.getLogger(logger or __name__)
         logging.debug("Openning file: %s" % filename)
 
-        self.filename = file
+        self.filename = filename
 
-        f = open(file)
+        f = open(filename)
         text = f.read()
         f.close()
 
@@ -458,7 +458,7 @@ class fCNV(CNV):
             raise
 
         self.name = 'fCNV'
-        self.attributes['filename'] = os.path.basename(file)
+        self.attributes['filename'] = os.path.basename(filename)
 
     def load_defaults(self, defaultsfile):
         pass
