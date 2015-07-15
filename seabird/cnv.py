@@ -14,7 +14,7 @@ except ImportError:
     import md5
     md5 = md5.new
 
-import codecs
+#import codecs
 import yaml
 import numpy as np
 from numpy import ma
