@@ -14,7 +14,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-version = '0.6.0'
+version = '0.6.1'
 
 install_requires = [
     'numpy>=1.1',
