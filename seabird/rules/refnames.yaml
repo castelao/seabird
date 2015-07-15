@@ -1,6 +1,9 @@
 #timeS: {name: time, units: "days since 1950-01-01T00:00:00Z"}
 timeS: {name: timeS, units: "seconds"}
 
+latitude: {name: LATITUDE, units: "degrees"}
+longitude: {name: LONGITUDE, units: "degrees"}
+
 prDM: {name: PRES, long_name: sea_water_pressure}
 
 depSM: {name: DEPTH, long_name: depth}
