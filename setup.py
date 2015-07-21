@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Licensed under a 3-clause BSD style license - see LICENSE.rst
 
 
 try:
@@ -39,13 +40,13 @@ setup(
                  'seabird'},
     include_package_data=True,
     install_requires=install_requires,
-    license='PSF',
+    license='3-clause BSD',
     zip_safe=False,
     keywords='oceanography ocean data CTD SeaBird hydrography parser',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: Python Software Foundation License',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
