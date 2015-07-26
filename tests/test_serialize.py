@@ -11,7 +11,7 @@ import pickle
 
 import numpy as np
 
-from seabird import cnv
+from seabird.cnv import fCNV
 
 
 def test_serialize_CNV():
@@ -19,7 +19,7 @@ def test_serialize_CNV():
         """
         datadir = os.path.join(os.path.dirname(__file__), 'test_data')
         for f in glob(os.path.join(datadir, "*.cnv.OK")):
-            profile = cnv.CNV(open(f).read())
+            profile = fCNV(f)
             profile2 = pickle.loads(pickle.dumps(profile))
             assert profile.attributes == profile2.attributes
             assert (profile.data == profile.data)
@@ -30,7 +30,7 @@ def test_serialize_fCNV():
         """
         datadir = os.path.join(os.path.dirname(__file__), 'test_data')
         for f in glob(os.path.join(datadir, "*.cnv.OK")):
-            profile = cnv.fCNV(f)
+            profile = fCNV(f)
             profile2 = pickle.loads(pickle.dumps(profile))
             assert profile.attributes == profile2.attributes
             assert (profile.data == profile.data)
