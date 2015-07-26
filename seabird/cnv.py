@@ -203,9 +203,9 @@ class CNV(object):
             There is a problem here. This atol is just a temporary solution,
               but it's not the proper way to handle it.
         """
-        #data = ma.masked_values([d.split() for d in self.raw_data()['data'].split('\r\n')[:-1]],  float(self.attributes['bad_flag']))
-        data_rows = re.sub('(\r\n\s*)+\r\n', '\r\n',
-                self.raw_data()['data']).split('\r\n')[:-1]
+        data_rows = re.sub('(\n\s*)+\n', '\n',
+                re.sub('\r\n', '\n', self.raw_data()['data'])
+                ).split('\n')[:-1]
         data = ma.masked_values(
                 np.array(
                     [d.split() for d in data_rows], dtype=np.float),
