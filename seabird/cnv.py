@@ -153,7 +153,11 @@ class CNV(object):
                 self.parsed['descriptors'] = \
                     pattern.sub('', self.parsed['descriptors'], count=1)
         # ----
-        self.attributes['md5'] = md5(self.raw_text).hexdigest()
+        # Temporary solution. Failsafe MD5
+        try:
+            self.attributes['md5'] = md5(self.raw_text.encode('utf-8')).hexdigest()
+        except:
+            logging.warn('Sorry, I couldn\'t create the MD5 hash')
 
     def prepare_data(self):
         """
