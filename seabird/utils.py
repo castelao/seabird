@@ -10,9 +10,10 @@ def make_file_list(inputdir, inputpattern=".*\.cnv"):
     for dirpath, dirnames, filenames in os.walk(inputdir):
         for filename in filenames:
             if re.match(inputpattern, filename):
-                inputfiles.append(os.path.join(dirpath,filename))
+                inputfiles.append(os.path.join(dirpath, filename))
     inputfiles.sort()
     return inputfiles
+
 
 def basic_logger(logger=None):
     if logger is not None:
@@ -36,5 +37,3 @@ def basic_logger(logger=None):
         logger.addHandler(ch)
 
     return logger
-
-
