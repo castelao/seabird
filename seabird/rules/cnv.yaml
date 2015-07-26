@@ -1,6 +1,6 @@
 header: |
     (?P<intro>
-        \*\ Sea-Bird\ SBE\ .*\ Data\ File:\r?\n
+        \*\ Sea-Bird\ SBE\ ?.*\ Data\ File:\r?\n
         (
             \*\ .*\n  # Antything starting with *
         )+
