@@ -442,7 +442,11 @@ class fCNV(CNV):
 
         self.filename = filename
 
-        f = open(filename)
+        try:
+            # Python 3 requires this.
+            f = open(filename, "r", encoding="utf-8", errors="replace")
+        except:
+            f = open(filename, "r")
         text = f.read()
         f.close()
 
