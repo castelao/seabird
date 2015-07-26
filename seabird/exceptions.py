@@ -10,3 +10,6 @@ class CNVError(Exception):
             self.msg = msg
         elif tag == 'noparsingrule':
             self.msg = "There are no rules able to parse the input."
+
+    def __str__(self):
+        return repr(self.msg)
