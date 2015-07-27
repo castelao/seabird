@@ -2,6 +2,9 @@
 Seabird
 =======
 
+.. image:: https://zenodo.org/badge/4645/castelao/seabird.svg
+   :target: https://zenodo.org/badge/latestdoi/4645/castelao/seabird
+
 .. image:: https://readthedocs.org/projects/seabird/badge/?version=latest
    :target: https://readthedocs.org/projects/seabird/?badge=latest
       :alt: Documentation Status
