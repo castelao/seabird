@@ -75,7 +75,7 @@ Check the example notebooks: http://nbviewer.ipython.org/github/castelao/seabird
 License
 -------
 
-``seabird`` is offered under the PSFL.
+``seabird`` is licensed under a 3-clause BSD style license - see LICENSE.rst
 
 Authors
 -------
