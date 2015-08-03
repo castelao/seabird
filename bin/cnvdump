@@ -27,14 +27,13 @@ except CNVError as e:
 except:
     raise
 
-print "file: %s" % args[0]
-print "Global attributes"
-A = data.attributes.keys(); A.sort()
-for a in A:
-    print "\t\033[93m%s\033[0m: %s" % (a, data.attributes[a])
+print("file: %s" % args[0])
+print("Global attributes")
+for a in sorted(data.attributes.keys()):
+    print("\t\033[93m%s\033[0m: %s" % (a, data.attributes[a]))
 
-print "\nVariabes"
+print("\nVariabes")
 for k in data.keys():
-    print "\033[91m%s\033[0m" % k
+    print("\033[91m%s\033[0m" % k)
     for a in data[k].attributes.keys():
-        print "\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a])
+        print("\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a]))
