@@ -157,7 +157,10 @@ class CNV(object):
         try:
             self.attributes['md5'] = md5(self.raw_text.encode('utf-8')).hexdigest()
         except:
-            logging.warn('Sorry, I couldn\'t create the MD5 hash')
+            self.attributes['md5'] = md5(
+                    self.raw_text.decode('latin1', 'replace'
+                        ).encode('utf-8')
+                    ).hexdigest()
 
     def prepare_data(self):
         """
