@@ -104,9 +104,9 @@ LATITUDE: |
     # [LAT|LATITUDE]
         (?:Latitude:?)?
         \ *
-    (?P<degree>\d{2})
+    (?P<degree>\d{1,2})
     \ +
-    (?P<minute>\d{2}
+    (?P<minute>\d{1,2}
         [\.|\,]
         \d{1,3})
     \ *
@@ -116,9 +116,9 @@ LONGITUDE: |
     # [LON|LONG|LONGITUDE]
         (?:Latitude:?)?
         \ *
-    (?P<degree>\d{2,3})
+    (?P<degree>\d{1,3})
     \ +
-    (?P<minute>\d{2}
+    (?P<minute>\d{1,2}
         [\.|\,]
         \d{1,3})
     \ *
