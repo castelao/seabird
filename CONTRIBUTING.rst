@@ -62,33 +62,55 @@ Ready to contribute? Here's how to set up `seabird` for local development.
 
     $ git clone git@github.com:your_name_here/seabird.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Create working environment. There are different options here. I've been using conda, but before I used virtualenv without problems. Pick yours:
 
-    $ mkvirtualenv seabird
-    $ cd seabird/
-    $ python setup.py develop
+   a. Using Conda (assuming you already have it installed)
 
-4. Create a branch for local development::
+        I. Python 2::
+
+            $ conda create --name seabird python=2
+
+        II. Or, Python 3::
+
+            $ conda create --name seabird python=3
+
+        Activate your conda environment, and take advantage of conda::
+
+            $ source activate seabird
+            $ conda install -n seabird numpy PyYAML pytest flake8
+
+    b. Or, using virtualenv::
+
+        $ mkvirtualenv seabird
+        $ pip install flake8
+
+4. Install seabird for your local development, and check if it looks fine::
+
+   $ cd seabird/
+   $ python setup.py develop
+   $ py.test tests
+
+5. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
+6. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox::
 
     $ flake8 seabird tests
-    $ python setup.py test
+    $ py.test tests
     $ tox
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+   To get tox, just pip install them into your virtualenv.
 
-6. Commit your changes and push your branch to GitHub::
+7. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
