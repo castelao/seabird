@@ -28,7 +28,7 @@ test_requirements = [
 setup(
     name='seabird',
     version=version,
-    description="Non official parser for Sea-Bird's sensors.",
+    description="Parser for Sea-Bird's CTD and TSG.",
     long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
@@ -42,7 +42,7 @@ setup(
     install_requires=install_requires,
     license='3-clause BSD',
     zip_safe=False,
-    keywords='oceanography ocean data CTD SeaBird hydrography parser',
+    keywords='oceanography ocean data CTD TSG SeaBird hydrography parser',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Science/Research',
