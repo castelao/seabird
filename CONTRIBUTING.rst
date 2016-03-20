@@ -82,7 +82,7 @@ Ready to contribute? Here's how to set up `seabird` for local development.
     b. Or, using virtualenv::
 
         $ mkvirtualenv seabird
-        $ pip install flake8
+        $ pip install pytest flake8
 
 4. Install seabird for your local development, and check if it looks fine::
 
@@ -100,17 +100,20 @@ Ready to contribute? Here's how to set up `seabird` for local development.
 
     $ flake8 seabird tests
     $ py.test tests
+
+7. Tox is a nice solution to test with multiple versions of Python::
+
     $ tox
 
-   To get tox, just pip install them into your virtualenv.
+   To get tox, just pip install them into your virtualenv. You might have trouble to have it working with conda.
 
-7. Commit your changes and push your branch to GitHub::
+8. Commit your changes and push your branch to GitHub::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-8. Submit a pull request through the GitHub website.
+9. Submit a pull request through the GitHub website.
 
 Pull Request Guidelines
 -----------------------
