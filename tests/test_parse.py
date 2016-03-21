@@ -10,6 +10,7 @@ from glob import glob
 
 from seabird import cnv
 
+
 def test_answer():
         """ Load different .cnv versions with fCNV
         """

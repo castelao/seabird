@@ -10,7 +10,8 @@ import re
 import yaml
 import seabird
 
-def load_rules():
+
+def test_load_available_rules():
     """ Try to read all rules with yaml
 
         https://github.com/castelao/seabird/issues/7
@@ -20,11 +21,9 @@ def load_rules():
     rule_files = [f for f in rule_files if re.match('^cnv.*yaml$', f)]
     for rule_file in rule_files:
         print("loading rule: %s", (rule_file))
-        text = pkg_resources.resource_string(seabird.__name__,
+        text = pkg_resources.resource_string(
+                seabird.__name__,
                 os.path.join(rules_dir, rule_file))
         rule = yaml.load(text)
         assert type(rule) == dict
         assert len(rule.keys()) > 0
-
-def test_answer():
-    assert load_rules() == None

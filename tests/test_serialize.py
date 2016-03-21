@@ -9,8 +9,6 @@ import os
 from glob import glob
 import pickle
 
-import numpy as np
-
 from seabird.cnv import fCNV
 
 
