@@ -14,13 +14,13 @@ except ImportError:
     import md5
     md5 = md5.new
 
-#import codecs
+# import codecs
 import yaml
 import numpy as np
 from numpy import ma
 
 from seabird.exceptions import CNVError
-#from seabird.utils import basic_logger
+# from seabird.utils import basic_logger
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -100,12 +100,12 @@ class CNV(object):
         rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
         rule_files = [f for f in rule_files if re.match('^cnv.*yaml$', f)]
         for rule_file in rule_files:
-            text = pkg_resources.resource_string(__name__,
-                    os.path.join(rules_dir, rule_file))
+            text = pkg_resources.resource_string(
+                    __name__, os.path.join(rules_dir, rule_file))
             rule = yaml.load(text)
             # Should I load using codec, for UTF8?? Do I need it?
-            #f = codecs.open(rule_file, 'r', 'utf-8')
-            #rule = yaml.load(f.read())
+            # f = codecs.open(rule_file, 'r', 'utf-8')
+            # rule = yaml.load(f.read())
             r = rule['header'] + rule['sep'] + rule['data']
             content_re = re.compile(r, re.VERBOSE)
             if re.search(r, self.raw_text, re.VERBOSE):
@@ -134,8 +134,11 @@ class CNV(object):
         for k in self.rule['intro'].keys():
             pattern = re.compile(self.rule['intro'][k], re.VERBOSE)
             if pattern.search(self.parsed['intro']):
-                self.attributes[k] = pattern.search(self.parsed['intro']).groupdict()['value']
-                self.parsed['intro'] = pattern.sub('', self.parsed['intro'], count=1)
+                self.attributes[k] = pattern.search(
+                        self.parsed['intro']
+                        ).groupdict()['value']
+                self.parsed['intro'] = pattern.sub(
+                        '', self.parsed['intro'], count=1)
         if 'sbe_model' in self.attributes:
             if self.attributes['sbe_model'] in ['9', '17', '19plus V2']:
                 self.attributes['instrument_type'] = 'CTD'
@@ -148,17 +151,21 @@ class CNV(object):
         for k in self.rule['descriptors'].keys():
             pattern = re.compile(self.rule['descriptors'][k], re.VERBOSE)
             if pattern.search(self.parsed['descriptors']):
-                self.attributes[k] = \
-                    pattern.search(self.parsed['descriptors']).groupdict()['value']
+                self.attributes[k] = pattern.search(
+                            self.parsed['descriptors']
+                            ).groupdict()['value']
                 self.parsed['descriptors'] = \
                     pattern.sub('', self.parsed['descriptors'], count=1)
         # ----
         # Temporary solution. Failsafe MD5
         try:
-            self.attributes['md5'] = md5(self.raw_text.encode('utf-8')).hexdigest()
+            self.attributes['md5'] = md5(
+                    self.raw_text.encode('utf-8')
+                    ).hexdigest()
         except:
             self.attributes['md5'] = md5(
-                    self.raw_text.decode('latin1', 'replace'
+                    self.raw_text.decode(
+                        'latin1', 'replace'
                         ).encode('utf-8')
                     ).hexdigest()
 
@@ -193,8 +200,9 @@ class CNV(object):
         pattern = re.compile(self.rule['fieldspan'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
             i = self.ids.index(int(x.groupdict()['id']))
-            self.data[i].attributes['span'] = \
-                [x.groupdict()['valuemin'].strip(), x.groupdict()['valuemax'].strip()]
+            self.data[i].attributes['span'] = [
+                    x.groupdict()['valuemin'].strip(),
+                    x.groupdict()['valuemax'].strip()]
         attrib_text = pattern.sub('', attrib_text)
 
     def load_data(self):
@@ -210,21 +218,22 @@ class CNV(object):
             There is a problem here. This atol is just a temporary solution,
               but it's not the proper way to handle it.
         """
-        data_rows = re.sub('(\n\s*)+\n', '\n',
+        data_rows = re.sub(
+                '(\n\s*)+\n', '\n',
                 re.sub('\r\n', '\n', self.raw_data()['data'])
                 ).split('\n')[:-1]
         data = ma.masked_values(
                 np.array(
                     [d.split() for d in data_rows], dtype=np.float),
                 float(self.attributes['bad_flag']),
-                atol = 1e-30)
+                atol=1e-30)
         # Talvez usar o np.fromstring(data, sep=" ")
         for i in self.ids:
             attributes = self.data[i].attributes
             self.data[i] = data[:, i]
             self.data[i].attributes = attributes
 
-            #ma.masked_all(int(self.attributes['nvalues']))
+            # ma.masked_all(int(self.attributes['nvalues']))
 
     def products(self):
         """
@@ -250,37 +259,42 @@ class CNV(object):
                 t0 = self.attributes['datetime'].time()
                 t0 = (t0.hour*60+t0.minute)*60+t0.second
                 # I need to subtract one day, but I'm not so sure why should I.
-                #dref = datetime(self.attributes['datetime'].year,1,1) \
+                # dref = datetime(self.attributes['datetime'].year,1,1) \
                 #        - timedelta(days=1) \
                 #        - self.attributes['datetime']
-                #dJ0 = datetime(dref.year,1,1)
-                timeS = ma.masked_all(self['timeJ'].shape,
-                        self['timeJ'].dtype)
+                # dJ0 = datetime(dref.year,1,1)
+                timeS = ma.masked_all(
+                        self['timeJ'].shape, self['timeJ'].dtype)
                 timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeJ']))[0]
                 try:
-                    timeS[ind] = ma.array([timedelta(days=t).total_seconds()-t0 for t in self['timeJ'][ind]-j0])
-                    #ma.array( [(dref + timedelta(float(d))).total_seconds() for d in self['timeJ'][ind]])
+                    timeS[ind] = ma.array([
+                        timedelta(days=t).total_seconds() - t0
+                        for t in self['timeJ'][ind]-j0])
+                    # ma.array( [(dref + timedelta(float(d))).total_seconds()
+                    #   for d in self['timeJ'][ind]])
                 except:
                     D = [timedelta(days=t) for t in self['timeJ'][ind]-j0]
-                    #D = [(dref + timedelta(float(d))) for d in self['timeJ'][ind]]
-                    timeS[ind] = ma.array([d.days*24*60*60+d.seconds-t0 for d in D])
+                    # D = [(dref + timedelta(float(d)))
+                    #   for d in self['timeJ'][ind]]
+                    timeS[ind] = ma.array([
+                        d.days * 86400 + d.seconds - t0 for d in D])
             elif ('timeQ' in self.keys()):
-                #yref = self.attributes['datetime'].year - \
+                # yref = self.attributes['datetime'].year - \
                 #        int(self['timeQ'].min()/86400./365.25
-                #dref = datetime(yref,1,1)
-                #timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
+                # dref = datetime(yref,1,1)
+                # timeS[ind] = self['timeQ'][ind] - self['timeQ'].min()
 
-                timeS = ma.masked_all(self['timeQ'].shape,
-                        self['timeQ'].dtype)
+                timeS = ma.masked_all(
+                        self['timeQ'].shape, self['timeQ'].dtype)
                 timeS.set_fill_value(float(self.attributes['bad_flag']))
                 ind = np.nonzero(~ma.getmaskarray(self['timeQ']))[0]
                 try:
                     dref = (self.attributes['datetime'] -
-                        datetime(2000, 1, 1)).total_seconds()
+                            datetime(2000, 1, 1)).total_seconds()
                 except:
                     dref = (self.attributes['datetime'] -
-                        datetime(2000, 1, 1))
+                            datetime(2000, 1, 1))
                     dref = dref.days*24*60*60+dref.seconds
                 timeS = self['timeQ'] - dref
 
@@ -296,7 +310,7 @@ class CNV(object):
 
             !!! ATENTION, better move it to a rule in the rules.
         """
-        #datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
+        # datetime.strptime('Aug 28 2008 12:33:46','%b %d %Y %H:%M:%S')
         # Needed to include an :21, because some cases has a [bla bla]
         #   after.
         # It's probably not the best solution.
@@ -324,54 +338,57 @@ class CNV(object):
         """
         if ('LATITUDE' in self.attributes) and \
                 (re.search(self.rule['LATITUDE'],
-                    self.attributes['LATITUDE'],
-                    re.VERBOSE)):
+                           self.attributes['LATITUDE'],
+                           re.VERBOSE)):
                 lat = re.search(self.rule['LATITUDE'],
-                        self.attributes['LATITUDE'],
-                        re.VERBOSE).groupdict()
+                                self.attributes['LATITUDE'],
+                                re.VERBOSE).groupdict()
         elif ('notes' in self.raw_header().keys()) and \
                 re.search(self.rule['LATITUDE'],
-                        self.raw_header()['notes'],
-                        re.VERBOSE):
+                          self.raw_header()['notes'],
+                          re.VERBOSE):
                 lat = re.search(self.rule['LATITUDE'],
-                        self.raw_header()['notes'],
-                        re.VERBOSE).groupdict()
+                                self.raw_header()['notes'],
+                                re.VERBOSE).groupdict()
         try:
                 lat_deg = int(lat['degree'])
                 lat_min = float(lat['minute'])
-                #self.attributes['lat_deg'] = lat_deg
-                #self.attributes['lat_min'] = lat_min
+                # self.attributes['lat_deg'] = lat_deg
+                # self.attributes['lat_min'] = lat_min
                 self.attributes['LATITUDE'] = lat_deg + lat_min/60.
                 if lat['hemisphere'] in ['S', 's']:
-                    self.attributes['LATITUDE'] = -1*self.attributes['LATITUDE']
+                    self.attributes['LATITUDE'] = -self.attributes['LATITUDE']
         except:
-            self.attributes['LATITUDE'] = None
+            pass
+            # self.attributes['LATITUDE'] = None
 
         if ('LONGITUDE' in self.attributes) and \
                 (re.search(self.rule['LONGITUDE'],
-                        self.attributes['LONGITUDE'],
-                        re.VERBOSE)):
+                           self.attributes['LONGITUDE'],
+                           re.VERBOSE)):
                 lon = re.search(self.rule['LONGITUDE'],
-                        self.attributes['LONGITUDE'],
-                        re.VERBOSE).groupdict()
+                                self.attributes['LONGITUDE'],
+                                re.VERBOSE).groupdict()
         elif ('notes' in self.raw_header().keys()) and \
                 (re.search(self.rule['LONGITUDE'],
-                        self.raw_header()['notes'],
-                        re.VERBOSE)):
+                           self.raw_header()['notes'],
+                           re.VERBOSE)):
                 lon = re.search(self.rule['LONGITUDE'],
-                        self.raw_header()['notes'],
-                        re.VERBOSE).groupdict()
+                                self.raw_header()['notes'],
+                                re.VERBOSE).groupdict()
 
         try:
                 lon_deg = int(lon['degree'])
                 lon_min = float(lon['minute'])
-                #self.attributes['lon_deg'] = lon_deg
-                #self.attributes['lon_min'] = lon_min
+                # self.attributes['lon_deg'] = lon_deg
+                # self.attributes['lon_min'] = lon_min
                 self.attributes['LONGITUDE'] = lon_deg + lon_min/60.
                 if lon['hemisphere'] in ['W', 'w']:
-                    self.attributes['LONGITUDE'] = -1*self.attributes['LONGITUDE']
+                    self.attributes['LONGITUDE'] = \
+                            -self.attributes['LONGITUDE']
         except:
-            self.attributes['LONGITUDE'] = None
+            pass
+            # self.attributes['LONGITUDE'] = None
 
     def as_DataFrame(self):
         """ Return the data as a pandas.DataFrame
@@ -439,7 +456,7 @@ class fCNV(CNV):
     """
     def __init__(self, filename, defaultsfile=None, logger=None):
 
-        #self.logger = logger or logging.getLogger(__name__)
+        # self.logger = logger or logging.getLogger(__name__)
         logging.getLogger(logger or __name__)
         logging.debug("Openning file: %s" % filename)
 
@@ -483,5 +500,6 @@ def press2depth(press, latitude):
     """
     x = np.sin((np.pi/180) * latitude / 57.29578)**2
     g = 9.780318 * (1.0 + (5.2788e-3 + 2.36e-5 * x) * x) + 1.092e-6 * press
-    depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) * press + 9.72659) * press) / g
+    depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) *
+               press + 9.72659) * press) / g
     return depth
