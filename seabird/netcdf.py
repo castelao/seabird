@@ -28,8 +28,9 @@ def cnv2nc(data, filename):
 
     nc.DATE_CREATION = datetime.now().strftime("%Y%m%s%H%M%S")
 
-    #print "Global attributes"
-    A = data.attributes.keys(); A.sort()
+    # print "Global attributes"
+    A = data.attributes.keys()
+    A.sort()
     for a in A:
         try:
             nc.__setattr__(a, data.attributes[a])
@@ -45,13 +46,13 @@ def cnv2nc(data, filename):
         try:
             cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
         except:
-            cdf_variables[k] = nc.createVariable(k.decode('utf8', 'ignore'),
-                    'd', ('scan',))
+            cdf_variables[k] = nc.createVariable(
+                    k.decode('utf8', 'ignore'), 'd', ('scan',))
             print("\033[91mATENTION, I need to ignore the non UTF-8 characters in '%s' to create the netCDF file.\033[0m" % k)
         cdf_variables[k].missing_value = data[k].fill_value
         for a in data[k].attributes.keys():
             print "\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a])
-            #cdf_variables[k].__setattr__(a, data[k].attributes[a])
+            # cdf_variables[k].__setattr__(a, data[k].attributes[a])
         cdf_variables[k][:] = data[k].data
 
     nc.close()
