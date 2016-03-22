@@ -9,7 +9,8 @@ from datetime import datetime
 try:
     import netCDF4
 except:
-    import pupynere
+    print("netCDF4 is not available.")
+
 
 def cnv2nc(data, filename):
     """ Save a CNV() object into filename as a NetCDF
