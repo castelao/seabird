@@ -1,16 +1,22 @@
 language: python
-python:
-  - "2.7"
 
-env:
-  - TOX_ENV=py26
-  - TOX_ENV=py27
-  - TOX_ENV=py34
+sudo: false
+
+python:
+  - "2.6"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+
+before_install:
+  - pip install -r test-requirements.txt
+  - pip install codecov
 
 install:
-- pip install tox
-- pip install coveralls
+  - python setup.py install
 
-script: tox -e $TOX_ENV
+script:
+  - py.test --cov --cov-report=term-missing -vv
 
-after_success: coveralls
+after_success:
+  - codecov
