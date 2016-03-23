@@ -4,6 +4,6 @@ __author__ = 'Guilherme Castelao'
 __email__ = 'guilherme@castelao.net'
 __version__ = '0.6.2'
 
-#from cnv import *
+# from cnv import *
 
-#__all__ = ['CNV', 'fCNV']
+# __all__ = ['CNV', 'fCNV']
