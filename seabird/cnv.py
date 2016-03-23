@@ -431,7 +431,8 @@ class CNV(object):
         for k in self.keys():
             if len(self[k]) != nvalues:
                 logging.warn(
-                        "\033[91m%s was supposed to has %s values, but found only %s.\033[0m" %
+                        ("\033[91m%s was supposed to has %s values, "
+                         "but found only %s.\033[0m") %
                         (k, nvalues, len(self[k])))
 
 
