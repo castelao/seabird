@@ -1,3 +1,2 @@
 wheel==0.23.0
 pytest
-pytest-cov
