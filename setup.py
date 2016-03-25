@@ -15,14 +15,12 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-version = '0.6.4'
+with open('VERSION') as version_file:
+    version = version_file.read().rstrip('\n')
 
 install_requires = [
     'numpy>=1.1',
     'PyYAML',
-]
-
-test_requirements = [
 ]
 
 setup(
@@ -56,13 +54,10 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Topic :: Scientific/Engineering',
     ],
-    download_url='https://pypi.python.org/packages/source/s/seabird/seabird-'+version+'.tar.gz',
     entry_points={
         'console_scripts':
             ['seabird=seabird:main']
     },
     platforms='any',
     scripts=["bin/cnvdump", "bin/cnv2nc"],
-    test_suite='tests',
-    tests_require=test_requirements
 )
