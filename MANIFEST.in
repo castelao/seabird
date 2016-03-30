@@ -1,9 +1,11 @@
+include VERSION
 include AUTHORS.rst
 include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE.rst
 include README.rst
-include VERSION
+include requirements.txt
+include test-requirements.txt
 
 recursive-include tests *
 recursive-exclude * __pycache__

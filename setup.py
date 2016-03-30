@@ -9,19 +9,17 @@ except ImportError:
     from distutils.core import setup
 
 
+with open('VERSION') as version_file:
+    version = version_file.read().rstrip('\n')
+
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-with open('VERSION') as version_file:
-    version = version_file.read().rstrip('\n')
-
-install_requires = [
-    'numpy>=1.1',
-    'PyYAML',
-]
+with open('requirements.txt') as requirements_file:
+    requirements = requirements_file.read()
 
 setup(
     name='seabird',
@@ -37,7 +35,7 @@ setup(
     package_dir={'seabird':
                  'seabird'},
     include_package_data=True,
-    install_requires=install_requires,
+    install_requires=requirements,
     license='3-clause BSD',
     zip_safe=False,
     keywords='oceanography ocean data CTD TSG SeaBird hydrography parser',
