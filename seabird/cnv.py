@@ -21,6 +21,8 @@ from numpy import ma
 
 from seabird.exceptions import CNVError
 # from seabird.utils import basic_logger
+from seabird.utils import load_rule
+
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -52,7 +54,7 @@ class CNV(object):
         self.defaults = defaults
         self.attributes = {}
         # ----
-        self.load_rule()
+        self.rule, self.parsed = load_rule(self.raw_text)
 
         if not hasattr(self, 'parsed'):
             return
@@ -89,34 +91,6 @@ class CNV(object):
             if d.attributes['name'] == key:
                 return d
         raise KeyError('%s not found' % key)
-
-    def load_rule(self):
-        """ Load the adequate rules to parse the data
-
-            It should try all available rules, one by one, and use the one
-              which fits.
-        """
-        rules_dir = 'rules'
-        rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
-        rule_files = [f for f in rule_files if re.match('^cnv.*yaml$', f)]
-        for rule_file in rule_files:
-            text = pkg_resources.resource_string(
-                    __name__, os.path.join(rules_dir, rule_file))
-            rule = yaml.load(text)
-            # Should I load using codec, for UTF8?? Do I need it?
-            # f = codecs.open(rule_file, 'r', 'utf-8')
-            # rule = yaml.load(f.read())
-            r = rule['header'] + rule['sep'] + rule['data']
-            content_re = re.compile(r, re.VERBOSE)
-            if re.search(r, self.raw_text, re.VERBOSE):
-                logging.debug("Using rules from: %s" % rule_file)
-                self.rule = rule
-                self.parsed = content_re.search(self.raw_text).groupdict()
-                return
-
-        # If haven't returned a rule by this point, raise an exception.
-        logging.error("No rules able to parse it")
-        raise CNVError(tag='noparsingrule')
 
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
