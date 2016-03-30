@@ -38,3 +38,16 @@ def basic_logger(logger=None):
         logger.addHandler(ch)
 
     return logger
+
+
+def press2depth(press, latitude):
+    """ calculate depth from pressure
+        http://www.seabird.com/application_notes/AN69.htm
+
+        ATENTION, move it to fluid.
+    """
+    x = np.sin((np.pi/180) * latitude / 57.29578)**2
+    g = 9.780318 * (1.0 + (5.2788e-3 + 2.36e-5 * x) * x) + 1.092e-6 * press
+    depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) *
+               press + 9.72659) * press) / g
+    return depth
