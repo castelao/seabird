@@ -38,7 +38,7 @@ lint:
 	flake8 seabird tests
 
 test:
-	python setup.py test
+	py.test tests
 
 test-all:
 	tox
