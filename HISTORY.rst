@@ -3,6 +3,11 @@
 History
 -------
 
+0.7.x
+-----
+
+* Python 2.6 is no long supported.
+
 0.6.x
 -----
 
