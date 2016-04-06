@@ -21,29 +21,17 @@ header: |
         (
             \#.*\n  # Antything
         )+
-        \#\ file_type\ =\ ascii\r?\n
+        \#\ file_type\ =\ binary\r?\n
     )
 
 sep: |
     \*END\*\r?\n
 
 data: |
-  (?P<data>
+  (?P<bindata>
     (?:
-        (?:                     # Start of one variable
-          \ *
-          -?                    # Can be a negative number
-          \d+                   # Any digits
-            (?:
-              \.\d+               # Real numbers
-              (?:
-                e[\+|-]\d+        # Cientific notation
-              )?
-            )?
-        )+                      # Repeat as much variables as there are
-        #  (?:
-        #  )?
-          \s*                   # Following empty spaces, end of line
+      .*
+      \s*                   # Following empty spaces, end of line
     )+                          # One or more lines
   )
 

@@ -5,6 +5,7 @@ import re
 import pkg_resources
 import os
 import logging
+import struct
 
 try:
     import hashlib
@@ -74,7 +75,11 @@ class CNV(object):
         except:
             pass
 
-        self.load_data()
+        if 'bindata' in self.raw_data().keys():
+            self.load_bindata()
+        else:
+            self.load_data()
+
         self.products()
 
         self.check_consistency()
@@ -208,6 +213,25 @@ class CNV(object):
             self.data[i].attributes = attributes
 
             # ma.masked_all(int(self.attributes['nvalues']))
+
+    def load_bindata(self):
+        content = self.raw_data()['bindata']
+        nvars = len(self.ids)
+        fmt = nvars*'f'
+        linesize = struct.calcsize(fmt)
+        output = []
+        # FIXME: This does not allow to read the most it can from a corrupted
+        #   file, i.e. incomplete file.
+        for n in range(len(content)/linesize):
+            output.append(struct.unpack_from(fmt, content, n*linesize))
+        data = ma.masked_values(
+                output,
+                float(self.attributes['bad_flag']),
+                atol=1e-30)
+        for i in self.ids:
+            attributes = self.data[i].attributes
+            self.data[i] = data[:, i]
+            self.data[i].attributes = attributes
 
     def products(self):
         """
