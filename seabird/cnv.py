@@ -153,7 +153,7 @@ class CNV(object):
         # ----
         rule_file = "rules/refnames.json"
         text = pkg_resources.resource_string(__name__, rule_file)
-        refnames = json.loads(text)
+        refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
         # ---- Parse fields
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
