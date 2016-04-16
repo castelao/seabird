@@ -6,6 +6,7 @@ import pkg_resources
 import os
 import logging
 import struct
+import json
 
 try:
     import hashlib
@@ -16,7 +17,6 @@ except ImportError:
     md5 = md5.new
 
 # import codecs
-import yaml
 import numpy as np
 from numpy import ma
 
@@ -155,9 +155,9 @@ class CNV(object):
         self.data = []
         self.ids = []
         # ----
-        rule_file = "rules/refnames.yaml"
+        rule_file = "rules/refnames.json"
         text = pkg_resources.resource_string(__name__, rule_file)
-        refnames = yaml.load(text)
+        refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
         # ---- Parse fields
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
@@ -472,7 +472,7 @@ class fCNV(CNV):
         # if defaultsfile is given, read as a yaml file
         if defaultsfile:
             f = open(defaultsfile)
-            defaults = yaml.load(f.read())
+            defaults = json.loads(f.read())
             f.close()
         else:
             defaults = None

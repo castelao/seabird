@@ -9,8 +9,6 @@ Requirements
 
 - `Numpy <http://www.numpy.org>`_ (>=1.1)
 
-- `PyYAML <http://pyyaml.org>`_
-
 Optional requirement
 --------------------
 
