@@ -1,0 +1,97 @@
+{
+    "sal00": {
+        "long_name": "sea_water_practical_salinity", 
+        "name": "PSAL"
+    }, 
+    "sal11": {
+        "long_name": "secondary_sea_water_practical_salinity", 
+        "name": "PSAL2"
+    }, 
+    "sbeox0V": {
+        "long_name": "sea_water_oxigen_voltage", 
+        "name": "oxigenvoltage"
+    }, 
+    "density00": {
+        "long_name": "sea_water_density", 
+        "name": "density"
+    }, 
+    "density11": {
+        "long_name": "sea_water_density", 
+        "name": "density"
+    }, 
+    "t068C": {
+        "long_name": "sea_water_temperature", 
+        "name": "temperature"
+    }, 
+    "potemp090C": {
+        "long_name": "sea_water_potential_temperature", 
+        "name": "potemperature"
+    }, 
+    "timeS": {
+        "units": "seconds", 
+        "name": "timeS"
+    }, 
+    "c1S/m": {
+        "long_name": "secondary_sea_water_electrical_conductivity", 
+        "name": "CNDC2"
+    }, 
+    "t090C": {
+        "long_name": "sea_water_temperature", 
+        "name": "TEMP"
+    }, 
+    "longitude": {
+        "units": "degrees", 
+        "name": "LONGITUDE"
+    }, 
+    "t190C": {
+        "long_name": "secondary_sea_water_temperature", 
+        "name": "TEMP2"
+    }, 
+    "dz/dtM": {
+        "name": "descentrate", 
+        "descentrate": null
+    }, 
+    "c0S/m": {
+        "long_name": "sea_water_electrical_conductivity", 
+        "name": "CNDC"
+    }, 
+    "svCM": {
+        "name": "soundspeed", 
+        "longname": "speed_of_sound_in_sea_water"
+    }, 
+    "sigma-t11": {
+        "long_name": "sea_water_sigma_t", 
+        "name": "sigma_t"
+    }, 
+    "flCUVA": {
+        "name": "fluorescence"
+    }, 
+    "prDM": {
+        "long_name": "sea_water_pressure", 
+        "name": "PRES"
+    }, 
+    "sbeox0Mm/Kg": {
+        "long_name": "moles_of_oxygen_per_unit_mass_in_sea_water", 
+        "name": "oxygen"
+    }, 
+    "potemp190C": {
+        "long_name": "secondary_sea_water_potential_temperature", 
+        "name": "potemperature2"
+    }, 
+    "latitude": {
+        "units": "degrees", 
+        "name": "LATITUDE"
+    }, 
+    "sbeox0ML/L": {
+        "long_name": "volume_fraction_of_oxygen_in_sea_water", 
+        "name": "oxigen_ml_L"
+    }, 
+    "depSM": {
+        "long_name": "depth", 
+        "name": "DEPTH"
+    }, 
+    "sigma-t00": {
+        "long_name": "sea_water_sigma_t", 
+        "name": "sigma_t"
+    }
+}

@@ -5,6 +5,7 @@ import re
 import pkg_resources
 import os
 import logging
+import json
 
 try:
     import hashlib
@@ -150,9 +151,9 @@ class CNV(object):
         self.data = []
         self.ids = []
         # ----
-        rule_file = "rules/refnames.yaml"
+        rule_file = "rules/refnames.json"
         text = pkg_resources.resource_string(__name__, rule_file)
-        refnames = yaml.load(text)
+        refnames = json.loads(text)
         # ---- Parse fields
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
