@@ -16,7 +16,6 @@ except ImportError:
     md5 = md5.new
 
 # import codecs
-import yaml
 import numpy as np
 from numpy import ma
 
@@ -449,7 +448,7 @@ class fCNV(CNV):
         # if defaultsfile is given, read as a yaml file
         if defaultsfile:
             f = open(defaultsfile)
-            defaults = yaml.load(f.read())
+            defaults = json.loads(f.read())
             f.close()
         else:
             defaults = None
