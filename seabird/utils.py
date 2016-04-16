@@ -2,9 +2,9 @@ import os
 import re
 import logging
 import pkg_resources
+import json
 
 # import codecs
-import yaml
 
 from seabird.exceptions import CNVError
 ## from seabird.utils import basic_logger
@@ -71,11 +71,11 @@ def load_rule(raw_text):
     """
     rules_dir = 'rules'
     rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
-    rule_files = [f for f in rule_files if re.match('^cnv.*yaml$', f)]
+    rule_files = [f for f in rule_files if re.match('^cnv.*\.json$', f)]
     for rule_file in rule_files:
         text = pkg_resources.resource_string(
                 __name__, os.path.join(rules_dir, rule_file))
-        rule = yaml.load(text)
+        rule = json.loads(text)
         # Should I load using codec, for UTF8?? Do I need it?
         # f = codecs.open(rule_file, 'r', 'utf-8')
         # rule = yaml.load(f.read())
