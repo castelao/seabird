@@ -3,6 +3,11 @@
 History
 -------
 
+0.8.x
+-----
+
+* Removed dependency on YAML, in favor to JSON.
+
 0.7.x
 -----
 
