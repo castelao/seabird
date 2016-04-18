@@ -7,7 +7,6 @@
 
 from optparse import OptionParser
 
-#import yaml
 from seabird.exceptions import CNVError
 from seabird.cnv import fCNV
 
