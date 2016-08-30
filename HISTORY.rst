@@ -7,6 +7,7 @@ History
 -----
 
 * Removed dependency on YAML, in favor to JSON.
+* Added support to read binary file type.
 
 0.7.x
 -----
