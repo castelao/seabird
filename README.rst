@@ -19,7 +19,7 @@ Seabird
         :target: https://pypi.python.org/pypi/seabird
 
 
-This is a parser for Sea Bird CTD output files.
+This is a parser for Sea Bird CTD and TSG output files.
 
 The `Sea Bird CTD`_ post processed data usually uses the .cnv extention. The purpose of the PySeabird is to parse this type of files, considering the different versions along the time, as well as different setups.
 
