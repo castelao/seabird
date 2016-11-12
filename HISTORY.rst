@@ -3,6 +3,11 @@
 History
 -------
 
+0.9.x
+-----
+
+* Reads CTD bottle files (.btl)
+
 0.8.x
 -----
 

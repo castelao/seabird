@@ -9,9 +9,6 @@ except ImportError:
     from distutils.core import setup
 
 
-with open('VERSION') as version_file:
-    version = version_file.read().rstrip('\n')
-
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -23,7 +20,7 @@ with open('requirements.txt') as requirements_file:
 
 setup(
     name='seabird',
-    version=version,
+    version='0.9.0',
     description="Parser for Sea-Bird's CTD and TSG.",
     long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
@@ -53,7 +50,7 @@ setup(
     ],
     entry_points={
         'console_scripts':
-            ['seabird=seabird:main']
+            ['seabird=seabird.cli:cli']
     },
     platforms='any',
     scripts=["bin/cnvdump", "bin/cnv2nc"],
