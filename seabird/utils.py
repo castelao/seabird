@@ -79,7 +79,13 @@ def load_rule(raw_text):
         # Should I load using codec, for UTF8?? Do I need it?
         # f = codecs.open(rule_file, 'r', 'utf-8')
         # rule = yaml.load(f.read())
-        r = rule['header'] + rule['sep'] + rule['data']
+
+        # Transitioning for the new rules concept for regexp.
+        if 'sep' in rule:
+            r = rule['header'] + rule['sep'] + rule['data']
+        else:
+            r = "(?P<header> " + rule['header'] + ")" + \
+                    "(?P<data> (?:" + rule['data'] + ")+)"
         content_re = re.compile(r, re.VERBOSE)
         if re.search(r, raw_text, re.VERBOSE):
             #logging.debug("Using rules from: %s" % rule_file)
