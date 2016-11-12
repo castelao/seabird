@@ -419,19 +419,21 @@ class CNV(object):
             Might be a good idea to move these tests outside the
               class.
         """
-        # Check if the number of variables is equal to nquan
-        nquan = int(self.attributes['nquan'])
-        if nquan != len(self.keys()):
-            logging.warn("It was supposed to has %s variables." % (nquan))
+        if 'nquan' in self.attributes:
+            # Check if the number of variables is equal to nquan
+            nquan = int(self.attributes['nquan'])
+            if nquan != len(self.keys()):
+                logging.warn("It was supposed to has %s variables." % (nquan))
 
-        # Check if each variable have nvalues
-        nvalues = int(self.attributes['nvalues'])
-        for k in self.keys():
-            if len(self[k]) != nvalues:
-                logging.warn(
-                        ("\033[91m%s was supposed to has %s values, "
-                         "but found only %s.\033[0m") %
-                        (k, nvalues, len(self[k])))
+        if 'nvalues' in self.attributes:
+            # Check if each variable have nvalues
+            nvalues = int(self.attributes['nvalues'])
+            for k in self.keys():
+                if len(self[k]) != nvalues:
+                    logging.warn(
+                            ("\033[91m%s was supposed to has %s values, "
+                             "but found only %s.\033[0m") %
+                            (k, nvalues, len(self[k])))
 
 
 class fCNV(CNV):
