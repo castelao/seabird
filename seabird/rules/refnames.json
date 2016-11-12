@@ -39,6 +39,10 @@
         "long_name": "sea_water_temperature", 
         "name": "TEMP"
     }, 
+    "T090C": {
+        "long_name": "sea_water_temperature",
+        "name": "TEMP"
+    },
     "longitude": {
         "units": "degrees", 
         "name": "LONGITUDE"
