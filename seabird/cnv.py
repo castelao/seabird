@@ -77,6 +77,8 @@ class CNV(object):
 
         if 'bindata' in self.raw_data().keys():
             self.load_bindata()
+        elif 'bottledata' in self.raw_data().keys():
+            self.load_bottledata()
         else:
             self.load_data()
 
@@ -103,6 +105,9 @@ class CNV(object):
         return content_re.search(self.raw_text).groupdict()
 
     def raw_data(self):
+        if self.attributes['instrument_type'] == 'CTD-bottle':
+            return {'bottledata': self.parsed['data']}
+
         r = self.rule['sep'] + self.rule['data']
         content_re = re.compile(r, re.VERBOSE)
         return content_re.search(self.raw_text).groupdict()
@@ -118,11 +123,15 @@ class CNV(object):
                         ).groupdict()['value']
                 self.parsed['intro'] = pattern.sub(
                         '', self.parsed['intro'], count=1)
-        if 'sbe_model' in self.attributes:
-            if self.attributes['sbe_model'] in ['9', '17', '19plus V2']:
-                self.attributes['instrument_type'] = 'CTD'
-            elif self.attributes['sbe_model'] in ['21', '45']:
-                self.attributes['instrument_type'] = 'TSG'
+        try:
+            self.attributes['instrument_type'] = \
+                    self.rule['attributes']['instrument_type']
+        except:
+            if 'sbe_model' in self.attributes:
+                if self.attributes['sbe_model'] in ['9', '17', '19plus V2']:
+                    self.attributes['instrument_type'] = 'CTD'
+                elif self.attributes['sbe_model'] in ['21', '45']:
+                    self.attributes['instrument_type'] = 'TSG'
 
     def get_attributes(self):
         """
@@ -159,6 +168,44 @@ class CNV(object):
         text = pkg_resources.resource_string(__name__, rule_file)
         refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
         # ---- Parse fields
+
+        if ('attributes' in self.rule) and \
+                (self.rule['attributes']['instrument_type'] == 'CTD-bottle'):
+                    rule = r"""
+                      \s+ Bottle \s+ Date .* \n
+                      \s+ Position \s+ Time .* \n
+                    """
+                    attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s+\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
+                    pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
+
+                    self.ids = [0, 1, 2]
+                    self.data = [ ma.array([]), ma.array([]), ma.array([])]
+                    self.data[0].attributes = {
+                            'id': 0,
+                            'name': 'bottle'}
+                    self.data[1].attributes = {
+                            'id': 1,
+                            'name': 'date'}
+                    self.data[2].attributes = {
+                            'id': 2,
+                            'name': 'time'}
+
+                    for x in pattern.finditer(str(attrib_text)):
+                        self.ids.append(len(self.ids))
+                        self.data.append(ma.array([]))
+                        try:
+                            reference = refnames[x.groupdict()['varname']]
+                            varname = reference['name']
+                            #longname = reference['longname']
+                        except:
+                            varname = x.groupdict()['varname']
+                        self.data[-1].attributes = {
+                                'id': self.ids[-1],
+                                'name': varname,
+                                #'longname': x.groupdict()['longname'],
+                                }
+                    return
+
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
             self.ids.append(int(x.groupdict()['id']))
@@ -232,6 +279,30 @@ class CNV(object):
             attributes = self.data[i].attributes
             self.data[i] = data[:, i]
             self.data[i].attributes = attributes
+
+    def load_bottledata(self):
+        content = self.raw_data()['bottledata']
+        nvars = len(self.ids)
+        for rec in re.finditer(self.rule['data'], content, re.VERBOSE):
+            attributes = self.data[0].attributes
+            self.data[0] = np.append(self.data[0], int(rec.groupdict()['bottle']))
+            self.data[0].attributes = attributes
+
+            d = datetime.strptime(rec.groupdict()['date'].strip(), '%b %d %Y')
+            attributes = self.data[1].attributes
+            self.data[1] = np.append(self.data[1], d.date())
+            self.data[1].attributes = attributes
+
+            d = datetime.strptime(rec.groupdict()['time'].strip(), '%H:%M:%S')
+            attributes = self.data[2].attributes
+            self.data[2] = np.append(self.data[2], d.time())
+            self.data[2].attributes = attributes
+
+            for n, v in enumerate(re.findall('[-|+|\w|\.]+', rec.groupdict()['values']), start=3):
+                attributes = self.data[n].attributes
+                self.data[n] = np.append(self.data[n], v)
+                self.data[n].attributes = attributes
+
 
     def products(self):
         """
