@@ -6,6 +6,7 @@ History
 0.9.x
 -----
 
+* This release is a dirty solution for some issues that I would like to address before refactor the whole package.
 * Reads CTD bottle files (.btl)
 
 0.8.x
