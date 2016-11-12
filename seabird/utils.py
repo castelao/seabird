@@ -61,8 +61,6 @@ def press2depth(press, latitude):
     return depth
 
 
-
-
 def load_rule(raw_text):
     """ Load the adequate rules to parse the data
 
