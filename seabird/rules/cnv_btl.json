@@ -1,0 +1,26 @@
+{
+"attributes": {
+    "instrument_type": "CTD-bottle"
+    },
+"header": "                                                                         (?P<intro>\n \\* \\s Sea-Bird\\ SBE \\s* .* Data\\ File:\\r?\\n                     (\n        \\*\\ .*\\n  # Antything starting with *\n                           )+\n                                                                        )\n                                                                             (?P<notes>\n    (\n        \\*\\* .*\\n  # Anything starting with *\n    )*\n)\n# temporary solution just to run while I'm sailing\n# The notes not necessarily are after the intro, they\n# can be in the middle of the intro.\n    (\n        \\*\\ .*\\n  # Anything starting with *\n    )*\n\\s*\n                         (?P<descriptors>\n       (\n        \\#.*\\n  # Anything\n    )+\n                  (?: \\s+ Bottle \\s+ Date .* \\n)                                               (?: \\s+ Position \\s+ Time .* \\n)                                         )",
+"data": "                                                          (?P<bottle> .{11}) (?P<date> .{11}) (?P<values> (?: .{11})+ ) \\s \\( avg \\) \\r? \\n         .{11}  (?P<time> .{11}) (?P<values_std> (?: .{11})+ ) \\s \\( sdev \\) \\r? \\n                         ",
+"intro": {
+        "sbe_model": "\\*\\ Sea-Bird\\ SBE\\ +(?P<value>\\d.*)\\ Data\\ File:\\r?\\n",
+        "LATITUDE": "\\*\\ NMEA\\ Latitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
+        "LONGITUDE": "\\*\\ NMEA\\ Longitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
+        "gps_datetime": "\\*\\ NMEA\\ UTC\\ \\(Time\\)\\ =\\ (?P<value>.*?)\\r?\\n\n",
+        "seasave": "\\*\\ Software\\ Version\\ Seasave\\ (?P<value>.*?)\\r?\\n\n"
+    },
+"descriptors": {
+        "nquan": "\\#\\ nquan\\ =\\ (?P<value>\\d+)\n",
+        "nvalues": "\\#\\ nvalues\\ =\\ (?P<value>\\d+)\n",
+        "start_time": "\\#\\ start_time\\ =\\ (?P<value>.*?)\\r?\\n      # Should work, but I'm not happy with this.\n",
+        "bad_flag": "\\#\\ bad_flag\\ =\\ (?P<value>.*?)\\s\n",
+        "file_type": "\\#\\ file_type\\ \\=\\ (?P<value>.*?)\\r?\\n\n",
+        "awkward_xml": "(?P<value>\n  \\#\\ \\<\\?xml\\ version=\"\\d+\\.\\d+\"\\ encoding=\"UTF-8\"\\?>\\r?\\n\n  (?:\\#\\s+<.*>\\r?\\n)+\n)\n"
+    },
+"fieldname": "\\#\\ name\\ (?P<id>\\d+)\\ =\\ (?P<name>.*)\\:(?:\\ (?P<longname>.*))?\\r?\\s\n",
+"fieldspan": "\\#\\ span\\ (?P<id>\\d+)\\ =\\ (?P<valuemin>.*),\\ (?P<valuemax>.*)\\r?\\s\n",
+"LATITUDE": "# [LAT|LATITUDE]\n    (?:Latitude:?)?\n    \\ *\n(?P<degree>\\d{1,2})\n\\ +\n(?P<minute>\\d{1,2}\n    [\\.|\\,]\n    \\d{1,3})\n\\ *\n(?P<hemisphere>[N|n|S|s])\n",
+"LONGITUDE": "# [LON|LONG|LONGITUDE]\n    (?:Latitude:?)?\n    \\ *\n(?P<degree>\\d{1,3})\n\\ +\n(?P<minute>\\d{1,2}\n    [\\.|\\,]\n    \\d{1,3})\n\\ *\n(?P<hemisphere>[W|w|E|e])\n"
+}
