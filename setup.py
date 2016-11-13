@@ -20,7 +20,7 @@ with open('requirements.txt') as requirements_file:
 
 setup(
     name='seabird',
-    version='0.9.0',
+    version='0.10.0',
     description="Parser for Sea-Bird's CTD and TSG.",
     long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
