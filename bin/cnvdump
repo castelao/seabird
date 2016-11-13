@@ -4,6 +4,9 @@
     Doesn't matter the version of the .cnv, this command will
       show it's content in a unified pattern, as an ASCII text.
 """
+print('Deprecated! In future releases this command will be removed. Please use instead:\nseabird cnvdump inputfile')
+import time
+time.sleep(10)
 
 from optparse import OptionParser
 
