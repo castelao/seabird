@@ -12,7 +12,7 @@ import seabird
 
 
 def test_load_available_rules():
-    """ Try to read all rules with yaml
+    """ Try to read all available rules
 
         https://github.com/castelao/seabird/issues/7
     """
