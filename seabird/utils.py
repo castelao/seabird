@@ -98,3 +98,39 @@ def load_rule(raw_text):
 
 def seabird_dir(subdir=None):
     return os.path.expanduser(os.getenv('SEABIRD_DIR', '~/.config/seabird'))
+
+
+def sampledata():
+    try:
+        import supportdata
+    except:
+        print("Missing package supportdata. Try:\npip install supportdata")
+
+    data_path = os.path.join(seabird_dir(), 'data')
+    if not os.path.isdir(data_path):
+        os.makedirs(data_path)
+
+    src = 'https://raw.githubusercontent.com/castelao/seabird/tests/sampledata'
+    files = [
+            [os.path.join(data_path, 'CTD'), '%s/CTD/PIRA001.cnv' % src,
+                'PIRA001.cnv', '5ded777144300b63c8775b1d7f033f92'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/dPIRX003.cnv' % src,
+                'dPIRX003.cnv', '4b941b902a3aea7d99e1cf4c78c51877'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/Hotin.cnv' % src,
+                'Hotin.cnv', '814dc769c0775327bbe5b0f489dfb571'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/sta0860.cnv' % src,
+                'sta0860.cnv', '1c788c4d9b82b527ebf0c2fb9200600e'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/dCTD_LIBRA_1.cnv' % src,
+                'dCTD_LIBRA_1.cnv', 'f831654c2c783536e52d588f59d5252c'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/laurynas.cnv' % src,
+                'laurynas.cnv', '6f188d53ac2d7aaaf4ce69c0e5c514ec'],
+            [os.path.join(data_path, 'TSG'), '%s/TSG/TSG_PIR_001.cnv' % src,
+                'TSG_PIR_001.cnv', '2950ccb9f77e0802557b011c63d2e39b'],
+            [os.path.join(data_path, 'TSG'), '%s/TSG/TSG_PIR_010.cnv' % src,
+                'TSG_PIR_010.cnv', 'd87cea33bfe37e22dc8e563f77cbf307'],
+            [os.path.join(data_path, 'btl'), '%s/btl/MI18MHDR.btl' % src,
+                'MI18MHDR.btl', '775f2a6c6585f1cffb0038111580e5a1'],
+            ]
+
+    for f in files:
+        supportdata.download_file(*f)
