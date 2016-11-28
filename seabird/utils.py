@@ -94,3 +94,7 @@ def load_rule(raw_text):
     # If haven't returned a rule by this point, raise an exception.
     #logging.error("No rules able to parse it")
     raise CNVError(tag='noparsingrule')
+
+
+def seabird_dir(subdir=None):
+    return os.path.expanduser(os.getenv('SEABIRD_DIR', '~/.config/seabird'))
