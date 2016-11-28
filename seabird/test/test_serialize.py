@@ -5,29 +5,21 @@
 
 """
 
-import os
+import os.path
 from glob import glob
 import pickle
 
 from seabird.cnv import fCNV
-
-
-def test_serialize_CNV():
-        """ Serialize CNV
-        """
-        datadir = os.path.join(os.path.dirname(__file__), 'test_data')
-        for f in glob(os.path.join(datadir, "*.cnv.OK")):
-            profile = fCNV(f)
-            profile2 = pickle.loads(pickle.dumps(profile))
-            assert profile.attributes == profile2.attributes
-            assert (profile.data == profile.data)
+from seabird.utils import seabird_dir
 
 
 def test_serialize_fCNV():
         """ Serialize fCNV
         """
-        datadir = os.path.join(os.path.dirname(__file__), 'test_data')
-        for f in glob(os.path.join(datadir, "*.cnv.OK")):
+        datafiles = glob(os.path.join(seabird_dir(), 'data', "*.cnv"))
+        assert len(datafiles) > 0, \
+            "No files available for testing at: %s" % datafiles
+        for f in datafiles:
             profile = fCNV(f)
             profile2 = pickle.loads(pickle.dumps(profile))
             assert profile.attributes == profile2.attributes
