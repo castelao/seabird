@@ -3,7 +3,7 @@
     "sep": "\\*END\\*\\r?\\n\n", 
     "data": "(?P<data>\n  (?:\n      (?:                     # Start of one variable\n        \\ *\n        -?                    # Can be a negative number\n        \\d+                   # Any digits\n          (?:\n            \\.\\d+               # Real numbers\n            (?:\n              e[\\+|-]\\d+        # Cientific notation\n            )?\n          )?\n      )+                      # Repeat as much variables as there are\n      #  (?:\n      #  )?\n        \\s*                   # Following empty spaces, end of line\n  )+                          # One or more lines\n)\n",
     "intro": {
-        "sbe_model": "\\*\\ Sea-Bird\\ SBE\\ +(?P<value>\\d.*)\\ Data\\ File:\\r?\\n", 
+        "sbe_model": "\\*\\ Sea-Bird\\ SBE\\ *(?P<value>\\d.*?)\\ +Data\\ File:\\r?\\n", 
         "LATITUDE": "\\*\\ NMEA\\ Latitude\\ =\\ (?P<value>.*?)\\r?\\n\n", 
         "LONGITUDE": "\\*\\ NMEA\\ Longitude\\ =\\ (?P<value>.*?)\\r?\\n\n", 
         "gps_datetime": "\\*\\ NMEA\\ UTC\\ \\(Time\\)\\ =\\ (?P<value>.*?)\\r?\\n\n", 
