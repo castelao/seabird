@@ -110,7 +110,7 @@ def sampledata():
     if not os.path.isdir(data_path):
         os.makedirs(data_path)
 
-    src = 'https://raw.githubusercontent.com/castelao/seabird/tests/sampledata'
+    src = 'https://raw.githubusercontent.com/castelao/seabird/dev/sampledata'
     files = [
             [os.path.join(data_path, 'CTD'), '%s/CTD/PIRA001.cnv' % src,
                 'PIRA001.cnv', '5ded777144300b63c8775b1d7f033f92'],
