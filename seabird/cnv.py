@@ -179,7 +179,7 @@ class CNV(object):
                     pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
 
                     self.ids = [0, 1, 2]
-                    self.data = [ ma.array([]), ma.array([]), ma.array([])]
+                    self.data = [ma.array([]), ma.array([]), ma.array([])]
                     self.data[0].attributes = {
                             'id': 0,
                             'name': 'bottle'}

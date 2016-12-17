@@ -54,6 +54,7 @@ def press2depth(press, latitude):
 
         ATENTION, move it to fluid.
     """
+    import numpy as np
     x = np.sin((np.pi/180) * latitude / 57.29578)**2
     g = 9.780318 * (1.0 + (5.2788e-3 + 2.36e-5 * x) * x) + 1.092e-6 * press
     depth = -((((-1.82e-15 * press + 2.279e-10) * press - 2.2512e-5) *
