@@ -51,12 +51,12 @@ To install:
 
 One way to use is running on the shell the cnvdump. Independent of the historical version of the cnv file, it will return a default structure: 
 
-    cnvdump your_file.cnv
+    seabird cnvdump your_file.cnv
 
 
 To convert a .cnv (CTD output) into a NetCDF file, run:
 
-    cnv2nc your_file.cnv
+    seabird cnv2nc your_file.cnv
 
 
 In a python script, one can use like this:
