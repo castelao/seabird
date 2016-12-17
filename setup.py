@@ -19,6 +19,9 @@ with open('HISTORY.rst', encoding='utf-8') as f:
 with open('requirements.txt', encoding='utf-8') as f:
     requirements = f.read()
 
+with open('requirements_dev.txt', encoding='utf-8') as f:
+    requirements_test = f.read()
+
 setup(
     name='seabird',
     version='0.10.0',
@@ -34,6 +37,9 @@ setup(
                  'seabird'},
     include_package_data=True,
     install_requires=requirements,
+    extras_require={
+        'test': requirements_test,
+        },
     license='3-clause BSD',
     zip_safe=False,
     keywords='oceanography ocean data CTD TSG SeaBird hydrography parser',
