@@ -29,28 +29,28 @@ From the terminal
 One way to use is running on the shell the cnvdump. 
 Independent of the historical version of the cnv file, it will return a default structure::
 
-    cnvdump your_file.cnv
+    seabird cnvdump your_file.cnv
 
 That can be used in a regular shell script. 
 For example, let's consider a directory cruise1 with several sub directories, one for each leg of the cruise. 
 One could list all the latitudes of each CTD cast like::
 
     for file in `find ./cruise1 -iname '*.cnv'`
-    do cnvdump $file | grep latitude
+    do seabird cnvdump $file | grep latitude
     done
 
 Now let's get that list ordered by the latitude::
 
     for file in `find ./cruise1 -iname '*.cnv'`
     do
-        echo -n  `cnvdump $file | grep latitude`
+        echo -n  `seabird cnvdump $file | grep latitude`
         echo -n " "
         echo $file
     done | sort -n > mylist.txt
 
 To convert a .cnv to a standard NetCDF, run::
 
-    cnv2nc your_file.cnv
+    seabird cnv2nc your_file.cnv
 
 More examples
 =============
