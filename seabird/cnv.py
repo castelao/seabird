@@ -105,7 +105,8 @@ class CNV(object):
         return content_re.search(self.raw_text).groupdict()
 
     def raw_data(self):
-        if self.attributes['instrument_type'] == 'CTD-bottle':
+        if ('instrument_type' in self.attributes) and \
+                self.attributes['instrument_type'] == 'CTD-bottle':
             return {'bottledata': self.parsed['data']}
 
         r = self.rule['sep'] + self.rule['data']
