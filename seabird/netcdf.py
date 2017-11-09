@@ -4,6 +4,8 @@
 """ Export the parsed data into a NetCDF following different patterns
 """
 
+from __future__ import print_function
+
 from datetime import datetime
 
 try:
@@ -20,7 +22,7 @@ def cnv2nc(data, filename):
         profile = cnv.fCNV("CTD.cnv")
         cnv2nc(profile, "CTD.nc")
     """
-    print "Saving netcdf output file: %s" % filename
+    print("Saving netcdf output file: %s" % filename)
 
     nc = netCDF4.Dataset(filename, 'w', format='NETCDF4')
 
@@ -35,14 +37,14 @@ def cnv2nc(data, filename):
         try:
             nc.__setattr__(a, data.attributes[a])
         except:
-            print "Problems with %s" % a
+            print("Problems with %s" % a)
 
     nc.createDimension('scan', int(data.attributes['nvalues']))
 
-    print "\nVariabes"
+    print("\nVariables")
     cdf_variables = {}
     for k in data.keys():
-        print k
+        print(k)
         try:
             cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
         except:
@@ -52,7 +54,7 @@ def cnv2nc(data, filename):
                   "characters in '%s' to create the netCDF file.\033[0m" % k)
         cdf_variables[k].missing_value = data[k].fill_value
         for a in data[k].attributes.keys():
-            print "\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a])
+            print("\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a]))
             # cdf_variables[k].__setattr__(a, data[k].attributes[a])
         cdf_variables[k][:] = data[k].data
 
