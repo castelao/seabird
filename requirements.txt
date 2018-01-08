@@ -1,2 +1,2 @@
 numpy>=1.11.1
-Click==6.6
+Click>=6.6
