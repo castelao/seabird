@@ -40,7 +40,7 @@ def cnv2nc(data, filename):
 
     nc.createDimension('scan', int(data.attributes['nvalues']))
 
-    print("\nVariables")
+    print("\nVariabes")
     cdf_variables = {}
     for k in data.keys():
         print(k)
