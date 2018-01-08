@@ -31,8 +31,7 @@ def cnv2nc(data, filename):
     nc.DATE_CREATION = datetime.now().strftime("%Y%m%s%H%M%S")
 
     # print "Global attributes"
-    A = data.attributes.keys()
-    A.sort()
+    A = sorted(data.attributes.keys())
     for a in A:
         try:
             nc.__setattr__(a, data.attributes[a])
