@@ -16,7 +16,7 @@ from seabird.utils import seabird_dir
 def test_serialize_fCNV():
         """ Serialize fCNV
         """
-        datafiles = glob(os.path.join(seabird_dir(), 'sampledata', '*', "*.cnv"))
+        datafiles = glob(os.path.join(seabird_dir(), 'data/*', "*.cnv"))
         assert len(datafiles) > 0, \
             "No files available for testing at: %s" % datafiles
         for f in datafiles:
