@@ -121,6 +121,8 @@ def sampledata():
                 'Hotin.cnv', '814dc769c0775327bbe5b0f489dfb571'],
             [os.path.join(data_path, 'CTD'), '%s/CTD/sta0860.cnv' % src,
                 'sta0860.cnv', '1c788c4d9b82b527ebf0c2fb9200600e'],
+            [os.path.join(data_path, 'CTD'), '%s/CTD/missing_whitespace.cnv' % src,
+                'missing_whitespace.cnv', 'eb3b29127e728c9c2b31f4e'],
             #[os.path.join(data_path, 'CTD'), '%s/CTD/dCTD_LIBRA_1.cnv' % src,
             #    'dCTD_LIBRA_1.cnv', 'f831654c2c783536e52d588f59d5252c'],
             #[os.path.join(data_path, 'CTD'), '%s/CTD/laurynas.cnv' % src,
