@@ -251,7 +251,7 @@ class CNV(object):
                 ).split('\n')[:-1]
         data = ma.masked_values(
                 np.array(
-                    [d.split() for d in data_rows], dtype=np.float),
+                    [CNV.__split_row(d) for d in data_rows], dtype=np.float),
                 float(self.attributes['bad_flag']),
                 atol=1e-30)
         # Talvez usar o np.fromstring(data, sep=" ")
@@ -261,6 +261,19 @@ class CNV(object):
             self.data[i].attributes = attributes
 
             # ma.masked_all(int(self.attributes['nvalues']))
+
+    @staticmethod
+    def __split_row(row):
+        """
+        Splits rows based on position. Seabird cnv files delimit fields after
+        11 positions
+        :param row: string representation of a row that needs to be split into
+        fields
+        :return: list of fields as strings
+        """
+
+        n = 11  # number of chars per row
+        return [row[start:start+n].strip() for start in range(0, len(row), n)]
 
     def load_bindata(self):
         content = self.raw_data()['bindata']
