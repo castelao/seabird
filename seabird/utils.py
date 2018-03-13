@@ -113,27 +113,20 @@ def sampledata():
 
     src = 'https://raw.githubusercontent.com/castelao/seabird/dev/sampledata'
     files = [
-            [os.path.join(data_path, 'CTD'), '%s/CTD/PIRA001.cnv' % src,
-                'PIRA001.cnv', '5ded777144300b63c8775b1d7f033f92'],
-            [os.path.join(data_path, 'CTD'), '%s/CTD/dPIRX003.cnv' % src,
-                'dPIRX003.cnv', '4b941b902a3aea7d99e1cf4c78c51877'],
-            [os.path.join(data_path, 'CTD'), '%s/CTD/Hotin.cnv' % src,
-                'Hotin.cnv', '814dc769c0775327bbe5b0f489dfb571'],
-            [os.path.join(data_path, 'CTD'), '%s/CTD/sta0860.cnv' % src,
-                'sta0860.cnv', '1c788c4d9b82b527ebf0c2fb9200600e'],
-            [os.path.join(data_path, 'CTD'), '%s/CTD/missing_whitespace.cnv' % src,
-                'missing_whitespace.cnv', 'eb3b29127e728c9c2b31f4e'],
-            #[os.path.join(data_path, 'CTD'), '%s/CTD/dCTD_LIBRA_1.cnv' % src,
-            #    'dCTD_LIBRA_1.cnv', 'f831654c2c783536e52d588f59d5252c'],
-            #[os.path.join(data_path, 'CTD'), '%s/CTD/laurynas.cnv' % src,
-            #    'laurynas.cnv', '6f188d53ac2d7aaaf4ce69c0e5c514ec'],
-            [os.path.join(data_path, 'TSG'), '%s/TSG/TSG_PIR_001.cnv' % src,
-                'TSG_PIR_001.cnv', '2950ccb9f77e0802557b011c63d2e39b'],
-            [os.path.join(data_path, 'TSG'), '%s/TSG/TSG_PIR_010.cnv' % src,
-                'TSG_PIR_010.cnv', 'd87cea33bfe37e22dc8e563f77cbf307'],
-            [os.path.join(data_path, 'btl'), '%s/btl/MI18MHDR.btl' % src,
-                'MI18MHDR.btl', '775f2a6c6585f1cffb0038111580e5a1'],
+            ['CTD', 'PIRA001.cnv', '5ded777144300b63c8775b1d7f033f92'],
+            ['CTD', 'dPIRX003.cnv', '4b941b902a3aea7d99e1cf4c78c51877'],
+            ['CTD', 'Hotin.cnv', '814dc769c0775327bbe5b0f489dfb571'],
+            ['CTD', 'sta0860.cnv', '1c788c4d9b82b527ebf0c2fb9200600e'],
+            ['CTD', 'missing_whitespace.cnv',
+                '679833ce90d6897495e42f9b1f0af634'],
+            #['CTD', 'laurynas.cnv', '6f188d53ac2d7aaaf4ce69c0e5c514ec'],
+            ['TSG', 'TSG_PIR_001.cnv', '2950ccb9f77e0802557b011c63d2e39b'],
+            ['TSG', 'TSG_PIR_010.cnv', 'd87cea33bfe37e22dc8e563f77cbf307'],
+            ['btl', 'MI18MHDR.btl', '775f2a6c6585f1cffb0038111580e5a1'],
             ]
 
     for f in files:
-        supportdata.download_file(*f)
+        supportdata.download_file(
+                os.path.join(data_path, f[0]),
+                os.path.join(src, f[0], f[1]),
+                f[1], f[2])
