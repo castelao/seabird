@@ -118,7 +118,7 @@ def sampledata():
             ['CTD', 'Hotin.cnv', '814dc769c0775327bbe5b0f489dfb571'],
             ['CTD', 'sta0860.cnv', '1c788c4d9b82b527ebf0c2fb9200600e'],
             ['CTD', 'missing_whitespace.cnv',
-                '679833ce90d6897495e42f9b1f0af634'],
+                'c1f00cebb5f00f6aaebc316bac3fd86a'],
             #['CTD', 'laurynas.cnv', '6f188d53ac2d7aaaf4ce69c0e5c514ec'],
             ['TSG', 'TSG_PIR_001.cnv', '2950ccb9f77e0802557b011c63d2e39b'],
             ['TSG', 'TSG_PIR_010.cnv', 'd87cea33bfe37e22dc8e563f77cbf307'],
