@@ -15,8 +15,8 @@
 * Number of voltages exported = 5
 * Historic rate = 1
 * System UTC = May 24 2017 04:41:23
-# nquan = 15                                
-# nvalues = 2072                        
+# nquan = 15
+# nvalues = 2072
 # units = specified
 # name 0 = prdM: Pressure, Strain Gauge [db]
 # name 1 = t090C: Temperature [ITS-90, deg C]
@@ -33,21 +33,21 @@
 # name 12 = svCM: Sound Velocity [Chen-Millero, m/s]
 # name 13 = density00: Density [density, kg/m^3]
 # name 14 = flag: flag
-# span 0 =      0.082,     24.362       
-# span 1 =    12.3601,    13.5804       
-# span 2 = -1.493e+04, 1.0116e+06       
-# span 3 =     0.0962,    10.3583       
-# span 4 =       0.10,      24.91       
-# span 5 = 4.4263e-01, 2.4429e+02       
-# span 6 =    -0.0282,     7.2097       
-# span 7 =     2.4705,     3.2775       
-# span 8 =      0.081,     24.148       
-# span 9 =  -150.0390,    10.7654       
-# span 10 =     74.139,    106.049      
-# span 11 =     0.0000,  1999.0000      
-# span 12 =    1460.65,    9082.61      
-# span 13 =   999.3073,  2999.0000      
-# span 14 = 0.0000e+00, 0.0000e+00      
+# span 0 =      0.082,     24.362
+# span 1 =    12.3601,    13.5804
+# span 2 = -1.493e+04, 1.0116e+06
+# span 3 =     0.0962,    10.3583
+# span 4 =       0.10,      24.91
+# span 5 = 4.4263e-01, 2.4429e+02
+# span 6 =    -0.0282,     7.2097
+# span 7 =     2.4705,     3.2775
+# span 8 =      0.081,     24.148
+# span 9 =  -150.0390,    10.7654
+# span 10 =     74.139,    106.049
+# span 11 =     0.0000,  1999.0000
+# span 12 =    1460.65,    9082.61
+# span 13 =   999.3073,  2999.0000
+# span 14 = 0.0000e+00, 0.0000e+00
 # interval = seconds: 0.25
 # start_time = May 24 2017 04:41:22 [NMEA time, first data scan]
 # bad_flag = -9.990e-29
@@ -211,11 +211,11 @@
 # filter_low_pass_B_vars = t090C c0uS/cm
 # alignctd_date = Sep 08 2017 15:33:29, 7.26.6.28
 # alignctd_in = S:\4886_170524_lw01_cf.cnv
-# alignctd_adv = c0uS/cm 0.100, sbeox0V 4.000                                                                                                                                                                                        
+# alignctd_adv = c0uS/cm 0.100, sbeox0V 4.000
 # loopedit_date = Sep 08 2017 15:33:29, 7.26.6.28
 # loopedit_in = S:\4886_170524_lw01_cfa.cnv
-# loopedit_minVelocity = 0.250                                                                                            
-# loopedit_surfaceSoak: do not remove                                                                                     
+# loopedit_minVelocity = 0.250
+# loopedit_surfaceSoak: do not remove
 # loopedit_excl_bad_scans = no
 # Derive_date = Sep 08 2017 15:33:29, 7.26.6.28 [derive_vars = 6]
 # Derive_in = S:\4886_170217.xmlcon
