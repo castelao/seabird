@@ -3,6 +3,11 @@
 History
 -------
 
+0.10.x
+------
+
+* Data variables split by position. Rare cases use 11 characters thus not leaving any space between fields.
+
 0.9.x
 -----
 
