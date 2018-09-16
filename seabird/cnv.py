@@ -481,7 +481,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            logging.warn("I'm not able to import pandas")
+            logging.warning("I'm not able to import pandas")
             return
 
         output = {}
@@ -508,14 +508,15 @@ class CNV(object):
             # Check if the number of variables is equal to nquan
             nquan = int(self.attributes['nquan'])
             if nquan != len(self.keys()):
-                logging.warn("It was supposed to has %s variables." % (nquan))
+                logging.warning(
+                        "It was supposed to has %s variables." % (nquan))
 
         if 'nvalues' in self.attributes:
             # Check if each variable have nvalues
             nvalues = int(self.attributes['nvalues'])
             for k in self.keys():
                 if len(self[k]) != nvalues:
-                    logging.warn(
+                    logging.warning(
                             ("\033[91m%s was supposed to has %s values, "
                              "but found only %s.\033[0m") %
                             (k, nvalues, len(self[k])))
