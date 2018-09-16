@@ -15,4 +15,5 @@ Contributors
 * Rohan Dandavati; Provided the CTD-bottle example file: MI18MHDR.btl
 * Suki Wong; Reported bug #42 on cnv2nc.
 * Paul Focke; Position base splitting #45.
+* Amber York; Reporting bug $41 on reading bottle files.
 * Achim Randelhoff; minor improvements in documentation
