@@ -176,7 +176,7 @@ class CNV(object):
                       \s+ Bottle \s+ Date .* \n
                       \s+ Position \s+ Time .* \n
                     """
-                    attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s+\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
+                    attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s*\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
                     pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
 
                     self.ids = [0, 1, 2]
