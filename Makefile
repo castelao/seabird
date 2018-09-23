@@ -38,6 +38,7 @@ lint:
 	flake8 seabird tests
 
 test:
+	python -c 'import seabird.utils; seabird.utils.sampledata()'
 	py.test seabird
 
 test-all:
