@@ -60,5 +60,5 @@ setup(
             ['seabird=seabird.cli:cli']
     },
     platforms='any',
-    scripts=["bin/cnvdump", "bin/cnv2nc"],
+    scripts=["bin/cnvdump", "bin/cnv2nc", "bin/ctdqc"],
 )
