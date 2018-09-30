@@ -37,9 +37,6 @@ setup(
                  'seabird'},
     include_package_data=True,
     install_requires=requirements,
-    extras_require={
-        'test': requirements_test,
-        },
     license='3-clause BSD',
     zip_safe=False,
     keywords='oceanography ocean data CTD TSG SeaBird hydrography parser',
@@ -61,4 +58,8 @@ setup(
     },
     platforms='any',
     scripts=["bin/cnvdump", "bin/cnv2nc", "bin/ctdqc"],
+    extras_require={
+        'test': requirements_test,
+        'QC': ["cotede>=0.20.2"]
+        }
 )
