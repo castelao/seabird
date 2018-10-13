@@ -52,6 +52,48 @@ To convert a .cnv to a standard NetCDF, run::
 
     seabird cnv2nc your_file.cnv
 
+Quality Control
+===============
+
+Until version 10.X the package CoTeDe would import PySeabird to apply QC, but since 11.X this relation inverted, and PySeabird now imports CoTeDe's resources on QC to evaluate CTD and TSG data.
+
+To QC a cnv file, first load the QC function::
+
+    >>> from seabird.qc import fProfileQC
+
+Now you're able to load the CTD data::
+
+    >>> pqc = fProfileQC('example.cnv')
+
+The keys() will give you the data loaded from the CTD, similar to the output from the seabird.fCNV::
+
+    >>> pqc.keys()
+
+To see one of the read variables listed on the previous step::
+
+    >>> pqc['temperature']
+
+The flags are stored at pqc.flags and is a dictionary, being one item per variable evaluated. For example, to see the flags for the secondary salinity instrument, just do::
+
+    >>> pqc.flags['salinity2']
+
+or for a specific test::
+
+    >>> pqc.flags['salinity2']['gradient']
+
+To evaluate a full set of profiles at once, use the class ProfileQCCollection, like:::
+
+    >>> dataset = ProfileQCCollection('/path/to/data/', inputpattern=".*\.cnv")
+    >>> dataset.flags['temperature'].keys()
+
+The class cotede.qc.ProfileQCed is equivalent to the seabird.qc.ProfileQC, but it already mask the non approved data (flag != 1). Another it can also be used like:::
+
+    >>> from seabird import cnv
+    >>> data = cnv.fCNV('example.cnv')
+
+    >>> import cotede.qc
+    >>> ped = cotede.qc.ProfileQCed(data)
+
 More examples
 =============
 
