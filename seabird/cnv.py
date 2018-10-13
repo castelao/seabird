@@ -24,8 +24,6 @@ from seabird.exceptions import CNVError
 # from seabird.utils import basic_logger
 from seabird.utils import load_rule
 
-logging.basicConfig(level=logging.DEBUG)
-
 
 class CNV(object):
     """ Main class to parse the .cnv style content
@@ -49,7 +47,8 @@ class CNV(object):
     """
     def __init__(self, raw_text, defaults=None, logger=None):
 
-        logging.getLogger(logger or __name__)
+        self.logger = logging.getLogger(logger or "seabird.CNV")
+        self.logger.debug('Initializing CNV class')
 
         self.raw_text = raw_text
         self.defaults = defaults
@@ -485,7 +484,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            logging.warning("I'm not able to import pandas")
+            self.logger.warning("I'm not able to import pandas")
             return
 
         output = {}
@@ -512,7 +511,7 @@ class CNV(object):
             # Check if the number of variables is equal to nquan
             nquan = int(self.attributes['nquan'])
             if nquan != len(self.keys()):
-                logging.warning(
+                self.logger.warning(
                         "It was supposed to has %s variables." % (nquan))
 
         if 'nvalues' in self.attributes:
@@ -520,7 +519,7 @@ class CNV(object):
             nvalues = int(self.attributes['nvalues'])
             for k in self.keys():
                 if len(self[k]) != nvalues:
-                    logging.warning(
+                    self.logger.warning(
                             ("\033[91m%s was supposed to has %s values, "
                              "but found only %s.\033[0m") %
                             (k, nvalues, len(self[k])))
@@ -547,9 +546,8 @@ class fCNV(CNV):
     """
     def __init__(self, filename, defaultsfile=None, logger=None):
 
-        # self.logger = logger or logging.getLogger(__name__)
-        logging.getLogger(logger or __name__)
-        logging.debug("Openning file: %s" % filename)
+        self.logger = logging.getLogger(logger or "seabird.fCNV")
+        self.logger.debug('Initializing fCNV class with file: %s' % filename)
 
         self.filename = filename
 
@@ -570,7 +568,7 @@ class fCNV(CNV):
             defaults = None
 
         try:
-            super(fCNV, self).__init__(text, defaults, logger=logger)
+            super(fCNV, self).__init__(text, defaults)
         except CNVError as e:
             if e.tag == 'noparsingrule':
                 e.msg += " File: %s" % self.filename

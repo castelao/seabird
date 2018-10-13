@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 
+import logging
+
 from cotede.qc import ProfileQC
 from . import fCNV
 
@@ -12,8 +14,7 @@ class fProfileQC(ProfileQC):
             logger=None):
         """
         """
-        #self.logger = logger or logging.getLogger(__name__)
-        logging.getLogger(logger or __name__)
+        self.logger = logging.getLogger(logger or 'seabird.qc.fProfileQC')
         self.name = 'fProfileQC'
 
         try:
