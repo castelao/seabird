@@ -99,6 +99,10 @@ class CNV(object):
                 return d
         raise KeyError('%s not found' % key)
 
+    @property
+    def attrs(self):
+        return self.attributes
+
     def raw_header(self):
         r = self.rule['header'] + self.rule['sep']
         content_re = re.compile(r, re.VERBOSE)
