@@ -2,7 +2,7 @@
 
 __author__ = 'Guilherme Castelao'
 __email__ = 'guilherme@castelao.net'
-__version__ = '0.10.6'
+__version__ = '0.11.0'
 
 from .cnv import CNV, fCNV
 from .exceptions import CNVError
