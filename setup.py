@@ -57,7 +57,7 @@ setup(
             ['seabird=seabird.cli:cli']
     },
     platforms='any',
-    scripts=["bin/cnvdump", "bin/cnv2nc", "bin/ctdqc"],
+    scripts=["bin/cnvdump", "bin/ctdqc"],
     extras_require={
         'test': requirements_test,
         'QC': ["cotede>=0.20.2"]
