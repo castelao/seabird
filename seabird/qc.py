@@ -5,6 +5,7 @@ import logging
 
 from cotede.qc import ProfileQC
 from . import fCNV
+from .exceptions import CNVError
 
 
 class fProfileQC(ProfileQC):
