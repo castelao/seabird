@@ -19,12 +19,12 @@ class fProfileQC(ProfileQC):
         try:
             # Not the best way, but will work for now. I should pass
             #   the reference for the logger being used.
-            input = fCNV(inputfile, logger=None)
+            profile = fCNV(inputfile, logger=None)
         except CNVError as e:
             #self.attributes['filename'] = basename(inputfile)
             logging.error(e.msg)
             raise
 
-        super(fProfileQC, self).__init__(input, cfg=cfg,
+        super(fProfileQC, self).__init__(profile, cfg=cfg,
                 saveauxiliary=saveauxiliary, verbose=verbose,
                 logger=logger)
