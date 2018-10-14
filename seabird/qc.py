@@ -2,6 +2,7 @@
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 
 import logging
+from os.path import basename
 
 from cotede.qc import ProfileQC
 from . import fCNV
@@ -23,7 +24,7 @@ class fProfileQC(ProfileQC):
             #   the reference for the logger being used.
             profile = fCNV(inputfile, logger=None)
         except CNVError as e:
-            #self.attributes['filename'] = basename(inputfile)
+            self.attributes['filename'] = basename(inputfile)
             logging.error(e.msg)
             raise
 
