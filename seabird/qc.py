@@ -5,6 +5,7 @@ import logging
 from os.path import basename
 
 from cotede.qc import ProfileQC
+
 from . import fCNV
 from .exceptions import CNVError
 
@@ -13,7 +14,7 @@ class fProfileQC(ProfileQC):
     """ Apply ProfileQC from CoTeDe straight from a file.
     """
     def __init__(self, inputfile, cfg=None, saveauxiliary=True, verbose=True,
-            logger=None):
+                 logger=None):
         """
         """
         self.logger = logging.getLogger(logger or 'seabird.qc.fProfileQC')
@@ -28,6 +29,6 @@ class fProfileQC(ProfileQC):
             logging.error(e.msg)
             raise
 
-        super(fProfileQC, self).__init__(profile, cfg=cfg,
-                saveauxiliary=saveauxiliary, verbose=verbose,
-                logger=logger)
+        super(fProfileQC, self).__init__(
+                profile, cfg=cfg, saveauxiliary=saveauxiliary,
+                verbose=verbose, logger=logger)
