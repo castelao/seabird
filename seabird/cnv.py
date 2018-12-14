@@ -21,8 +21,9 @@ import numpy as np
 from numpy import ma
 
 from seabird.exceptions import CNVError
-# from seabird.utils import basic_logger
 from seabird.utils import load_rule
+
+module_logger = logging.getLogger('seabird.cnv')
 
 
 class CNV(object):
@@ -45,10 +46,9 @@ class CNV(object):
         profile['timeS'] # Return the time in Seconds
         profile.attributes # Return a dictionary with the file header
     """
-    def __init__(self, raw_text, defaults=None, logger=None):
+    def __init__(self, raw_text, defaults=None):
 
-        self.logger = logging.getLogger(logger or "seabird.CNV")
-        self.logger.debug('Initializing CNV class')
+        module_logger.debug('Initializing CNV class')
 
         self.raw_text = raw_text
         self.defaults = defaults
@@ -484,7 +484,7 @@ class CNV(object):
         try:
             import pandas as pd
         except:
-            self.logger.warning("I'm not able to import pandas")
+            module_logger.warning("I'm not able to import pandas")
             return
 
         output = {}
@@ -511,18 +511,18 @@ class CNV(object):
             # Check if the number of variables is equal to nquan
             nquan = int(self.attributes['nquan'])
             if nquan != len(self.keys()):
-                self.logger.warning(
-                        "It was supposed to has %s variables." % (nquan))
+                module_logger.warning(
+                    "It was supposed to has %s variables." % (nquan))
 
         if 'nvalues' in self.attributes:
             # Check if each variable have nvalues
             nvalues = int(self.attributes['nvalues'])
             for k in self.keys():
                 if len(self[k]) != nvalues:
-                    self.logger.warning(
-                            ("\033[91m%s was supposed to has %s values, "
-                             "but found only %s.\033[0m") %
-                            (k, nvalues, len(self[k])))
+                    module_logger.warning(
+                        ("\033[91m%s was supposed to has %s values, "
+                        "but found only %s.\033[0m") %
+                        (k, nvalues, len(self[k])))
 
 
 class fCNV(CNV):
@@ -544,10 +544,9 @@ class fCNV(CNV):
         profile.attributes # Return a dictionary with the file header
           masked array
     """
-    def __init__(self, filename, defaultsfile=None, logger=None):
+    def __init__(self, filename, defaultsfile=None):
 
-        self.logger = logging.getLogger(logger or "seabird.fCNV")
-        self.logger.debug('Initializing fCNV class with file: %s' % filename)
+        module_logger.debug('Initializing fCNV class with file: %s' % filename)
 
         self.filename = filename
 
