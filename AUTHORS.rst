@@ -17,3 +17,5 @@ Contributors
 * Paul Focke; Position base splitting #45.
 * Amber York; Reporting bug $41 on reading bottle files.
 * Achim Randelhoff; minor improvements in documentation
+* Uday Bhaskar; Provided SK287_CTD05.cnv, data columns with headers.
+                Reported bad path on seabird_dir() for windows machines.
