@@ -1,0 +1,59 @@
+* Sea-Bird SBE 9 Data File:
+* FileName = E:\SK 287\SK287_01082011_CTD05.hdr
+* Software Version Seasave V 7.18c
+* Temperature SN = 5094
+* Conductivity SN = 3478
+* Number of Bytes Per Scan = 34
+* Number of Voltage Words = 5
+* Number of Scans Averaged by the Deck Unit = 1
+* System UpLoad Time = Aug 01 2011 11:34:32
+* NMEA Latitude = 02 26.71 S
+* NMEA Longitude = 080 28.68 E
+* NMEA UTC (Time) = Aug 01 2011  11:34:53
+* Store Lat/Lon Data = Append to Every Scan
+# nquan = 8
+# nvalues = 10
+# units = specified
+# name 0 = depSM: Depth [salt water, m]
+# name 1 = prDM: Pressure, Digiquartz [db]
+# name 2 = c0S/m: Conductivity [S/m]
+# name 3 = t090C: Temperature [ITS-90, deg C]
+# name 4 = sal00: Salinity [PSU]
+# name 5 = svCM: Sound Velocity [Chen-Millero, m/s]
+# name 6 = flECO-AFL: Fluorescence, Wetlab ECO-AFL/FL [mg/m^3]
+# name 7 = flag:  0.000e+00
+# span 0 =     -0.130,   1007.902       
+# span 1 =     -0.131,   1015.959       
+# span 2 =   0.787909,   5.731454       
+# span 3 =     6.4766,    98.9762       
+# span 4 =     4.0083,    35.3979       
+# span 5 =    1493.15,    1554.86       
+# span 6 =    -0.0145,     4.1723       
+# span 7 = 0.0000e+00, 0.0000e+00       
+# interval = seconds: 0.0416667                   
+# start_time = Aug 01 2011 11:34:32
+# bad_flag = -9.990e-29
+# sensor 0 = Frequency  0  temperature, 5094, 03-Mar-09
+# sensor 1 = Frequency  1  conductivity, 3478, 01-Apr-09, cpcor = -9.5700e-08
+# sensor 2 = Frequency  2  pressure, 0934, 07-Apr-09
+# sensor 3 = Extrnl Volt  0  Oxygen, SBE, primary, 1606, 08-APR-09
+# sensor 4 = Extrnl Volt  2  WET Labs, ECO_AFL
+# sensor 5 = Extrnl Volt  3  userpoly 0, FLNTURTD-1095, 10-Apr-09
+# sensor 6 = Extrnl Volt  6  altimeter
+# sensor 7 = Extrnl Volt  9  surface irradiance (SPAR), degrees = 0.0
+# datcnv_date = Aug 02 2011 04:16:47, 7.18c
+# datcnv_in = E:\SK 287\SK287_01082011_CTD05.hex E:\SK 287\SK287_01082011_CTD05.CON
+# datcnv_skipover = 25
+# file_type = ascii
+*END*
+     Depth      Press   Conduct     Tempe      Salinity     Sound       Fluore  
+      3.973      3.995   5.294085    28.9682    32.0462    1540.41     0.0844  0.000e+00
+      4.079      4.102   5.293595    28.9650    32.0449    1540.40     0.0844  0.000e+00
+      3.902      3.924   5.294147    28.9632    32.0499    1540.40     0.0844  0.000e+00
+      4.079      4.102   5.295541    28.9613    32.0606    1540.41     0.0844  0.000e+00
+      4.022      4.045   5.297332    28.9601    32.0736    1540.42     0.0844  0.000e+00
+      4.128      4.151   5.299263    28.9587    32.0877    1540.43     0.0844  0.000e+00
+      4.079      4.102   5.301257    28.9575    32.1021    1540.44     0.0844  0.000e+00
+      4.114      4.137   5.303189    28.9563    32.1160    1540.46     0.0844  0.000e+00
+      4.079      4.102   5.304872    28.9561    32.1276    1540.47     0.0844  0.000e+00
+      0.811      0.816   3.282917    28.9404    18.8553    1526.53     0.0844  0.000e+00
