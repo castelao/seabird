@@ -98,7 +98,14 @@ def load_rule(raw_text):
 
 
 def seabird_dir(subdir=None):
-    return os.path.expanduser(os.getenv('SEABIRD_DIR', '~/.config/seabird'))
+    """Return the local support/config directory
+
+       Returns a local directory used to store testing data. The default path
+        (~/.config/seabird) can be overwritten by the environment variable
+        SEABIRD_DIR.
+    """
+    spath = os.getenv('SEABIRD_DIR', '~/.config/seabird')
+    return os.path.expanduser(spath).replace('/', os.path.sep)
 
 
 def sampledata():
