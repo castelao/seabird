@@ -1,2 +1,2 @@
-numpy>=1.11.1
+numpy>=1.14
 Click>=6.6
