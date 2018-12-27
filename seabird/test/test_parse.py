@@ -22,7 +22,7 @@ def test_answer():
             print("Loading file: %s" % f)
             profile = fCNV(f)
             assert len(profile.keys()) > 0
-            assert len(profile.attributes.keys()) > 0
+            assert len(profile.attrs.keys()) > 0
 
 def test_blank_note_line():
     """ Temporary solution to avoid #37 & #40

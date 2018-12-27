@@ -32,14 +32,14 @@ def dump(inputfilename):
 
     print("file: %s" % inputfilename)
     print("Global attributes")
-    for a in sorted(data.attributes.keys()):
-        print("\t\033[93m%s\033[0m: %s" % (a, data.attributes[a]))
+    for a in sorted(data.attrs.keys()):
+        print("\t\033[93m%s\033[0m: %s" % (a, data.attrs[a]))
 
     print("\nVariabes")
     for k in data.keys():
         print("\033[91m%s\033[0m" % k)
-        for a in data[k].attributes.keys():
-            print("\t\033[93m%s\033[0m: %s" % (a, data[k].attributes[a]))
+        for a in data[k].attrs.keys():
+            print("\t\033[93m%s\033[0m: %s" % (a, data[k].attrs[a]))
 
 @cli.command(name='cnv2nc')
 @click.option('--outputfilename', default=None,

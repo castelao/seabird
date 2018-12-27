@@ -22,5 +22,5 @@ def test_serialize_fCNV():
         for f in datafiles:
             profile = fCNV(f)
             profile2 = pickle.loads(pickle.dumps(profile))
-            assert profile.attributes == profile2.attributes
+            assert profile.attrs == profile2.attrs
             assert (profile.data == profile.data)

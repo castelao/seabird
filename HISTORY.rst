@@ -78,7 +78,7 @@ History
 
 * Refactoring. Parsed text is saved in self.parsed, preparing to output
     everything that wasn't specifically parsed.
-* XML is extracted into self.attributes['awkward_xml']
+* XML is extracted into self.attrs['awkward_xml']
 
 0.1.7
 -----

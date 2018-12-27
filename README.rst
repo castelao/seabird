@@ -68,7 +68,7 @@ In a python script, one can use like this:
 
     profile = fCNV('your_file.cnv')
 
-    profile.attributes  # It will return the header, as a dictionary.
+    profile.attrs # It will return the header, as a dictionary.
 
     profile.keys() # It will list the available variables.
 
