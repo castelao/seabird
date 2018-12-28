@@ -19,7 +19,12 @@ def cli():
 @cli.command(name='cnvdump')
 @click.argument('inputfilename', type=click.Path(exists=True))
 def dump(inputfilename):
-    """ Dump the contents of a CNV file
+    """Dump the .cnv content as text
+
+       Doesn't matter the version of the .cnv, this command will
+         show it's content in a unified pattern, as an ASCII text.
+
+       Consider the idea of a descriptor file with default values.
     """
 
     try:
