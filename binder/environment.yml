@@ -1,0 +1,13 @@
+name: seabird-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - gsw==3.2.1
+  - numpy==1.15.4
+  - pandas==0.23.4
+  - matplotlib==3.0.2
+  - seaborn==0.9.0
+  - pip:
+    - -e ..

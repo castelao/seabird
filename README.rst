@@ -18,6 +18,9 @@ Seabird
 .. image:: https://img.shields.io/pypi/v/seabird.svg
         :target: https://pypi.python.org/pypi/seabird
 
+.. image:: https://mybinder.org/badge_logo.svg
+        :target: https://mybinder.org/v2/gh/castelao/seabird/master?filepath=docs%2Fnotebooks%2FBasicsReadingData.ipynb
+
 
 This is a parser for Sea Bird CTD and TSG output files.
 
