@@ -31,7 +31,7 @@ def dump(inputfilename):
         data = fCNV(inputfilename)
     except CNVError as e:
         print("\033[91m%s\033[0m" % e.msg)
-        import sys; sys.exit()
+        return
     except:
         raise
 
