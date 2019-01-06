@@ -3,10 +3,16 @@
 History
 -------
 
+0.11.x
+------
+
+* Migrating QC resources from CoTeDe to here. Until now CoTeDe would use PySeabird to understand CTD & TSG data files to QC, but now it is PySeabird that imports CoTeDe, as a plugin, to apply those same QC procedures.
+
 0.10.x
 ------
 
 * Data variables split by position. Rare cases use 11 characters thus not leaving any space between fields.
+* Improved bottle dataset
 
 0.9.x
 -----
