@@ -7,8 +7,8 @@ import json
 # import codecs
 
 from seabird.exceptions import CNVError
-## from seabird.utils import basic_logger
-#logging.basicConfig(level=logging.DEBUG)
+
+module_logger = logging.getLogger('seabird.utils')
 
 
 def make_file_list(inputdir, inputpattern=".*\.cnv"):

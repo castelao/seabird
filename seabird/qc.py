@@ -9,6 +9,8 @@ from cotede.qc import ProfileQC
 from . import fCNV
 from .exceptions import CNVError
 
+module_logger = logging.getLogger('seabird.qc')
+
 
 class fProfileQC(ProfileQC):
     """ Apply ProfileQC from CoTeDe straight from a file.

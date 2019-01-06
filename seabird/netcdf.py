@@ -5,13 +5,15 @@
 """
 
 from __future__ import print_function
-
 from datetime import datetime
+import logging
+
+module_logger = logging.getLogger('seabird.netcdf')
 
 try:
     import netCDF4
 except:
-    print("netCDF4 is not available.")
+    module_logger.warning("netCDF4 is not available.")
 
 
 def cnv2nc(data, filename):
@@ -36,7 +38,7 @@ def cnv2nc(data, filename):
         try:
             nc.__setattr__(a, data.attrs[a])
         except:
-            print("Problems with %s" % a)
+            module_logger.warning("Problems with %s" % a)
 
     nc.createDimension('scan', int(data.attrs['nvalues']))
 
