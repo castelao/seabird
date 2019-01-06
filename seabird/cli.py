@@ -58,3 +58,21 @@ def nc(inputfilename, outputfilename):
         click.echo('Saving on %s' % outputfilename)
     data = fCNV(inputfilename)
     cnv2nc(data, outputfilename)
+
+
+@cli.command(name='ctdqc')
+@click.option('--outputfilename', default=None,
+        help='The output netCDF filename.')
+@click.option('--config', default=None,
+        help='The output netCDF filename.')
+@click.argument('inputfilename', type=click.Path(exists=True))
+def qc(inputfilename, outputfilename, config):
+    """
+    """
+    from cotede.qc import ProfileQC, combined_flag
+    if outputfilename is None:
+        outputfilename = inputfilename.replace('.cnv', '.nc')
+        click.echo('Saving on %s' % outputfilename)
+    data = fCNV(inputfilename)
+    profile = ProfileQC(data, cfg=config, verbose=False)
+    print(profile.flags)
