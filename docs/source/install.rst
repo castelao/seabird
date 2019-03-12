@@ -14,7 +14,9 @@ Optional requirement
 
 - `NetCDF4 <https://pypi.python.org/pypi/netCDF4>`_, if you want to be able to export the data into netCDF files.
 
-- `CoTeDe <http://cotede.castelao.net>`_, if you want to quality control your profiles.
+- `CoTeDe <http://cotede.castelao.net>`_, if you want to quality control your profiles, install the latest version of CoTeDe with PIP::
+
+    pip install git+https://github.com/castelao/CoTeDe.git
 
 Installing Seabird 
 ==================
