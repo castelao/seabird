@@ -39,7 +39,7 @@ lint:
 
 test:
 	python -c 'import seabird.utils; seabird.utils.sampledata()'
-	py.test seabird
+	pytest tests
 
 test-all:
 	tox
