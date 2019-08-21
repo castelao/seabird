@@ -1,6 +1,6 @@
 {
     "header": "(?P<intro>\n    \\*\\ Sea-Bird\\ SBE\\ ?.*\\ Data\\ File:\\r?\\n\n    (\n        \\*(?:\\ .*)?\\n  # Anything starting with *\n    )+\n)\n(?P<notes>\n    (\n        \\*\\* .*\\n  # Anything starting with *\n    )*\n)\n# temporary solution just to run while I'm sailing\n# The notes not necessarily are after the intro, they\n# can be in the middle of the intro.\n    (\n        \\*\\ .*\\n  # Anything starting with *\n    )*\n\\s*\n(?P<descriptors>\n    (\n        \\#.*\\n  # Anything\n    )+\n\\#\\ file_type\\ =\\ ascii\\r?\\n)\n",
-    "sep": "\\*END\\*\\r?\\n\n(?:.*\\n)?\n", 
+    "sep": "\\*END\\*\\r?\\n\n(?:.*\\n)??\n",
     "data": "(?P<data>\n  (?:\n      (?:                     # Start of one variable\n        \\ *\n        -?                    # Can be a negative number\n        \\d+                   # Any digits\n          (?:\n            \\.\\d+               # Real numbers\n            (?:\n              e[\\+|-]\\d+        # Cientific notation\n            )?\n          )?\n      )+                      # Repeat as much variables as there are\n      #  (?:\n      #  )?\n        \\s*                   # Following empty spaces, end of line\n  )+                          # One or more lines\n)\n",
     "intro": {
         "sbe_model": "\\*\\ Sea-Bird\\ SBE\\ *(?P<value>\\d.*?)\\ +Data\\ File:\\r?\\n", 
