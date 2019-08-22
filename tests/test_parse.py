@@ -57,3 +57,10 @@ def test_column_header():
     profile = CNV(raw.replace('     Depth      Press  \n' ,''))
     assert len(profile['DEPTH']) == 3
     assert profile['DEPTH'][0] == 3.973
+
+
+def test_empty_lines():
+    """Ignore corrupted empty lines
+    """
+    raw = "* Sea-Bird SBE 9 Data File:\n\n* System UpLoad Time = Aug 01 2011 11:34:32\n \n# nquan = 2\n# nvalues = 3\n# name 0 = depSM: Depth [salt water, m]\n# name 1 = prDM: Pressure, Digiquartz [db]\n# start_time = Aug 01 2011 11:34:32\n# bad_flag = -9.990e-29\n# datcnv_date = Aug 02 2011 04:16:47, 7.18c\n# file_type = ascii\n*END*\n     Depth      Press  \n      3.973      3.995\n      4.079      4.102\n      3.902      3.924\n"
+    profile = CNV(raw)
