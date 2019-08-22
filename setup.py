@@ -24,7 +24,7 @@ with open('requirements_dev.txt', encoding='utf-8') as f:
 
 setup(
     name='seabird',
-    version='0.11.0',
+    version='0.11.1',
     description="Parser for Sea-Bird's CTD and TSG.",
     long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
@@ -59,9 +59,9 @@ setup(
             ['seabird=seabird.cli:cli']
     },
     platforms='any',
-    scripts=["bin/ctdqc"],
     extras_require={
         'test': requirements_test,
+        'CDF': ["netCDF4>=1.4"],
         'QC': ["cotede>=0.20.2"]
         }
 )
