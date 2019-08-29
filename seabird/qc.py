@@ -25,7 +25,7 @@ class fProfileQC(ProfileQC):
         try:
             # Not the best way, but will work for now. I should pass
             #   the reference for the logger being used.
-            profile = fCNV(inputfile, logger=None)
+            profile = fCNV(inputfile)
         except CNVError as e:
             self.attributes['filename'] = basename(inputfile)
             logging.error(e.msg)
@@ -33,4 +33,4 @@ class fProfileQC(ProfileQC):
 
         super(fProfileQC, self).__init__(
                 profile, cfg=cfg, saveauxiliary=saveauxiliary,
-                verbose=verbose, logger=logger)
+                verbose=verbose)

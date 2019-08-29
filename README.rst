@@ -10,16 +10,16 @@ Seabird
       :alt: Documentation Status
 
 .. image:: https://img.shields.io/travis/castelao/seabird.svg
-        :target: https://travis-ci.org/castelao/seabird
+   :target: https://travis-ci.org/castelao/seabird
 
 .. image:: https://codecov.io/github/castelao/seabird/coverage.svg?branch=master
-    :target: https://codecov.io/github/castelao/seabird?branch=master
+   :target: https://codecov.io/github/castelao/seabird?branch=master
 
 .. image:: https://img.shields.io/pypi/v/seabird.svg
-        :target: https://pypi.python.org/pypi/seabird
+   :target: https://pypi.python.org/pypi/seabird
 
 .. image:: https://mybinder.org/badge_logo.svg
-        :target: https://mybinder.org/v2/gh/castelao/seabird/master?filepath=docs%2Fnotebooks%2FBasicsReadingData.ipynb
+   :target: https://mybinder.org/v2/gh/castelao/seabird/master?filepath=docs%2Fnotebooks
 
 
 This is a parser for Sea Bird CTD and TSG output files.
