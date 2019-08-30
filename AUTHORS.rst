@@ -21,3 +21,4 @@ Contributors
                 Reported bad path on seabird_dir() for windows machines.
 * Mathew Biddle; Reported bug #53 on skipping first line if without header.
 * @atorr018; Reported bug #51 on failing to parse due to a empty lines.
+* @shaunwbell; Reported bug #55 on typos in cnv rules reference names.
