@@ -65,7 +65,7 @@
     }, 
     "sigma-t11": {
         "long_name": "sea_water_sigma_t", 
-        "name": "sigma_t"
+        "name": "sigma_t2"
     }, 
     "flCUVA": {
         "name": "fluorescence"
