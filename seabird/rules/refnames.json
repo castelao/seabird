@@ -8,8 +8,8 @@
         "name": "PSAL2"
     }, 
     "sbeox0V": {
-        "long_name": "sea_water_oxigen_voltage", 
-        "name": "oxigenvoltage"
+        "long_name": "sea_water_oxygen_voltage", 
+        "name": "oxygenvoltage"
     }, 
     "density00": {
         "long_name": "sea_water_density", 
@@ -88,7 +88,7 @@
     }, 
     "sbeox0ML/L": {
         "long_name": "volume_fraction_of_oxygen_in_sea_water", 
-        "name": "oxigen_ml_L"
+        "name": "oxygen_ml_L"
     }, 
     "depSM": {
         "long_name": "depth", 
