@@ -12,8 +12,8 @@ Seabird
 .. image:: https://img.shields.io/travis/castelao/seabird.svg
    :target: https://travis-ci.org/castelao/seabird
 
-.. image:: https://codecov.io/github/castelao/seabird/coverage.svg?branch=master
-   :target: https://codecov.io/github/castelao/seabird?branch=master
+.. image:: https://codecov.io/gh/castelao/seabird/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/castelao/seabird
 
 .. image:: https://img.shields.io/pypi/v/seabird.svg
    :target: https://pypi.python.org/pypi/seabird
