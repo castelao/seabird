@@ -1,0 +1,113 @@
+* Sea-Bird SBE 9 Data File: 
+* FileName = C:\LSSL2004-16\ctd_data\200416_001.dat 
+* Software Version Seasave Win32 V 5.28c 
+* Temperature SN = 4322 
+* Conductivity SN = 2809 
+* Number of Bytes Per Scan = 37 
+* Number of Voltage Words = 4 
+* Number of Scans Averaged by the Deck Unit = 1 
+* System UpLoad Time = Jul 25 2004 07:53:21 
+* NMEA Latitude = 74 06.98 N 
+* NMEA Longitude = 089 39.71 W 
+* NMEA UTC (Time) = Jul 25 2004  14:55:24 
+* Store Lat/Lon Data = Append to Every Scan 
+** Ship: CCGS "Louis S. St-Laurent" first 
+** Cruise:  2004-16  
+** Station:     
+** Depth:   
+# nquan = 14 
+# nvalues = 3                            
+# units = specified 
+# name 0 = prDM: Pressure, Digiquartz [db] 
+# name 1 = t090C: Temperature [ITS-90, deg C] 
+# name 2 = c0mS/cm: Conductivity [mS/cm] 
+# name 3 = sbeox0V: Oxygen Voltage, SBE 43 
+# name 4 = xmiss: Beam Transmission, Chelsea/Seatech/Wetlab CStar [%] 
+# name 5 = flSP: Fluorescence, Seapoint 
+# name 6 = altM: Altimeter [m] 
+# name 7 = sbeox0ML/L: Oxygen, SBE 43 [ml/l] 
+# name 8 = sbeox0Mm/Kg: Oxygen, SBE 43 [umol/Kg] 
+# name 9 = sal00: Salinity [PSU] 
+# name 10 = nbin: Scans Per Bin 
+# name 11 = potemp090C: Potential Temperature [ITS-90, deg C] 
+# name 12 = sigma-é00: Density [sigma-theta, Kg/m^3] 
+# name 13 = flag: 
+# span 0 =      1.000,    226.000        
+# span 1 =    -1.6787,     1.8923        
+# span 2 =  25.490845,  27.892963        
+# span 3 =     2.3272,     3.9163        
+# span 4 =    67.4294,    89.1811        
+# span 5 = 2.5525e-02, 4.9016e+00        
+# span 6 =       0.00,       0.00        
+# span 7 =    5.88635,   10.71717        
+# span 8 =    255.930,    466.859        
+# span 9 =    30.9701,    33.8188        
+# span 10 =         44,        373       
+# span 11 =    -1.6805,     1.8922       
+# span 12 =    24.7516,    27.1732       
+# span 13 = 0.0000e+00, 0.0000e+00       
+# interval = decibars: 1                 
+# start_time = Jul 25 2004 07:53:21 
+# bad_flag = -9.990e-29 
+# sensor 0 = Frequency  0  temperature, primary, 4322, 25-May-04 
+# sensor 1 = Frequency  1  conductivity, primary, 2809, 25-May-04, cpcor = -9.5700e-08 
+# sensor 2 = Frequency  2  pressure, 90559, 10/29/02 
+# sensor 3 = Frequency  3  temperature, secondary, 4239, 25-May-04 
+# sensor 4 = Frequency  4  conductivity, secondary, 2810, 25-May-04, cpcor = -9.5700e-08 
+# sensor 5 = Extrnl Volt  0  Fluorometer, Seapoint, primary 
+# sensor 6 = Extrnl Volt  2  transmissometer, primary, CST-662DR, 20-Mar-2003 
+# sensor 7 = Extrnl Volt  4  altimeter 
+# sensor 8 = Extrnl Volt  6  Oxygen, SBE, primary, 0435, 18-Mar-2003, s+v 24jul05 
+# datcnv_date = Jul 25 2005 15:07:36, 5.32a 
+# datcnv_in = c:\workdesk\200416_001.dat c:\workdesk\200416-oxycal.CON 
+# datcnv_skipover = 8750 
+# alignctd_date = Jul 25 2005 15:07:38, 5.32a 
+# alignctd_in = c:\workdesk\200416_001-d.cnv 
+# alignctd_adv = sbeox0V 6.000, xmiss 0.100                                                                                                                                                                                           
+# wildedit_date = Jul 25 2005 15:07:41, 5.32a 
+# wildedit_in = c:\workdesk\200416_001-d-a.cnv 
+# wildedit_pass1_nstd = 10.0 
+# wildedit_pass2_nstd = 20.0 
+# wildedit_pass2_mindelta = 0.000e+000 
+# wildedit_npoint = 100 
+# wildedit_vars = prDM t090C t190C c0mS/cm c1mS/cm sbeox0V xmiss flSP altM 
+# wildedit_excl_bad_scans = yes 
+# celltm_date = Jul 25 2005 15:07:44, 5.32a 
+# celltm_in = c:\workdesk\200416_001-d-a-w.cnv 
+# celltm_alpha = 0.0300, 0.0300 
+# celltm_tau = 7.0000, 7.0000 
+# celltm_temp_sensor_use_for_cond = primary, secondary 
+# filter_date = Jul 25 2005 15:07:47, 5.32a 
+# filter_in = c:\workdesk\200416_001-d-a-w-c.cnv 
+# filter_low_pass_tc_A = 0.030 
+# filter_low_pass_tc_B = 0.150 
+# filter_low_pass_A_vars = c0mS/cm c1mS/cm 
+# filter_low_pass_B_vars = prDM 
+# loopedit_date = Jul 25 2005 15:07:53, 5.32a 
+# loopedit_in = c:\workdesk\200416_001-d-a-w-c-f.cnv 
+# loopedit_minVelocity = 0.000                                                          
+# loopedit_excl_bad_scans = yes 
+# Derive_date = Jul 25 2005 15:07:57, 5.32a 
+# Derive_in = c:\workdesk\200416_001-d-a-w-c-f-l.cnv c:\workdesk\200416-oxycal.CON 
+# derive_time_window_docdt = seconds: 1 
+# binavg_date = Jul 25 2005 15:08:01, 5.32a 
+# binavg_in = c:\workdesk\200416_001-d-a-w-c-f-l-d.cnv 
+# binavg_bintype = decibars 
+# binavg_binsize = 1 
+# binavg_excl_bad_scans = yes 
+# binavg_skipover = 0 
+# binavg_surface_bin = no, min = 0.000, max = 0.000, value = 0.000 
+# Derive_date = Jul 25 2005 15:08:04, 5.32a 
+# Derive_in = c:\workdesk\200416_001-d-a-w-c-f-l-d-b.cnv c:\workdesk\200416-oxycal.CON 
+# split_date = Jul 25 2005 15:08:04, 5.32a 
+# split_in = c:\workdesk\200416_001-d-a-w-c-f-l-d-b-d.cnv 
+# split_excl_bad_scans = yes 
+# strip_date = Jul 26 2005 20:01:02, 5.32a 
+# strip_in = C:\workdesk\down\d200416_001-d-a-w-c-f-l-d-b-d.cnv 
+# file_type = ascii 
+# Flag_columns = Temperature, Conductivity, Oxygen Voltage 
+# Flag_code =  2 is good, 6 is interpolated; Added by IOS 27Jul05 
+*END* 
+      1.00     1.7970    27.4231      3.635     82.076      0.315       0.00       9.39     409.22    31.0125         76    24.7918     1.7970        222
+      2.00     1.8923    27.4689      3.615     81.839      0.317       0.00       9.31     405.80    30.9753         76    24.7557     1.8922        222
+      3.00     1.8911    27.4635      3.593     81.951      0.270       0.00       9.25     403.10    30.9692         60    24.7510     1.8910        222
