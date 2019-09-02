@@ -24,7 +24,7 @@ with open('requirements_dev.txt', encoding='utf-8') as f:
 
 setup(
     name='seabird',
-    version='0.11.3',
+    version='0.11.4',
     description="Parser for Sea-Bird's CTD and TSG.",
     long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
