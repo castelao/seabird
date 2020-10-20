@@ -5,8 +5,9 @@
 """
 
 from __future__ import print_function
-from datetime import datetime
+from datetime import datetime, date, time
 import logging
+import numpy as np
 
 module_logger = logging.getLogger('seabird.netcdf')
 
@@ -65,9 +66,28 @@ def cnv2nc(data, filename):
         except:
             print(str(data[k].attrs['name']) + ': Ignore fill_value')
 
+        # Add attributes available
         for a in data[k].attrs.keys():
             print("\t\033[93m%s\033[0m: %s" % (a, data[k].attrs[a]))
-            # cdf_variables[k].__setattr__(a, data[k].attrs[a])
-        cdf_variables[k][:] = data[k].data
+            cdf_variables[k].setncattr(a, data[k].attrs[a])
+
+        # Deal with time separately
+        if data[k].dtype == object:
+            if issubclass(type(data[k][0]), date) or issubclass(type(data[k][0]), datetime):
+                cdf_variables[k][:] = data[k].data.astype('datetime64[s]').astype('float64')
+                cdf_variables[k].units = 'seconds since 1970-01-01T00:00:00'
+
+                # TODO need one specific to timezone aware times
+            elif issubclass(type(data[k][0]), time):
+                fraction_of_day = []
+                for time_ in data[k]:
+                    fraction_of_day.append(
+                        (time_.hour + (time_.minute + (time_.second + time_.microsecond / 1000) / 60) / 60) / 24)
+
+                cdf_variables[k][:] = fraction_of_day
+                cdf_variables[k].units = 'Fraction of day'
+
+        else:
+            cdf_variables[k][:] = data[k].data
 
     nc.close()
