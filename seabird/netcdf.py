@@ -40,17 +40,24 @@ def cnv2nc(data, filename):
         except:
             module_logger.warning("Problems with %s" % a)
 
-    nc.createDimension('scan', int(data.attrs['nvalues']))
+    # Assign bottle number as a dimension for bottle data, otherwise stay with scan value
+    # TODO could add time if timeseries and depth/pressure if bin data
+    if data.attrs['instrument_type'] == 'CTD-bottle':
+        nc.createDimension('bottle', len(data.data[0]))
+        dimVar = 'bottle'
+    else:
+        nc.createDimension('scan', int(data.attrs['nvalues']))
+        dimVar = 'scan'
 
     print("\nVariabes")
     cdf_variables = {}
     for k in data.keys():
         print(k)
         try:
-            cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
+            cdf_variables[k] = nc.createVariable(k, 'd', (dimVar,))
         except:
             cdf_variables[k] = nc.createVariable(
-                    k.decode('utf8', 'ignore'), 'd', ('scan',))
+                    k.decode('utf8', 'ignore'), 'd', (dimVar,))
             print("\033[91mATENTION, I need to ignore the non UTF-8 "
                   "characters in '%s' to create the netCDF file.\033[0m" % k)
         cdf_variables[k].missing_value = data[k].fill_value
