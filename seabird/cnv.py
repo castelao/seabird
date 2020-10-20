@@ -207,16 +207,21 @@ class CNV(object):
                         self.ids.append(len(self.ids))
                         self.data.append(ma.array([]))
                         try:
-                            reference = refnames[x.groupdict()['varname']]
-                            varname = reference['name']
+                            reference = refnames_lower[x.groupdict()['varname']]
+
+                            self.data[-1].attrs = {}
+                            self.data[-1].attrs['id'] = self.ids[-1]
+                            for key in reference:
+                                self.data[-1].attrs[key] = reference[key]
+                            #varname = reference['name']
                             #longname = reference['longname']
                         except:
                             varname = x.groupdict()['varname']
-                        self.data[-1].attrs = {
-                                'id': self.ids[-1],
-                                'name': varname,
-                                #'longname': x.groupdict()['longname'],
-                                }
+                            self.data[-1].attrs = {
+                                    'id': self.ids[-1],
+                                    'name': varname,
+                                    #'longname': x.groupdict()['longname'],
+                                    }
                     return
 
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
