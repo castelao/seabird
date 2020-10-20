@@ -187,6 +187,10 @@ class CNV(object):
                     attrib_text = re.sub(r'Sbeox0Mm/Kg', r' 0Sbeox0Mm/Kg', attrib_text)
                     pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
 
+                    # Make the variable matching non case sensitive by lowering all
+                    refnames_lower = dict((k.lower(), v) for k, v in refnames.items())
+                    attrib_text = str.lower(attrib_text)
+
                     self.ids = [0, 1, 2]
                     self.data = [ma.array([]), ma.array([]), ma.array([])]
                     self.data[0].attrs = {
