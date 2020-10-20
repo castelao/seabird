@@ -29,7 +29,7 @@ def cnv2nc(data, filename):
 
     nc = netCDF4.Dataset(filename, 'w', format='NETCDF4')
 
-    nc.history = "Created by cnv2nc (PyCNV)"
+    nc.history = "Created by cnv2nc (seabird)"
 
     nc.DATE_CREATION = datetime.now().strftime("%Y%m%d%H%M%S")
 
