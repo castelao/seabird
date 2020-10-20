@@ -182,6 +182,9 @@ class CNV(object):
                       \s+ Position \s+ Time .* \n
                     """
                     attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s*\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
+
+                    # Force white space in front of some of the variable names which are sometimes not spaced appropriately
+                    attrib_text = re.sub(r'Sbeox0Mm/Kg', r' 0Sbeox0Mm/Kg', attrib_text)
                     pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
 
                     self.ids = [0, 1, 2]
