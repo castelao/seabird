@@ -138,6 +138,9 @@ class CNV(object):
                     self.attrs['instrument_type'] = 'CTD'
                 elif self.attrs['sbe_model'] in ['21', '45']:
                     self.attrs['instrument_type'] = 'TSG'
+                elif self.attrs['sbe_model'] in ['37SMP-ODO-SDI12']:
+                    self.attrs['instrument_type'] = 'CTD-ODO'
+            # TODO Could add a lot more types, maybe copying the model would be good enough and more flexible
 
     def get_attrs(self):
         """
