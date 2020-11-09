@@ -230,17 +230,22 @@ class CNV(object):
         pattern = re.compile(self.rule['fieldname'], re.VERBOSE)
         for x in pattern.finditer(str(attrib_text)):
             self.ids.append(int(x.groupdict()['id']))
+
+            self.data.append(ma.array([]))
             try:
                 reference = refnames[x.groupdict()['name']]
                 name = reference['name']
+                # Add extra attributes available
+                self.data[-1].attrs = reference
+
             except:
                 name = x.groupdict()['name']
-            self.data.append(ma.array([]))
-            self.data[-1].attrs = {
-                    'id': (x.groupdict()['id']),
+                self.data[-1].attrs = {
+                    'id': self.ids[-1],
                     'name': name,
                     'longname': x.groupdict()['longname'],
-                    }
+                }
+
         attrib_text = pattern.sub('', attrib_text)
 
         # ---- Load span limits on each list item
