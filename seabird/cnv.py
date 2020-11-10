@@ -212,12 +212,10 @@ class CNV(object):
                         try:
                             reference = refnames_lower[x.groupdict()['varname']]
 
-                            self.data[-1].attrs = {}
+                            # Add extra attributes available
+                            self.data[-1].attrs = reference
                             self.data[-1].attrs['id'] = self.ids[-1]
-                            for key in reference:
-                                self.data[-1].attrs[key] = reference[key]
-                            #varname = reference['name']
-                            #longname = reference['longname']
+
                         except:
                             varname = x.groupdict()['varname']
                             self.data[-1].attrs = {
@@ -237,6 +235,7 @@ class CNV(object):
                 name = reference['name']
                 # Add extra attributes available
                 self.data[-1].attrs = reference
+                self.data[-1].attrs['id'] = self.ids[-1]
 
             except:
                 name = x.groupdict()['name']
