@@ -186,11 +186,11 @@ class CNV(object):
                     """
                     attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s*\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
 
-                    # Force white space in front of some of the variable names which are sometimes not spaced appropriately
+                    # Force white space in front of some of the variable names which are sometimes not
+                    # spaced appropriately
                     attrib_text = re.sub(r'Sbeox0Mm/Kg', r' Sbeox0Mm/Kg', attrib_text)
                     pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
 
-                    # Make the variable matching non case sensitive by lowering all
                     refnames_lower = dict((k, v) for k, v in refnames.items())
                     attrib_text = str.lower(attrib_text)
 
@@ -215,13 +215,17 @@ class CNV(object):
                             # Add extra attributes available
                             self.data[-1].attrs = reference
                             self.data[-1].attrs['id'] = self.ids[-1]
+                            self.data[-1].attrs['SBE_short_name'] = x.groupdict()['name']
+                            self.data[-1].attrs['SBE_long_name'] = x.groupdict()['longname']
 
                         except:
                             varname = x.groupdict()['varname']
                             self.data[-1].attrs = {
                                     'id': self.ids[-1],
                                     'name': varname,
-                                    #'longname': x.groupdict()['longname'],
+                                    'long_name': x.groupdict()['longname'],
+                                    'SBE_short_name': x.groupdict()['name'],
+                                    'SBE_long_name': x.groupdict()['longname'],
                                     }
                     return
 
@@ -236,13 +240,18 @@ class CNV(object):
                 # Add extra attributes available
                 self.data[-1].attrs = reference
                 self.data[-1].attrs['id'] = self.ids[-1]
+                self.data[-1].attrs['SBE_short_name'] = x.groupdict()['name']
+                self.data[-1].attrs['SBE_long_name'] = x.groupdict()['longname']
 
             except:
                 name = x.groupdict()['name']
                 self.data[-1].attrs = {
                     'id': self.ids[-1],
                     'name': name,
-                    'longname': x.groupdict()['longname'],
+                    #'longname': x.groupdict()['longname'],
+                    'long_name': x.groupdict()['longname'],
+                    'SBE_short_name':x.groupdict()['name'],
+                    'SBE_long_name': x.groupdict()['longname'],
                 }
 
         attrib_text = pattern.sub('', attrib_text)
