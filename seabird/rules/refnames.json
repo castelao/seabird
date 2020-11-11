@@ -1,101 +1,156 @@
 {
-    "sal00": {
-        "long_name": "sea_water_practical_salinity", 
-        "name": "PSAL"
-    }, 
-    "sal11": {
-        "long_name": "secondary_sea_water_practical_salinity", 
-        "name": "PSAL2"
-    }, 
+    "_fields_description": {
+        "long_name": "Long name generally used to describe the property in a figure",
+        "unit": "units associated with the data",
+        "standard_name": "CF Convention Standard Name",
+        "name": "variable name for which this specific variable will be replace in a NetCDF output"
+    },
     "sbeox0V": {
-        "long_name": "sea_water_oxygen_voltage", 
+        "long_name": "sea_water_oxygen_voltage",
         "name": "oxygenvoltage"
-    }, 
+    },
     "density00": {
-        "long_name": "sea_water_density", 
+        "long_name": "sea_water_density",
         "name": "density"
-    }, 
+    },
     "density11": {
-        "long_name": "sea_water_density", 
+        "long_name": "sea_water_density",
         "name": "density"
-    }, 
+    },
     "t068C": {
-        "long_name": "sea_water_temperature", 
-        "name": "temperature"
-    }, 
-    "potemp090C": {
-        "long_name": "sea_water_potential_temperature", 
-        "name": "potemperature"
-    }, 
-    "timeS": {
-        "units": "seconds", 
-        "name": "timeS"
-    }, 
-    "c1S/m": {
-        "long_name": "secondary_sea_water_electrical_conductivity", 
-        "name": "CNDC2"
-    }, 
-    "t090C": {
-        "long_name": "sea_water_temperature", 
+        "long_name": "Sea Water Temperature",
+        "standard_name": "sea_water_temperature",
+        "units": "degC [IPTS-68]",
         "name": "TEMP"
-    }, 
+    },
+    "potemp090C": {
+        "long_name": "sea_water_potential_temperature",
+        "name": "potemperature"
+    },
+    "timeS": {
+        "long_name": "Elapsed time since instrument start",
+        "units": "seconds",
+        "name": "timeS",
+        "description": "This output seems to have some issues and do not refect time gaps in original data. Use TimeK output as much as possible"
+    },
+    "c1S/m": {
+        "long_name": "secondary_sea_water_electrical_conductivity",
+        "name": "CNDC2"
+    },
+    "t090C": {
+        "long_name": "sea_water_temperature",
+        "name": "TEMP"
+    },
     "T090C": {
         "long_name": "sea_water_temperature",
         "name": "TEMP"
     },
+    "tv290C": {
+        "long_name": "Sea Water Temperature",
+        "standard_name": "sea_water_temperature",
+        "units": "degC [ITS-90]",
+        "name": "TEMPS901"
+    },
     "longitude": {
-        "units": "degrees", 
+        "units": "degrees",
         "name": "LONGITUDE"
-    }, 
+    },
     "t190C": {
-        "long_name": "secondary_sea_water_temperature", 
+        "long_name": "secondary_sea_water_temperature",
         "name": "TEMP2"
-    }, 
+    },
     "dz/dtM": {
-        "name": "descentrate", 
+        "name": "descentrate",
         "descentrate": null
-    }, 
+    },
     "c0S/m": {
-        "long_name": "sea_water_electrical_conductivity", 
-        "name": "CNDC"
-    }, 
+        "long_name": "sea_water_electrical_conductivity",
+        "name": "COND"
+    },
     "svCM": {
-        "name": "soundspeed", 
+        "name": "soundspeed",
         "longname": "speed_of_sound_in_sea_water"
-    }, 
+    },
     "sigma-t11": {
-        "long_name": "sea_water_sigma_t", 
+        "long_name": "sea_water_sigma_t",
         "name": "sigma_t2"
-    }, 
+    },
     "flCUVA": {
         "name": "fluorescence"
-    }, 
-    "prDM": {
-        "long_name": "sea_water_pressure", 
-        "name": "PRES"
-    }, 
+    },
     "sbeox0Mm/Kg": {
-        "long_name": "moles_of_oxygen_per_unit_mass_in_sea_water", 
+        "long_name": "moles_of_oxygen_per_unit_mass_in_sea_water",
         "name": "oxygen"
-    }, 
+    },
     "potemp190C": {
-        "long_name": "secondary_sea_water_potential_temperature", 
+        "long_name": "secondary_sea_water_potential_temperature",
         "name": "potemperature2"
-    }, 
+    },
     "latitude": {
-        "units": "degrees", 
-        "name": "LATITUDE"
-    }, 
-    "sbeox0ML/L": {
-        "long_name": "volume_fraction_of_oxygen_in_sea_water", 
-        "name": "oxygen_ml_L"
-    }, 
-    "depSM": {
-        "long_name": "depth", 
-        "name": "DEPTH"
-    }, 
+        "units": "degrees east",
+        "name": "latitude"
+    },
     "sigma-t00": {
-        "long_name": "sea_water_sigma_t", 
+        "long_name": "sea_water_sigma_t",
         "name": "sigma_t"
+    },
+    "timeK": {
+        "long_name": "Instrument Time",
+        "units": "seconds since 2000, Jan 01 00:00:00",
+        "name": "time"
+    },
+    "scan": {
+        "long_name": "Record Scan Number",
+        "name": "scan"
+    },
+    "prdM": {
+        "long_name": "Sea Water Pressure",
+        "standard_name": "sea_water_pressure",
+        "units": "dBar",
+        "name": "PRESPR01"
+    },
+    "sal00": {
+        "long_name": "Practical Salinity",
+        "standard_name": "sea_water_practical_salinity",
+        "name": "PSALST01"
+    },
+    "sal11": {
+        "long_name": "secondary_sea_water_practical_salinity",
+        "standard_name": "sea_water_practical_salinity",
+        "name": "PSALST02"
+    },
+    "oxsolML/L": {
+        "long_name": "Oxygen Saturation Concentration, Garcia & Gordon",
+        "units": "mL/L",
+        "name": "OXYSAT"
+    },
+    "sbeopoxML/L": {
+        "long_name": "Dissolved Oxygen Concentration",
+        "standard_name": "volume_fraction_of_oxygen_in_sea_water",
+        "units": "mL/L",
+        "instrument": "SBE63",
+        "name": "DOXYZZ01"
+    },
+    "sbeoxTC": {
+        "long_name": "Oxygen Sensor Foil Temperature",
+        "units": "degC",
+        "instrument": "SBE63",
+        "name": "SBE63TEMP"
+    },
+    "depSM": {
+        "long_name": "Depth",
+        "standard_name": "depth",
+        "units": "m",
+        "name": "depth"
+    },
+    "cond0mS/cm": {
+        "long_name": "Sea Water Conductivity",
+        "standard_name": "sea_water_conductivity",
+        "units": "mS/cm",
+        "name": "CNDCST01"
+    },
+    "flag": {
+        "long_name": "SBE Processing Flag",
+        "name": "SBE_FLAG"
     }
 }
