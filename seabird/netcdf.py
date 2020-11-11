@@ -41,14 +41,17 @@ def cnv2nc(data, filename):
         except:
             module_logger.warning("Problems with %s" % a)
 
-    # Assign bottle number as a dimension for bottle data, otherwise stay with scan value
+    # Assign bottle number as a dimension for bottle data, otherwise stay with scan or time value
     # TODO could add time if timeseries and depth/pressure if bin data
     if data.attrs['instrument_type'] == 'CTD-bottle':
-        nc.createDimension('bottle', len(data.data[0]))
         dimVar = 'bottle'
+        # nc.createDimension(dimVar, len(data.data[0]))
+    elif "time" in data.keys():
+        dimVar = 'time'
     else:
-        nc.createDimension('scan', int(data.attrs['nvalues']))
         dimVar = 'scan'
+    # Apply Dimension
+    nc.createDimension(dimVar, int(data.attrs['nvalues']))
 
     print("\nVariabes")
     cdf_variables = {}
