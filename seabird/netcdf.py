@@ -53,6 +53,13 @@ def cnv2nc(data, filename):
     # Apply Dimension
     nc.createDimension(dimVar, int(data.attrs['nvalues']))
 
+    # Add Instrument Related Information
+    ins_model = nc.createVariable('instrument_model', str)
+    ins_model[0] = data.attrs['sbe_model']
+
+    ins_type = nc.createVariable('instrument_type', str)
+    ins_type[0] = data.attrs['instrument_type']
+
     print("\nVariabes")
     cdf_variables = {}
     for k in data.keys():
