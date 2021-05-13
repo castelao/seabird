@@ -8,6 +8,8 @@ import logging
 import struct
 import json
 
+import xmltodict
+
 try:
     import hashlib
     md5 = hashlib.md5
@@ -230,6 +232,43 @@ class CNV(object):
                         'latin1', 'replace'
                         ).encode('utf-8')
                     ).hexdigest()
+
+        def _generate_history(data_header):
+            """
+            Method to generate a CF compliant history attribute from the Seabird CNV header.
+            """
+            history = ''
+            past_bad_flag = False
+            history_date = None
+            for item, value in data_header.items():
+                if item == 'variables':
+                    break
+
+                if past_bad_flag:
+                    # CF standard suggest having a isotime followed by history entry, let's capture
+                    # the date when available.
+                    if item.endswith('date'):
+                        history_date = datetime.strptime(value.split(',')[0], '%b %d %Y %H:%M:%S')
+                    # Add date if available
+                    if history_date:
+                        history += history_date.isoformat()
+                    # Add each history entry on a separate line.
+                    history += ' {0} = {1}\n'.format(item, value)
+                if item == 'bad_flag':
+                    past_bad_flag = True
+
+            # Finish by saying it was parsed by the Seabird package.
+            history += datetime.now().isoformat() + " Read by seabird Python Package\n"
+            return history
+
+        # Add attributes generated form parsed CNV header
+        self.attrs['date_created'] = datetime.strptime(
+            self.header_dictionary['instrument_header']['System UpLoad Time'],
+            '%b %d %Y %H:%M:%S').isoformat()
+        self.attrs['date_modified'] = datetime.utcnow().isoformat()
+        self.attrs['history'] = _generate_history(self.header_dictionary['data_header'])
+        self.attrs['original_header'] = self.raw_text
+        self.attrs['original_header_json'] = json.dumps(self.header_dictionary, indent=2)
 
     def prepare_data(self):
         """
