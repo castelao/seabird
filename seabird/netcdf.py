@@ -60,6 +60,9 @@ def cnv2nc(data, filename):
     ins_type = nc.createVariable('instrument_type', str)
     ins_type[0] = data.attrs['instrument_type']
 
+    ins_sn = nc.createVariable('instrument_serialnumber', str)
+    ins_sn[0] = data.header_dictionary['instrument_header']['InstrumentState']['HardwareData']['@SerialNumber']
+
     print("\nVariabes")
     cdf_variables = {}
     for k in data.keys():
