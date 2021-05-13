@@ -54,11 +54,13 @@ class CNV(object):
         self.raw_text = re.sub('\n\s*(?=\n)', '', raw_text)
         self.defaults = defaults
         self.attrs = {}
+        self.header_dictionary = {}
         # ----
         self.rule, self.parsed = load_rule(self.raw_text)
 
         if not hasattr(self, 'parsed'):
             return
+        self.parse_cnv_header()
         self.get_intro()
         self.get_attrs()
         self.prepare_data()
@@ -141,6 +143,69 @@ class CNV(object):
                 elif self.attrs['sbe_model'] in ['37SMP-ODO-SDI12']:
                     self.attrs['instrument_type'] = 'CTD-ODO'
             # TODO Could add a lot more types, maybe copying the model would be good enough and more flexible
+
+    def parse_cnv_header(self):
+        """
+        Method to parse Seabird standard CNV header.
+            1. * ... lines are all regrouped within the instrument_header dictionary.
+            2. # ... lines are all regrouped within the data_header dictionary.
+        XML type lines are also converted to a dictionary.
+        """
+        def _insert_within_element(xml, element):
+            return " <{0}>\n{1} </{0}>".format(element, xml)
+
+        def _parse_xml_to_dict(text, string_search, section='temp'):
+            lines = ''.join(re.findall(string_search, text))
+            lines = _insert_within_element(lines, section)
+            return xmltodict.parse(lines)[section]
+
+        def _convert_to_literal(string):
+            if re.findall(r"[.eE]", string):
+                return float(string)
+            elif re.match(r"\s*\d*\s*", string):
+                return int(string)
+            else:
+                return string
+
+        # Retrieve Sensor Header Section (* ...)
+        instrument_header = {}
+        for item, value in re.findall(r"\*([a-zA-Z0-9 _]*)=(.*)", self.raw_text):
+            instrument_header[item.strip()] = value.strip()
+        instrument_header.update(
+            _parse_xml_to_dict(self.raw_text, r'\*(\s*\<.*\>\n)')
+        )
+        self.header_dictionary['instrument_header'] = instrument_header
+
+        # Retrieve Data Header Section (# ...)
+        data_header = {}
+        variables = {}
+        for item, value in re.findall(r"#([a-zA-Z0-9 _]*)=(.*)", self.raw_text):
+            item = item.strip()
+            value = value.strip()
+            if item.startswith('name'):
+                col_number = int(item.replace('name ', ''))
+                parsed_value = re.split(r": |\[|\]", value)
+                variables[col_number] = {
+                    'name': parsed_value[0],
+                    'long_name': parsed_value[1],
+                }
+                if len(parsed_value) > 2:
+                    variables[col_number]['units'] = parsed_value[2]
+                if len(parsed_value) > 3:
+                    variables[col_number]['comments'] = parsed_value[3]
+            elif item.startswith('span'):
+                col_number = int(item.replace('span ', ''))
+                valid_range = value.split(',')
+                variables[col_number]['valid_min'] = _convert_to_literal(valid_range[0])
+                variables[col_number]['valid_max'] = _convert_to_literal(valid_range[1])
+            else:
+                data_header[item] = value
+
+        data_header['variables'] = variables
+        data_header.update(
+            _parse_xml_to_dict(self.raw_text, r"\#(\s*\<.*\>\n)")
+        )
+        self.header_dictionary['data_header'] = data_header
 
     def get_attrs(self):
         """
