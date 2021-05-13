@@ -8,6 +8,8 @@ import logging
 import struct
 import json
 
+import xmltodict
+
 try:
     import hashlib
     md5 = hashlib.md5
@@ -54,11 +56,13 @@ class CNV(object):
         self.raw_text = re.sub('\n\s*(?=\n)', '', raw_text)
         self.defaults = defaults
         self.attrs = {}
+        self.header_dictionary = {}
         # ----
         self.rule, self.parsed = load_rule(self.raw_text)
 
         if not hasattr(self, 'parsed'):
             return
+        self.parse_cnv_header()
         self.get_intro()
         self.get_attrs()
         self.prepare_data()
@@ -142,6 +146,69 @@ class CNV(object):
                     self.attrs['instrument_type'] = 'CTD-ODO'
             # TODO Could add a lot more types, maybe copying the model would be good enough and more flexible
 
+    def parse_cnv_header(self):
+        """
+        Method to parse Seabird standard CNV header.
+            1. * ... lines are all regrouped within the instrument_header dictionary.
+            2. # ... lines are all regrouped within the data_header dictionary.
+        XML type lines are also converted to a dictionary.
+        """
+        def _insert_within_element(xml, element):
+            return " <{0}>\n{1} </{0}>".format(element, xml)
+
+        def _parse_xml_to_dict(text, string_search, section='temp'):
+            lines = ''.join(re.findall(string_search, text))
+            lines = _insert_within_element(lines, section)
+            return xmltodict.parse(lines)[section]
+
+        def _convert_to_literal(string):
+            if re.findall(r"[.eE]", string):
+                return float(string)
+            elif re.match(r"\s*\d*\s*", string):
+                return int(string)
+            else:
+                return string
+
+        # Retrieve Sensor Header Section (* ...)
+        instrument_header = {}
+        for item, value in re.findall(r"\*([a-zA-Z0-9 _]*)=(.*)", self.raw_text):
+            instrument_header[item.strip()] = value.strip()
+        instrument_header.update(
+            _parse_xml_to_dict(self.raw_text, r'\*(\s*\<.*\>\n)')
+        )
+        self.header_dictionary['instrument_header'] = instrument_header
+
+        # Retrieve Data Header Section (# ...)
+        data_header = {}
+        variables = {}
+        for item, value in re.findall(r"#([a-zA-Z0-9 _]*)=(.*)", self.raw_text):
+            item = item.strip()
+            value = value.strip()
+            if item.startswith('name'):
+                col_number = int(item.replace('name ', ''))
+                parsed_value = re.split(r": |\[|\]", value)
+                variables[col_number] = {
+                    'name': parsed_value[0],
+                    'long_name': parsed_value[1],
+                }
+                if len(parsed_value) > 2:
+                    variables[col_number]['units'] = parsed_value[2]
+                if len(parsed_value) > 3:
+                    variables[col_number]['comments'] = parsed_value[3]
+            elif item.startswith('span'):
+                col_number = int(item.replace('span ', ''))
+                valid_range = value.split(',')
+                variables[col_number]['valid_min'] = _convert_to_literal(valid_range[0])
+                variables[col_number]['valid_max'] = _convert_to_literal(valid_range[1])
+            else:
+                data_header[item] = value
+
+        data_header['variables'] = variables
+        data_header.update(
+            _parse_xml_to_dict(self.raw_text, r"\#(\s*\<.*\>\n)")
+        )
+        self.header_dictionary['data_header'] = data_header
+
     def get_attrs(self):
         """
         """
@@ -165,6 +232,43 @@ class CNV(object):
                         'latin1', 'replace'
                         ).encode('utf-8')
                     ).hexdigest()
+
+        def _generate_history(data_header):
+            """
+            Method to generate a CF compliant history attribute from the Seabird CNV header.
+            """
+            history = ''
+            past_bad_flag = False
+            history_date = None
+            for item, value in data_header.items():
+                if item == 'variables':
+                    break
+
+                if past_bad_flag:
+                    # CF standard suggest having a isotime followed by history entry, let's capture
+                    # the date when available.
+                    if item.endswith('date'):
+                        history_date = datetime.strptime(value.split(',')[0], '%b %d %Y %H:%M:%S')
+                    # Add date if available
+                    if history_date:
+                        history += history_date.isoformat()
+                    # Add each history entry on a separate line.
+                    history += ' {0} = {1}\n'.format(item, value)
+                if item == 'bad_flag':
+                    past_bad_flag = True
+
+            # Finish by saying it was parsed by the Seabird package.
+            history += datetime.now().isoformat() + " Read by seabird Python Package\n"
+            return history
+
+        # Add attributes generated form parsed CNV header
+        self.attrs['date_created'] = datetime.strptime(
+            self.header_dictionary['instrument_header']['System UpLoad Time'],
+            '%b %d %Y %H:%M:%S').isoformat()
+        self.attrs['date_modified'] = datetime.utcnow().isoformat()
+        self.attrs['history'] = _generate_history(self.header_dictionary['data_header'])
+        self.attrs['original_header'] = self.raw_text
+        self.attrs['original_header_json'] = json.dumps(self.header_dictionary, indent=2)
 
     def prepare_data(self):
         """

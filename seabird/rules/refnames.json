@@ -60,8 +60,7 @@
         "name": "TEMP2"
     },
     "dz/dtM": {
-        "name": "descentrate",
-        "descentrate": null
+        "name": "descentrate"
     },
     "c0S/m": {
         "long_name": "sea_water_electrical_conductivity",
