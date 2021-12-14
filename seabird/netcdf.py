@@ -56,7 +56,11 @@ def cnv2nc(data, filename):
                     k.decode('utf8', 'ignore'), 'd', ('scan',))
             print("\033[91mATENTION, I need to ignore the non UTF-8 "
                   "characters in '%s' to create the netCDF file.\033[0m" % k)
-        cdf_variables[k].missing_value = data[k].fill_value
+        
+        # Ignore unknown fill_value
+        if data[k].fill_value not in ['?','N/A'] :
+            cdf_variables[k].missing_value = data[k].fill_value
+
         for a in data[k].attrs.keys():
             print("\t\033[93m%s\033[0m: %s" % (a, data[k].attrs[a]))
             # cdf_variables[k].__setattr__(a, data[k].attrs[a])
