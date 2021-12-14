@@ -5,7 +5,7 @@
 """
 
 from __future__ import print_function
-from datetime import datetime
+from datetime import datetime, date, time
 import logging
 
 module_logger = logging.getLogger('seabird.netcdf')
@@ -36,7 +36,10 @@ def cnv2nc(data, filename):
     A = sorted(data.attrs.keys())
     for a in A:
         try:
-            nc.__setattr__(a, data.attrs[a])
+            if type(data.attrs[a]) is datetime:
+                nc.__setattr__(a, data.attrs[a].isoformat())
+            else:
+                nc.__setattr__(a, data.attrs[a])
         except:
             module_logger.warning("Problems with %s" % a)
     
@@ -49,6 +52,14 @@ def cnv2nc(data, filename):
     cdf_variables = {}
     for k in data.keys():
         print(k)
+        # handle datetime variables, convert to string format 
+        if data[k].dtype == object and type(data[k][0]) in (datetime,time,date):
+            str_values = data[k].data.astype(str)
+            string_length = len(str_values[0])
+            cdf_variables[k] = nc.createVariable(k, 'S' + str(string_length), ('scan',))
+            cdf_variables[k][:] = str_values
+            continue
+
         try:
             cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
         except:
@@ -64,6 +75,7 @@ def cnv2nc(data, filename):
         for a in data[k].attrs.keys():
             print("\t\033[93m%s\033[0m: %s" % (a, data[k].attrs[a]))
             # cdf_variables[k].__setattr__(a, data[k].attrs[a])
+
         cdf_variables[k][:] = data[k].data
 
     nc.close()
