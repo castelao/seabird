@@ -302,6 +302,7 @@ class CNV(object):
     def load_bottledata(self):
         content = self.raw_data()['bottledata']
         nvars = len(self.ids)
+        data_std = {}
         for rec in re.finditer(self.rule['data'], content, re.VERBOSE):
             attrs = self.data[0].attrs
             self.data[0] = np.append(self.data[0],
@@ -324,6 +325,32 @@ class CNV(object):
                 attrs = self.data[n].attrs
                 self.data[n] = np.append(self.data[n], v)
                 self.data[n].attrs = attrs
+
+            #Add std values
+            for n, v in enumerate(re.findall('[-|+|\w|\.]+',
+                                rec.groupdict()['values_std']),
+                                start=0):
+                if n in data_std:
+                    data_std[n] = np.append(data_std[n], v)
+                else:
+                    data_std[n] = np.array(v)
+        
+        # Append std to self.data
+        nvars_std = len(data_std.keys())
+        for std_id,values in data_std.items():
+            id = len(self.ids)
+            self.ids.append(id)
+            self.data.append(ma.array(values))
+            attrs = self.data[nvars - nvars_std + std_id].attrs.copy()
+            attrs["cell_method"] = "scan: standard_deviation"
+            attrs["name"] += '_std'
+            # Scan count per bottle if available
+            if 'scan_per_bottle' in self.attrs:
+                attrs["cell_method"] += " (previous " + self.attrs["scan_per_bottle"] + " scans)"
+            # Add attributes
+            self.data[id].attrs = attrs
+
+
 
     def products(self):
         """
