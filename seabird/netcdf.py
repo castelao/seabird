@@ -39,8 +39,11 @@ def cnv2nc(data, filename):
             nc.__setattr__(a, data.attrs[a])
         except:
             module_logger.warning("Problems with %s" % a)
-
-    nc.createDimension('scan', int(data.attrs['nvalues']))
+    
+    if 'nvalues' in data.attrs:
+        nc.createDimension('scan', int(data.attrs['nvalues']))
+    else:
+        nc.createDimension('scan', len(data[data.keys()[0]]))
 
     print("\nVariabes")
     cdf_variables = {}
