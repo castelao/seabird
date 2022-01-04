@@ -343,7 +343,7 @@ class CNV(object):
             self.data.append(ma.array(values))
             attrs = self.data[nvars - nvars_std + std_id].attrs.copy()
             attrs["cell_method"] = "scan: standard_deviation"
-            attrs["name"] += '_std'
+            attrs["name"] += '_sdev'
             # Scan count per bottle if available
             if 'scan_per_bottle' in self.attrs:
                 attrs["cell_method"] += " (previous " + self.attrs["scan_per_bottle"] + " scans)"
