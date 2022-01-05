@@ -9,7 +9,9 @@
         "LATITUDE": "\\*\\ NMEA\\ Latitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
         "LONGITUDE": "\\*\\ NMEA\\ Longitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
         "gps_datetime": "\\*\\ NMEA\\ UTC\\ \\(Time\\)\\ =\\ (?P<value>.*?)\\r?\\n\n",
-        "seasave": "\\*\\ Software\\ Version\\ Seasave\\ (?P<value>.*?)\\r?\\n\n"
+        "seasave": "\\*\\ Software\\ Version\\ Seasave\\ (?P<value>.*?)\\r?\\n\n",
+        "temperature_sn": "\\*\\ Temperature\\ SN\\ =\\ (?P<value>\\d*?)\\r?\\n\r",
+        "conductivity_sn": "\\*\\ Conductivity\\ SN\\ =\\ (?P<value>\\d*?)\\r?\\n\r"
     },
 "descriptors": {
         "nquan": "\\#\\ nquan\\ =\\ (?P<value>\\d+)\n",
@@ -18,7 +20,8 @@
         "bad_flag": "\\#\\ bad_flag\\ =\\ (?P<value>.*?)\\s\n",
         "file_type": "\\#\\ file_type\\ \\=\\ (?P<value>.*?)\\r?\\n\n",
         "awkward_xml": "(?P<value>\n  \\#\\ \\<\\?xml\\ version=\"\\d+\\.\\d+\"\\ encoding=\"UTF-8\"\\?>\\r?\\n\n  (?:\\#\\s+<.*>\\r?\\n)+\n)\n",
-        "scan_per_bottle": "\\#\\ datcnv_scans_per_bottle\\ \\=\\ (?P<value>.*)\n"
+        "scan_per_bottle": "\\#\\ datcnv_scans_per_bottle\\ \\=\\ (?P<value>.*)\n",
+        "history": "\\#\\ \\<\\/Sensors\\>\\n(?P<value>(.|\\n)*)Bottle"
     },
 "fieldname": "\\#\\ name\\ (?P<id>\\d+)\\ =\\ (?P<name>.*)\\:(?:\\ (?P<longname>.*))?\\r?\\s\n",
 "fieldspan": "\\#\\ span\\ (?P<id>\\d+)\\ =\\ (?P<valuemin>.*),\\ (?P<valuemax>.*)\\r?\\s\n",
