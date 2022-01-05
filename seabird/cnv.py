@@ -138,6 +138,16 @@ class CNV(object):
                     self.attrs['instrument_type'] = 'CTD'
                 elif self.attrs['sbe_model'] in ['21', '45']:
                     self.attrs['instrument_type'] = 'TSG'
+        
+        # Get Notes
+        if 'notes' in  self.parsed:
+            self.attrs['notes'] = self.parsed['notes']
+
+            # Add notes ("<key>: <value>") as a global attribute
+            if 'notes' in self.parsed:
+                pattern = re.compile("\\*\\*\\ (?P<key>\\w*?)\\:\\ *(?P<value>.*?)\\r?\\n\r", re.VERBOSE)
+                for key, value in pattern.findall(self.parsed['notes']):
+                        self.attrs[key.lower()] = value
 
     def get_attrs(self):
         """
