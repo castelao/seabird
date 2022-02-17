@@ -182,7 +182,7 @@ class CNV(object):
         # ----
         rule_file = "rules/refnames.json"
         text = pkg_resources.resource_string(__name__, rule_file)
-        refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
+        refnames = json.loads(text.decode('utf-8'))
         # ---- Parse fields
 
         if ('attributes' in self.rule) and \
