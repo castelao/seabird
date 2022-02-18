@@ -561,7 +561,7 @@ class CNV(object):
             for k in self.keys():
                 if len(self[k]) != nvalues:
                     module_logger.warning(
-                        ("\033[91m%s was supposed to has %s values, "
+                        ("\033[91m%s was supposed to have %s values, "
                         "but found only %s.\033[0m") %
                         (k, nvalues, len(self[k])))
 
