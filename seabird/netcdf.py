@@ -43,6 +43,9 @@ def cnv2nc(data, filename):
         except:
             module_logger.warning("Problems with %s" % a)
 
+    real_values = len(data[data.keys()[0]])
+    if     real_values != int(data.attributes['nvalues']):
+        print("\033[91mATENTION The data suggest '%s' records are available while the header suggest '%s' records." % (real_values, data.attributes['nvalues']))
     nc.createDimension('scan', len(data[data.keys()[0]]))
 
     print("\nVariabes")
@@ -55,6 +58,12 @@ def cnv2nc(data, filename):
             string_length = len(str_values[0])
             cdf_variables[k] = nc.createVariable(k, 'S' + str(string_length), ('scan',))
             cdf_variables[k][:] = str_values
+            continue
+
+        if k in cdf_variables:
+            print("\033[91mATENTION The duplicated variables are not"
+            " compatible with the NetCDF Format. "
+            "The very first variable '%s' will be considered." % k)
             continue
 
         try:
