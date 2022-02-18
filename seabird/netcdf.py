@@ -69,10 +69,12 @@ def cnv2nc(data, filename):
         try:
             cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
         except:
+            ik = k
+            k = k.replace('/','Per')
             cdf_variables[k] = nc.createVariable(
-                    k.decode('utf8', 'ignore'), 'd', ('scan',))
+                    k, 'd', ('scan',))
             print("\033[91mATENTION, I need to ignore the non UTF-8 "
-                  "characters in '%s' to create the netCDF file.\033[0m" % k)
+                  "characters in '%s' by '%s' to create the netCDF file.\033[0m" % (ik,k))
         
         # Ignore unknown fill_value
         if data[k].fill_value not in ['?','N/A'] :
