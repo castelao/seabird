@@ -21,7 +21,7 @@ def get_cf_attributes(attrs):
     value_min = attrs.pop('valuemin') if 'valuemin' in attrs else None 
     value_max = attrs.pop('valuemax') if 'valuemax' in attrs else None
     if value_min and value_max:
-        attrs['actual_range'] = [value_min, value_max]
+        attrs['actual_range'] = (value_min, value_max)
     return attrs
 
 def cnv2nc(data, filename):
@@ -49,58 +49,59 @@ def cnv2nc(data, filename):
             else:
                 nc.__setattr__(a, data.attrs[a])
         except:
-            module_logger.warning("Problems with %s" % a)
+            module_logger.warning("Failed to write global attribute %s" % a)
 
     real_values = len(data[data.keys()[0]])
     if 'nvalue' not in data.attributes:
         logging.warning('Unknown original data length, nvalues not available within the cnv file.')
     elif real_values != int(data.attributes["nvalues"]):
         logging.warning(
-            "\033[91mATENTION The data suggest '%s' records are available while the header suggest '%s' records]."
+            "\033[91mATENTION '%s' records available differ from nvalues='%s'."
             % (real_values, data.attributes["nvalues"])
         )
     nc.createDimension("scan", len(data[data.keys()[0]]))
 
     logging.info("Variabes")
     cdf_variables = {}
-    for k in data.keys():
-        logging.info(k)
-        # handle datetime variables, convert to string format 
-        if data[k].dtype == object and type(data[k][0]) in (datetime,time,date):
-            str_values = data[k].data.astype(str)
-            string_length = len(str_values[0])
-            cdf_variables[k] = nc.createVariable(k, 'S' + str(string_length), ('scan',))
-            cdf_variables[k][:] = str_values
-            continue
+    for name in data.keys():
+        logging.info(name)
+        var = data[name]
 
-        if k in cdf_variables:
+        # If duplicate consider first variable only
+        if name in cdf_variables:
             logging.warning(
-                "\033[91mATENTION The duplicated variables are not"
-                " compatible with the NetCDF Format. "
-                "The very first variable '%s' will be considered." % k
+                "\033[91mATENTION The duplicated variables are not compatible with the NetCDF Format. "
+                + "Only the very first variable '%s' will be considered." % name
             )
             continue
 
-        try:
-            cdf_variables[k] = nc.createVariable(k, 'd', ('scan',))
-        except:
-            ik = k
-            k = k.replace('/','Per')
-            cdf_variables[k] = nc.createVariable(
-                    k, 'd', ('scan',))
-            logging.warning("\033[91mATENTION, I need to ignore the non UTF-8 "
-                  "characters in '%s' by '%s' to create the netCDF file.\033[0m" % (ik,k))
+        # Rename Variable if bad character
+        if '/' in name:
+            nc_name = name.replace('/','Per')
+            logging.info("Replace %s in variable by %s to be compatible with NetCDF" % (name,nc_name))
+        else:
+            nc_name = name
+        
+        # Add variable to dataset
+        # handle datetime variables, convert to string format 
+        if var.dtype == object and type(var[0]) in (datetime,time,date):
+            str_data = var.data.astype(str)
+            cdf_variables[nc_name] = nc.createVariable(nc_name, "S%g" % len(str_data[0]), ('scan',))
+            cdf_variables[nc_name][:] = str_data
+        else:
+            cdf_variables[nc_name] = nc.createVariable(nc_name, var.dtype, ('scan',))
+            cdf_variables[nc_name][:] = var.data
         
         # Ignore unknown fill_value
-        if data[k].fill_value not in ['?','N/A'] :
-            cdf_variables[k].missing_value = data[k].fill_value
+        if var.fill_value not in ('?','N/A'):
+            cdf_variables[nc_name].missing_value = var.fill_value
 
-        for key,value in get_cf_attributes(data[k].attrs).items():
+        # Add Attributes
+        for key,value in get_cf_attributes(var.attrs).items():
+            # Ignore name and empty attributes
             if key in ['name'] or value == None:
                 continue
             logging.info("\t\033[93m%s\033[0m: %s" % (key, value))
-            cdf_variables[k].__setattr__(key, value)
-
-        cdf_variables[k][:] = data[k].data
+            cdf_variables[nc_name].__setattr__(key, value)
 
     nc.close()
