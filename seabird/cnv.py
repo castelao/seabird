@@ -23,6 +23,7 @@ from numpy import ma
 from seabird.exceptions import CNVError
 from seabird.utils import load_rule
 
+logging.basicConfig(format='%(message)s',level=logging.INFO)
 module_logger = logging.getLogger('seabird.cnv')
 
 
@@ -97,7 +98,7 @@ class CNV(object):
         for d in self.data:
             if d.attrs['name'] == key:
                 return d
-        raise KeyError('%s not found' % key)
+        logging.error('%s not found' % key)
 
     @property
     def attributes(self):
