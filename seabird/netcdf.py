@@ -15,6 +15,14 @@ try:
 except:
     module_logger.warning("netCDF4 is not available.")
 
+def get_cf_attributes(attrs):
+    if 'longname' in attrs:
+        attrs['long_name'] = attrs.pop('longname')
+    value_min = attrs.pop('valuemin') if 'valuemin' in attrs else None 
+    value_max = attrs.pop('valuemax') if 'valuemax' in attrs else None
+    if value_min and value_max:
+        attrs['actual_range'] = [value_min, value_max]
+    return attrs
 
 def cnv2nc(data, filename):
     """ Save a CNV() object into filename as a NetCDF
@@ -53,7 +61,7 @@ def cnv2nc(data, filename):
         )
     nc.createDimension("scan", len(data[data.keys()[0]]))
 
-    logging.info("\nVariabes")
+    logging.info("Variabes")
     cdf_variables = {}
     for k in data.keys():
         logging.info(k)
@@ -87,9 +95,11 @@ def cnv2nc(data, filename):
         if data[k].fill_value not in ['?','N/A'] :
             cdf_variables[k].missing_value = data[k].fill_value
 
-        for a in data[k].attrs.keys():
-            logging.info("\t\033[93m%s\033[0m: %s" % (a, data[k].attrs[a]))
-            # cdf_variables[k].__setattr__(a, data[k].attrs[a])
+        for key,value in get_cf_attributes(data[k].attrs).items():
+            if key in ['name'] or value == None:
+                continue
+            logging.info("\t\033[93m%s\033[0m: %s" % (key, value))
+            cdf_variables[k].__setattr__(key, value)
 
         cdf_variables[k][:] = data[k].data
 
