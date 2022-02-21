@@ -8,7 +8,8 @@
         "sbe_model": "\\*\\ Sea-Bird\\ SBE\\ +(?P<value>\\d.*)\\ Data\\ File:\\r?\\n",
         "LATITUDE": "\\*\\ NMEA\\ Latitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
         "LONGITUDE": "\\*\\ NMEA\\ Longitude\\ =\\ (?P<value>.*?)\\r?\\n\n",
-        "gps_datetime": "\\*\\ NMEA\\ UTC\\ \\(Time\\)\\ =\\ (?P<value>.*?)\\r?\\n\n"
+        "gps_datetime": "\\*\\ NMEA\\ UTC\\ \\(Time\\)\\ =\\ (?P<value>.*?)\\r?\\n\n",
+        "seasave": "\\*\\ Software\\ Version\\ Seasave\\ (?P<value>.*?)\\r?\\n\n"
     },
 "descriptors": {
         "nquan": "\\#\\ nquan\\ =\\ (?P<value>\\d+)\n",
