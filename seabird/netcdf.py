@@ -30,7 +30,7 @@ def cnv2nc(data, filename):
 
     nc.history = "Created by cnv2nc (PyCNV)"
 
-    nc.DATE_CREATION = datetime.now().strftime("%Y%m%d%H%M%S")
+    nc.date_created = datetime.now().isoformat()
 
     # print "Global attributes"
     A = sorted(data.attrs.keys())
