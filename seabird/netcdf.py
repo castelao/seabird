@@ -51,6 +51,7 @@ def cnv2nc(data, filename):
             "\033[91mATENTION The data suggest '%s' records are available while the header suggest '%s' records]."
             % (real_values, data.attributes["nvalues"])
         )
+    nc.createDimension("scan", len(data[data.keys()[0]]))
 
     logging.info("\nVariabes")
     cdf_variables = {}
