@@ -305,6 +305,12 @@ class CNV(object):
         content = self.raw_data()['bottledata']
         nvars = len(self.ids)
         data_std = {}
+        def _convert(x):
+            if '.' in x:
+                return float(x)
+            else:
+                return int(x)
+                
         for rec in re.finditer(self.rule['data'], content, re.VERBOSE):
             attrs = self.data[0].attrs
             self.data[0] = np.append(self.data[0],
@@ -324,14 +330,16 @@ class CNV(object):
             for n, v in enumerate(re.findall('[-|+|\w|\.]+',
                                   rec.groupdict()['values']),
                                   start=3):
+                v = _convert(v)
                 attrs = self.data[n].attrs
-                self.data[n] = np.append(self.data[n], v)
+                self.data[n] = np.append(self.data[n],v)
                 self.data[n].attrs = attrs
 
             #Add std values
             for n, v in enumerate(re.findall('[-|+|\w|\.]+',
                                 rec.groupdict()['values_std']),
                                 start=0):
+                v = _convert(v)
                 if n in data_std:
                     data_std[n] = np.append(data_std[n], v)
                 else:
