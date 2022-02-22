@@ -352,6 +352,11 @@ class CNV(object):
             self.ids.append(id)
             self.data.append(ma.array(values))
             attrs = self.data[nvars - nvars_std + std_id].attrs.copy()
+            # Ignore fields that are stats specific
+            ignore_attributes = ['sdn_parameter_urn','sdn_parameter_name']
+            attrs = {key:value for key,value in attrs.items() if key not in ignore_attributes}
+            if "long_name" in attrs:
+                attrs['long_name'] += " Standard Deviation"
             attrs["cell_method"] = "scan: standard_deviation"
             attrs["name"] += '_sdev'
             # Scan count per bottle if available
