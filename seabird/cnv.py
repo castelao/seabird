@@ -23,6 +23,7 @@ from numpy import ma
 from seabird.exceptions import CNVError
 from seabird.utils import load_rule
 
+logging.basicConfig(level='INFO', format='%(message)s')
 module_logger = logging.getLogger('seabird.cnv')
 
 
