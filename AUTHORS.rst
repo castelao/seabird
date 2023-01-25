@@ -23,5 +23,5 @@ Contributors
 * @atorr018; Reported bug #51 on failing to parse due to a empty lines.
 * @shaunwbell; Fixed bug #55 on typos in cnv rules reference names.
 * @aer205; Bug #56, provided sample with extra descriptors after file_type.
-* Peter Shanks; Fixed bug #57, typo on strftime format for cnv2nc
-* @callumrollo: PR #61, adding datetime when exporting to pd.DataFrame
+* @botheredbybees; Fixed bug #57, typo on strftime format for cnv2nc
+* @callumrollo; PR #61, adding datetime when exporting to pd.DataFrame
