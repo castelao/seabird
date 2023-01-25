@@ -23,6 +23,7 @@ from numpy import ma
 from seabird.exceptions import CNVError
 from seabird.utils import load_rule
 
+logging.basicConfig(level='INFO', format='%(message)s')
 module_logger = logging.getLogger('seabird.cnv')
 
 
@@ -97,7 +98,7 @@ class CNV(object):
         for d in self.data:
             if d.attrs['name'] == key:
                 return d
-        raise KeyError('%s not found' % key)
+        logging.error('%s not found' % key)
 
     @property
     def attributes(self):
@@ -139,6 +140,7 @@ class CNV(object):
                 elif self.attrs['sbe_model'] in ['21', '45']:
                     self.attrs['instrument_type'] = 'TSG'
 
+
     def get_attrs(self):
         """
         """
@@ -172,7 +174,7 @@ class CNV(object):
         # ----
         rule_file = "rules/refnames.json"
         text = pkg_resources.resource_string(__name__, rule_file)
-        refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
+        refnames = json.loads(text.decode('utf-8'))
         # ---- Parse fields
 
         if ('attributes' in self.rule) and \
@@ -181,8 +183,8 @@ class CNV(object):
                       \s+ Bottle \s+ Date .* \n
                       \s+ Position \s+ Time .* \n
                     """
-                    attrib_text = re.search(r"""\n \s+ Bottle \s+ Date \s+ (.*) \s*\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
-                    pattern = re.compile(r"""(?P<varname>[-|+|\w|\.|/]+)""", re.VERBOSE)
+                    attrib_text = re.search(r"""\n \s+ Bottle \s+ Date(.*)\s*\r?\n \s+ Position \s+ Time""", self.parsed['header'], re.VERBOSE).group(1)
+                    pattern = re.compile(r"""(?P<varname>.{11})""", re.VERBOSE)
 
                     self.ids = [0, 1, 2]
                     self.data = [ma.array([]), ma.array([]), ma.array([])]
@@ -200,11 +202,11 @@ class CNV(object):
                         self.ids.append(len(self.ids))
                         self.data.append(ma.array([]))
                         try:
-                            reference = refnames[x.groupdict()['varname']]
+                            reference = refnames[x.groupdict()['varname'].lstrip()]
                             varname = reference['name']
                             #longname = reference['longname']
                         except:
-                            varname = x.groupdict()['varname']
+                            varname = x.groupdict()['varname'].lstrip()
                         self.data[-1].attrs = {
                                 'id': self.ids[-1],
                                 'name': varname,
@@ -302,6 +304,13 @@ class CNV(object):
     def load_bottledata(self):
         content = self.raw_data()['bottledata']
         nvars = len(self.ids)
+        data_std = {}
+        def _convert(x):
+            if '.' in x:
+                return float(x)
+            else:
+                return int(x)
+                
         for rec in re.finditer(self.rule['data'], content, re.VERBOSE):
             attrs = self.data[0].attrs
             self.data[0] = np.append(self.data[0],
@@ -321,9 +330,42 @@ class CNV(object):
             for n, v in enumerate(re.findall('[-|+|\w|\.]+',
                                   rec.groupdict()['values']),
                                   start=3):
+                v = _convert(v)
                 attrs = self.data[n].attrs
-                self.data[n] = np.append(self.data[n], v)
+                self.data[n] = np.append(self.data[n],v)
                 self.data[n].attrs = attrs
+
+            #Add std values
+            for n, v in enumerate(re.findall('[-|+|\w|\.]+',
+                                rec.groupdict()['values_std']),
+                                start=0):
+                v = _convert(v)
+                if n in data_std:
+                    data_std[n] = np.append(data_std[n], v)
+                else:
+                    data_std[n] = np.array(v)
+        
+        # Append std to self.data
+        nvars_std = len(data_std.keys())
+        for std_id,values in data_std.items():
+            id = len(self.ids)
+            self.ids.append(id)
+            self.data.append(ma.array(values))
+            attrs = self.data[nvars - nvars_std + std_id].attrs.copy()
+            # Ignore fields that are stats specific
+            ignore_attributes = ['sdn_parameter_urn','sdn_parameter_name']
+            attrs = {key:value for key,value in attrs.items() if key not in ignore_attributes}
+            if "long_name" in attrs:
+                attrs['long_name'] += " Standard Deviation"
+            attrs["cell_method"] = "scan: standard_deviation"
+            attrs["name"] += '_sdev'
+            # Scan count per bottle if available
+            if 'scan_per_bottle' in self.attrs:
+                attrs["cell_method"] += " (previous " + self.attrs["scan_per_bottle"] + " scans)"
+            # Add attributes
+            self.data[id].attrs = attrs
+
+
 
     def products(self):
         """
@@ -524,7 +566,7 @@ class CNV(object):
             for k in self.keys():
                 if len(self[k]) != nvalues:
                     module_logger.warning(
-                        ("\033[91m%s was supposed to has %s values, "
+                        ("\033[91m%s was supposed to have %s values, "
                         "but found only %s.\033[0m") %
                         (k, nvalues, len(self[k])))
 
