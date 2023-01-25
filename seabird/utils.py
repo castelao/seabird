@@ -74,7 +74,7 @@ def load_rule(raw_text):
     for rule_file in rule_files:
         text = pkg_resources.resource_string(
                 __name__, os.path.join(rules_dir, rule_file))
-        rule = json.loads(text.decode('utf-8'), encoding="utf-8")
+        rule = json.loads(text.decode('utf-8'))
         # Should I load using codec, for UTF8?? Do I need it?
         # f = codecs.open(rule_file, 'r', 'utf-8')
         # rule = yaml.load(f.read())
