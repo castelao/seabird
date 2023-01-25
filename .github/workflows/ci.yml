@@ -1,10 +1,12 @@
-name: CoTeDe
+name: pySeabird
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  schedule:
+    - cron: "7 18 * * 0"
 
 jobs:
   build:
@@ -13,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: ["3.7"]
 
     steps:
     - uses: actions/checkout@v2
