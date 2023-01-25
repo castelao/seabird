@@ -10,13 +10,13 @@ from glob import glob
 import pickle
 
 from seabird.cnv import fCNV
-from seabird.utils import seabird_dir
+from seabird.utils import sampledata
 
 
 def test_serialize_fCNV():
         """ Serialize fCNV
         """
-        datafiles = glob(os.path.join(seabird_dir(), 'data/*', "*.cnv"))
+        datafiles = sampledata()
         assert len(datafiles) > 0, \
             "No files available for testing at: %s" % datafiles
         for f in datafiles:

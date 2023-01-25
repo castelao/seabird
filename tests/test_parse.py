@@ -9,13 +9,13 @@ import os.path
 from glob import glob
 
 from seabird.cnv import CNV, fCNV
-from seabird.utils import seabird_dir
+from seabird.utils import sampledata
 
 
 def test_answer():
         """ Load different .cnv versions with fCNV
         """
-        datafiles = glob(os.path.join(seabird_dir(), 'data/*', "*.cnv"))
+        datafiles = sampledata()
         assert len(datafiles) > 0, \
             "No files available for testing at: %s" % datafiles
         for f in datafiles:
