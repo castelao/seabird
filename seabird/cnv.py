@@ -499,6 +499,8 @@ class CNV(object):
         output = pd.DataFrame(output)
         output['LATITUDE'] = self.attrs['LATITUDE']
         output['LONGITUDE'] = self.attrs['LONGITUDE']
+        if "datetime" in self.attrs.keys():   
+            output['datetime_first_scan'] = self.attrs['datetime']
 
         return output
 
