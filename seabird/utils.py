@@ -141,13 +141,13 @@ def sampledata(filename=None, dtype=None):
             'dtype': "CTD", 'md5': "08e974c46ed603442eecf9145031a6c4"},
         'sta0860.cnv': {
             'dtype': "CTD", 'md5': "1c788c4d9b82b527ebf0c2fb9200600e"},
-        'more_after_file_type.cnv': {
-            'dtype': "CTD", 'md5': "e5bffcfdcaf52333773bbe7abe98b06d"},
+        #'more_after_file_type.cnv': {
+        #    'dtype': "CTD", 'md5': "e5bffcfdcaf52333773bbe7abe98b06d"},
         # ['CTD', 'laurynas.cnv', '6f188d53ac2d7aaaf4ce69c0e5c514ec'],
-        'TSG_PIR_001.cnv': {
-            'dtype': "TSG", 'md5': "2950ccb9f77e0802557b011c63d2e39b"},
-        'TSG_PIR_010.cnv': {
-            'dtype': "TSG", 'md5': "d87cea33bfe37e22dc8e563f77cbf307"},
+        # 'TSG_PIR_001.cnv': {
+        #    'dtype': "TSG", 'md5': "2950ccb9f77e0802557b011c63d2e39b"},
+        # 'TSG_PIR_010.cnv': {
+        #    'dtype': "TSG", 'md5': "d87cea33bfe37e22dc8e563f77cbf307"},
         # 'MI18MHDR.btl': {
         #     'dtype': "btl", 'md5': "775f2a6c6585f1cffb0038111580e5a1"},
         }
