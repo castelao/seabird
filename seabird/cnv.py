@@ -175,8 +175,8 @@ class CNV(object):
         refnames = json.loads(text.decode('utf-8'), encoding="utf-8")
         # ---- Parse fields
 
-        if ('attrs' in self.rule) and \
-                (self.rule['attrs']['instrument_type'] == 'CTD-bottle'):
+        if ('attributes' in self.rule) and \
+                (self.rule['attributes']['instrument_type'] == 'CTD-bottle'):
                     rule = r"""
                       \s+ Bottle \s+ Date .* \n
                       \s+ Position \s+ Time .* \n
