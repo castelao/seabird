@@ -52,3 +52,7 @@ QC = ["cotede>=0.20.2"]
 repository = "https://github.com/castelao/seabird"
 [project.scripts]
 "seabird" = "seabird.cli:cli"
+
+[tool.setuptools_scm]
+write_to = "seabird/version.py"
+git_describe_command = "git describe --dirty --tags --long --match 'v*' --first-parent"
