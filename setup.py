@@ -12,7 +12,6 @@ from codecs import open
 setup(
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
-    url='http://seabird.castelao.net',
     packages=[
         'seabird',
     ],

@@ -47,3 +47,6 @@ test = [
 ]
 CDF = ["netCDF4>=1.4"]
 QC = ["cotede>=0.20.2"]
+
+[project.urls]
+repository = "https://github.com/castelao/seabird"
