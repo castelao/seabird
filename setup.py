@@ -9,10 +9,6 @@ except ImportError:
     from distutils.core import setup
 from codecs import open
 
-
-with open('requirements_dev.txt', encoding='utf-8') as f:
-    requirements_test = f.read()
-
 setup(
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
@@ -31,7 +27,6 @@ setup(
     },
     platforms='any',
     extras_require={
-        'test': requirements_test,
         'CDF': ["netCDF4>=1.4"],
         'QC': ["cotede>=0.20.2"]
         }

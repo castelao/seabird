@@ -31,3 +31,17 @@ dependencies = [
   "numpy>=1.14",
   "Click>=6.6",
 ]
+
+[project.optional-dependencies]
+test = [
+  "hypothesis >= 6.29.3",
+  "pytest >= 5.0.0",
+  "pytest-cov[all]",
+  "pip >= 9.0.1",
+  "flake8 >= 3.2.1",
+  "tox >= 2.3.3",
+  "coverage >= 4.2",
+  "pytest >= 3.0.5",
+  "supportdata >= 0.1.2",
+  "twine >= 1.8.1",
+]
