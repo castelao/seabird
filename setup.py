@@ -10,20 +10,10 @@ except ImportError:
 from codecs import open
 
 
-with open('README.rst', encoding='utf-8') as f:
-    readme = f.read()
-
-with open('HISTORY.rst', encoding='utf-8') as f:
-    history = f.read().replace('.. :changelog:', '')
-
-with open('requirements.txt', encoding='utf-8') as f:
-    requirements = f.read()
-
 with open('requirements_dev.txt', encoding='utf-8') as f:
     requirements_test = f.read()
 
 setup(
-    long_description=readme + '\n\n' + history,
     author='Guilherme Castelao , Luiz Irber',
     author_email='guilherme@castelao.net, luiz.irber@gmail.com',
     url='http://seabird.castelao.net',
