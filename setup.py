@@ -26,8 +26,4 @@ setup(
             ['seabird=seabird.cli:cli']
     },
     platforms='any',
-    extras_require={
-        'CDF': ["netCDF4>=1.4"],
-        'QC': ["cotede>=0.20.2"]
-        }
 )
