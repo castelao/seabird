@@ -50,3 +50,5 @@ QC = ["cotede>=0.20.2"]
 
 [project.urls]
 repository = "https://github.com/castelao/seabird"
+[project.scripts]
+"seabird" = "seabird.cli:cli"

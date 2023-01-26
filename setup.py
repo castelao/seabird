@@ -20,9 +20,5 @@ setup(
     include_package_data=True,
     license='3-clause BSD',
     zip_safe=False,
-    entry_points={
-        'console_scripts':
-            ['seabird=seabird.cli:cli']
-    },
     platforms='any',
 )
