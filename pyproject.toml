@@ -12,7 +12,7 @@ name="seabird"
 dynamic = ["version"]
 description="Parser for Sea-Bird's CTD and TSG"
 readme = "README.rst"
-requires-python = ">=3.7"
+requires-python = ">=3.6"
 keywords = ["oceanography", "ocean data", "CTD", "TSG", "SeaBird", "hydrography", "parser"]
 classifiers=[
   "Development Status :: 5 - Production/Stable",
@@ -21,6 +21,7 @@ classifiers=[
   "License :: OSI Approved :: BSD License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
