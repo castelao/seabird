@@ -3,6 +3,12 @@
 History
 -------
 
+0.12.x
+------
+
+* Upgrading package structure. Before it was still an early Python-3 structure
+  that limited to Python<3.8
+
 0.11.x
 ------
 
@@ -121,3 +127,12 @@ History
 
 * Initial import.
 * It's able to load the variables into Masked Array, but it's not the best way to do it.
+
+pre-0.1
+-------
+
+This package was derived from what is now CoTeDe. It had a different name at
+that time. Gui re-structure it in 2006 into a consistent Python package to
+quality control TSG at NOAA/AOML. Operating with different models of TSGs and
+different versions of outputs, it was crucial to parse and normalize those
+into a consistent data model for a standard QC procedure.
