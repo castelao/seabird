@@ -258,7 +258,7 @@ class CNV(object):
                 ).split('\n')[:-1]
         data = ma.masked_values(
                 np.array(
-                    [CNV.__split_row(d) for d in data_rows], dtype=np.float),
+                    [CNV.__split_row(d) for d in data_rows], dtype=float),
                 float(self.attrs['bad_flag']),
                 atol=1e-30)
         # Talvez usar o np.fromstring(data, sep=" ")
