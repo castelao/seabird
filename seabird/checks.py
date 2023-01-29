@@ -2,4 +2,3 @@
 
 """ Do a sequence of checks on the parsed CNV data
 """
-

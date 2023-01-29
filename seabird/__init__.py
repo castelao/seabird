@@ -1,5 +1,5 @@
-__author__ = 'Guilherme Castelao'
-__email__ = 'guilherme@castelao.net'
+__author__ = "Guilherme Castelao"
+__email__ = "guilherme@castelao.net"
 
 from .cnv import CNV, fCNV
 from .exceptions import CNVError
