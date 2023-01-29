@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """ Check the rules
 """
@@ -12,18 +11,18 @@ import seabird
 
 
 def test_load_available_rules():
-    """ Try to read all available rules
+    """Try to read all available rules
 
-        https://github.com/castelao/seabird/issues/7
+    https://github.com/castelao/seabird/issues/7
     """
-    rules_dir = 'rules'
+    rules_dir = "rules"
     rule_files = pkg_resources.resource_listdir(seabird.__name__, rules_dir)
-    rule_files = [f for f in rule_files if re.match('^(?!refnames).*json$', f)]
+    rule_files = [f for f in rule_files if re.match("^(?!refnames).*json$", f)]
     for rule_file in rule_files:
         print("loading rule: %s", (rule_file))
         text = pkg_resources.resource_string(
-                seabird.__name__,
-                os.path.join(rules_dir, rule_file))
-        rule = json.loads(text.decode('utf-8'))
+            seabird.__name__, os.path.join(rules_dir, rule_file)
+        )
+        rule = json.loads(text.decode("utf-8"))
         assert type(rule) == dict
         assert len(rule.keys()) > 0

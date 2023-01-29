@@ -106,7 +106,7 @@ History
 
 * When position available in the header.intro as NMEA, load this instead of
     try to parse from the header.notes.
-* Load default values from a yaml file, like attributes{cruise, project, 
+* Load default values from a yaml file, like attributes{cruise, project,
     shipname ...}
 * Using a recommended variable names list
 
