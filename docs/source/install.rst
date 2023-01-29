@@ -16,7 +16,7 @@ Optional requirement
 
 - `CoTeDe <http://cotede.castelao.net>`_, if you want to quality control your data with custom or pre-set group of checks.
 
-Installing Seabird 
+Installing Seabird
 ==================
 
 Virtual Environments

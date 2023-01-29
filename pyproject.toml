@@ -1,0 +1,62 @@
+[build-system]
+requires = [
+  "setuptools >= 48",
+  "setuptools_scm[toml] >= 6.2",
+  "setuptools_scm_git_archive",
+  "wheel >= 0.29.0",
+]
+build-backend = 'setuptools.build_meta'
+
+[project]
+name="seabird"
+dynamic = ["version"]
+description="Parser for Sea-Bird's CTD and TSG"
+readme = "README.rst"
+requires-python = ">=3.6"
+keywords = ["oceanography", "ocean data", "CTD", "TSG", "SeaBird", "hydrography", "parser"]
+classifiers=[
+  "Development Status :: 5 - Production/Stable",
+  "Natural Language :: English",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Scientific/Engineering"
+]
+dependencies = [
+  "numpy>=1.14",
+  "Click>=6.6",
+]
+
+[project.optional-dependencies]
+test = [
+  "hypothesis >= 6.29.3",
+  "pytest >= 5.0.0",
+  "pytest-cov[all]",
+  "pip >= 9.0.1",
+  "flake8 >= 3.2.1",
+  "tox >= 2.3.3",
+  "coverage >= 4.2",
+  "pytest >= 3.0.5",
+  "supportdata >= 0.1.2",
+  "twine >= 1.8.1",
+]
+CDF = ["netCDF4>=1.4"]
+QC = ["cotede>=0.20.2"]
+
+[project.urls]
+repository = "https://github.com/castelao/seabird"
+[project.scripts]
+"seabird" = "seabird.cli:cli"
+
+[tool.black]
+line-length = 88
+
+[tool.setuptools_scm]
+write_to = "seabird/version.py"
+git_describe_command = "git describe --dirty --tags --long --match 'v*' --first-parent"

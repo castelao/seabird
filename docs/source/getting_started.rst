@@ -1,5 +1,5 @@
 ****************************
-Getting Started with Seabird 
+Getting Started with Seabird
 ****************************
 
 Inside python
@@ -26,13 +26,13 @@ The data from a profile is hence treated as it was a dictionary of Masked Arrays
 From the terminal
 =================
 
-One way to use is running on the shell the cnvdump. 
+One way to use is running on the shell the cnvdump.
 Independent of the historical version of the cnv file, it will return a default structure::
 
     seabird cnvdump your_file.cnv
 
-That can be used in a regular shell script. 
-For example, let's consider a directory cruise1 with several sub directories, one for each leg of the cruise. 
+That can be used in a regular shell script.
+For example, let's consider a directory cruise1 with several sub directories, one for each leg of the cruise.
 One could list all the latitudes of each CTD cast like::
 
     for file in `find ./cruise1 -iname '*.cnv'`
@@ -98,5 +98,5 @@ More examples
 =============
 
 I keep a notebooks collection of `practical examples handling CTD data <http://nbviewer.ipython.org/github/castelao/seabird/tree/master/docs/notebooks/>`_
-. 
+.
 If you have any suggestion, please let me know.

@@ -52,7 +52,7 @@ To install:
     pip install seabird
 
 
-One way to use is running on the shell the cnvdump. Independent of the historical version of the cnv file, it will return a default structure: 
+One way to use is running on the shell the cnvdump. Independent of the historical version of the cnv file, it will return a default structure:
 
     seabird cnvdump your_file.cnv
 
