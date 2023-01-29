@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Licensed under a 3-clause BSD style license - see LICENSE.rst
 
 import logging
@@ -31,6 +30,6 @@ class fProfileQC(ProfileQC):
             logging.error(e.msg)
             raise
 
-        super(fProfileQC, self).__init__(
+        super().__init__(
                 profile, cfg=cfg, saveauxiliary=saveauxiliary,
                 verbose=verbose)

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 class CNVError(Exception):
     """Base class for exceptions in this module."""
     def __init__(self, tag, msg=None):

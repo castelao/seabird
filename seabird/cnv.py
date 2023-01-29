@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from datetime import datetime, timedelta
 import re
 import pkg_resources
@@ -27,7 +25,7 @@ logging.basicConfig(level='INFO', format='%(message)s')
 module_logger = logging.getLogger('seabird.cnv')
 
 
-class CNV(object):
+class CNV:
     """ Main class to parse the .cnv style content
 
         Input:
@@ -327,7 +325,7 @@ class CNV(object):
             self.data[2] = np.append(self.data[2], d.time())
             self.data[2].attrs = attrs
 
-            for n, v in enumerate(re.findall('[-|+|\w|\.]+',
+            for n, v in enumerate(re.findall(r'[-|+|\w|\.]+',
                                   rec.groupdict()['values']),
                                   start=3):
                 v = _convert(v)
@@ -336,7 +334,7 @@ class CNV(object):
                 self.data[n].attrs = attrs
 
             #Add std values
-            for n, v in enumerate(re.findall('[-|+|\w|\.]+',
+            for n, v in enumerate(re.findall(r'[-|+|\w|\.]+',
                                 rec.groupdict()['values_std']),
                                 start=0):
                 v = _convert(v)
@@ -615,7 +613,7 @@ class fCNV(CNV):
             defaults = None
 
         try:
-            super(fCNV, self).__init__(text, defaults)
+            super().__init__(text, defaults)
         except CNVError as e:
             if e.tag == 'noparsingrule':
                 e.msg += " File: %s" % self.filename

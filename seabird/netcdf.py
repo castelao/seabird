@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """ Export the parsed data into a NetCDF following different patterns
 """
@@ -78,7 +77,7 @@ def cnv2nc(data, filename):
         # Rename Variable if bad character
         if '/' in name:
             nc_name = name.replace('/','Per')
-            logging.info("Replace %s in variable by %s to be compatible with NetCDF" % (name,nc_name))
+            logging.info("Replace {} in variable by {} to be compatible with NetCDF".format(name,nc_name))
         else:
             nc_name = name
         
@@ -101,7 +100,7 @@ def cnv2nc(data, filename):
             # Ignore name and empty attributes
             if key in ['name'] or value == None:
                 continue
-            logging.info("\t\033[93m%s\033[0m: %s" % (key, value))
+            logging.info("\t\033[93m{}\033[0m: {}".format(key, value))
             cdf_variables[nc_name].__setattr__(key, value)
 
     nc.close()

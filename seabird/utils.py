@@ -11,7 +11,7 @@ from seabird.exceptions import CNVError
 module_logger = logging.getLogger('seabird.utils')
 
 
-def make_file_list(inputdir, inputpattern=".*\.cnv"):
+def make_file_list(inputdir, inputpattern=r".*\.cnv"):
     """ Search inputdir recursively for inputpattern
     """
     inputfiles = []
@@ -70,7 +70,7 @@ def load_rule(raw_text):
     """
     rules_dir = 'rules'
     rule_files = pkg_resources.resource_listdir(__name__, rules_dir)
-    rule_files = [f for f in rule_files if re.match('^cnv.*\.json$', f)]
+    rule_files = [f for f in rule_files if re.match(r'^cnv.*\.json$', f)]
     for rule_file in rule_files:
         text = pkg_resources.resource_string(
                 __name__, os.path.join(rules_dir, rule_file))
