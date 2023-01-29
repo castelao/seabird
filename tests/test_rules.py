@@ -24,6 +24,6 @@ def test_load_available_rules():
         text = pkg_resources.resource_string(
                 seabird.__name__,
                 os.path.join(rules_dir, rule_file))
-        rule = json.loads(text.decode('utf-8'), encoding="utf-8")
+        rule = json.loads(text.decode('utf-8'))
         assert type(rule) == dict
         assert len(rule.keys()) > 0
