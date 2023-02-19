@@ -1,0 +1,67 @@
+{
+  "creators": [
+    {
+      "name": "Castelao, Guilherme",
+      "affiliation": "Scripps Institution of Oceanography - UC San Diego",
+      "orcid": "0000-0002-6765-0708"
+    }
+  ],
+  "license": "BSD license",
+  "contributors": [
+    {
+      "type": "ProjectMember",
+      "name": "Luiz Irber",
+      "affiliation": "UC Davis",
+      "orcid": "0000-0003-4371-9659"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "David Goldsmith"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Rohan Dandavati"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Paul Focke"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Achim Randelhoff"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Uday Bhaskar",
+      "affiliation": "Indian National Centre for Ocean Information Services",
+      "orcid": "0000-0001-6438-5016"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "shaunwbell"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "@aer205"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Peter Shanks"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Callum Rollo",
+      "affiliation": "Voice of the Ocean Foundation",
+      "orcid": "0000-0002-5134-7886"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "@nicholas512"
+    },
+    {
+      "type": "ProjectMember",
+      "name": "Jessy Barrette",
+      "affiliation": "Hakai Institute"
+    }
+  ]
+}
